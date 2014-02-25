@@ -1,0 +1,53 @@
+# Define the presents flag of the 'DepthTokenizer' shared library examples.
+SET(DEPTH_TOKENIZER_EXAMPLES_PRESENT 1)
+
+# Define 'DepthTokenizer' examples project name.
+SET(DEPTH_TOKENIZER_EXAMPLES "DepthTokenizer-examples")
+
+# Define 'DepthTokenizer' examples project.
+PROJECT(${DEPTH_TOKENIZER_EXAMPLES})
+
+# Define source path of the 'DepthTokenizer' shared library examples.
+SET(DEPTH_TOKENIZER_EXAMPLES_SRC_PATH "${DEPTH_EXAMPLES}/tokenizer")
+
+# Define sources of the 'DepthTokenizer' shared library examples.
+FILE(GLOB DEPTH_TOKENIZER_EXAMPLES_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/${DEPTH_TOKENIZER_EXAMPLES_SRC_PATH} "${DEPTH_TOKENIZER_EXAMPLES_SRC_PATH}/*.cpp")
+
+# Define example targets of the 'DepthTokenizer' shared library.
+SET(DEPTH_TOKENIZER_EXAMPLES_TARGETS)
+
+# Compile the 'DepthTokenizer' shared library examples.
+FOREACH(DEPTH_TOKENIZER_EXAMPLES_SOURCE ${DEPTH_TOKENIZER_EXAMPLES_SOURCES})
+
+  # Get example name.
+  STRING(REGEX REPLACE "(.*)\\.cpp" "\\1" DEPTH_TOKENIZER_EXAMPLE ${DEPTH_TOKENIZER_EXAMPLES_SOURCE})
+
+  # Add new local example target.
+  LIST(APPEND DEPTH_TOKENIZER_EXAMPLES_TARGETS ${DEPTH_TOKENIZER_EXAMPLE})
+  # Add new global example target.
+  LIST(APPEND DEPTH_EXAMPLES_TARGETS ${DEPTH_TOKENIZER_EXAMPLE})
+
+  # Build new example.
+  ADD_EXECUTABLE(${DEPTH_TOKENIZER_EXAMPLE} ${DEPTH_TOKENIZER_EXAMPLES_SRC_PATH}/${DEPTH_TOKENIZER_EXAMPLES_SOURCE})
+
+  # Set compiler flags.
+  SET_PROPERTY(TARGET ${DEPTH_TOKENIZER_EXAMPLE} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_APP__" "__CONSOLE__")
+
+  # Link the example with the 'DepthBase' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_TOKENIZER_EXAMPLE} ${DEPTH_BASE})
+  # Link the example with the 'DepthTokenizer' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_TOKENIZER_EXAMPLE} ${DEPTH_TOKENIZER})
+  # Link the example with the 'DepthApplication' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_TOKENIZER_EXAMPLE} ${DEPTH_APPLICATION})
+  # Link the example with the 'DepthApplicationConsole' static library.
+  TARGET_LINK_LIBRARIES(${DEPTH_TOKENIZER_EXAMPLE} ${DEPTH_APPLICATION_CONSOLE})
+
+  # Install the 'DepthTokenizer' example.
+  INSTALL(TARGETS ${DEPTH_TOKENIZER_EXAMPLE}
+          RUNTIME DESTINATION ${DEPTH_BIN}
+          OPTIONAL)
+
+ENDFOREACH(DEPTH_TOKENIZER_EXAMPLES_SOURCE)
+
+# Add 'DepthTokenizer' example set.
+ADD_CUSTOM_TARGET(${DEPTH_TOKENIZER_EXAMPLES} DEPENDS ${DEPTH_TOKENIZER_EXAMPLES_TARGETS})

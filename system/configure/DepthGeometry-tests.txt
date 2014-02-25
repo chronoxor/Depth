@@ -1,0 +1,62 @@
+# Define the presents flag of the 'DepthGeometry' shared library tests.
+SET(DEPTH_GEOMETRY_TESTS_PRESENT 1)
+
+# Define 'DepthGeometry' tests project name.
+SET(DEPTH_GEOMETRY_TESTS "DepthGeometry-tests")
+
+# Define 'DepthGeometry' tests project.
+PROJECT(${DEPTH_GEOMETRY_TESTS})
+
+# Define source path of the 'DepthGeometry' shared library tests.
+SET(DEPTH_GEOMETRY_TESTS_SRC_PATH "${DEPTH_TESTS}/geometry")
+
+# Define sources of the 'DepthGeometry' shared library tests.
+FILE(GLOB DEPTH_GEOMETRY_TESTS_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/${DEPTH_GEOMETRY_TESTS_SRC_PATH} "${DEPTH_GEOMETRY_TESTS_SRC_PATH}/*.cpp")
+
+# Define test targets of the 'DepthGeometry' shared library.
+SET(DEPTH_GEOMETRY_TESTS_TARGETS)
+
+# Compile the 'DepthGeometry' shared library tests.
+FOREACH(DEPTH_GEOMETRY_TESTS_SOURCE ${DEPTH_GEOMETRY_TESTS_SOURCES})
+
+  # Get test name.
+  STRING(REGEX REPLACE "(.*)\\.cpp" "\\1" DEPTH_GEOMETRY_TEST ${DEPTH_GEOMETRY_TESTS_SOURCE})
+
+  # Add new local test target.
+  LIST(APPEND DEPTH_GEOMETRY_TESTS_TARGETS ${DEPTH_GEOMETRY_TEST})
+  # Add new global test target.
+  LIST(APPEND DEPTH_TESTS_TARGETS ${DEPTH_GEOMETRY_TEST})
+
+  # Build new test.
+  ADD_EXECUTABLE(${DEPTH_GEOMETRY_TEST} ${DEPTH_GEOMETRY_TESTS_SRC_PATH}/${DEPTH_GEOMETRY_TESTS_SOURCE})
+
+  # Set compiler flags.
+  SET_PROPERTY(TARGET ${DEPTH_GEOMETRY_TEST} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_APP__" "__CONSOLE__")
+  SET_PROPERTY(TARGET ${DEPTH_GEOMETRY_TEST} APPEND PROPERTY COMPILE_FLAGS "${CMAKE_INCLUDE_PREFIX}${DEPTH_SOURCE}/system/sys-All/unit")
+
+  # Add new test.
+  ADD_TEST(${DEPTH_GEOMETRY_TEST} ${DEPTH_BIN}/${DEPTH_GEOMETRY_TEST})
+
+  # Set test property.
+  SET_TESTS_PROPERTIES(${DEPTH_GEOMETRY_TEST} PROPERTIES PASS_REGULAR_EXPRESSION "Test passed successfully!;Test passed with some warnings!" FAIL_REGULAR_EXPRESSION "Test failed with some errors!;Test execution was stopped!")
+
+  # Link the test with the 'DepthBase' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_GEOMETRY_TEST} ${DEPTH_BASE})
+  # Link the test with the 'DepthGeometry' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_GEOMETRY_TEST} ${DEPTH_GEOMETRY})
+  # Link the test with the 'DepthUnitTest' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_GEOMETRY_TEST} ${DEPTH_UNITTEST})
+  # Link the test with the 'DepthUnitTestCMake' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_GEOMETRY_TEST} ${DEPTH_UNITTEST_CMAKE})
+  # Link the test with the 'DepthUnitTestMobile' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_GEOMETRY_TEST} ${DEPTH_UNITTEST_MOBILE})
+
+  # Install the 'DepthGeometry' test.
+  INSTALL(TARGETS ${DEPTH_GEOMETRY_TEST}
+          RUNTIME DESTINATION ${DEPTH_BIN}
+          OPTIONAL)
+
+ENDFOREACH(DEPTH_GEOMETRY_TESTS_SOURCE)
+
+# Add 'DepthGeometry' test set.
+ADD_CUSTOM_TARGET(${DEPTH_GEOMETRY_TESTS} DEPENDS ${DEPTH_GEOMETRY_TESTS_TARGETS})

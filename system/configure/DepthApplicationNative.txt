@@ -1,0 +1,61 @@
+# Define the presents flag of the 'DepthApplicationNative' static library.
+SET(DEPTH_APPLICATION_NATIVE_PRESENT 1)
+
+# Define 'DepthApplicationNative' project name.
+SET(DEPTH_APPLICATION_NATIVE "DepthApplicationNative")
+
+# Define 'DepthApplicationNative' project.
+PROJECT(${DEPTH_APPLICATION_NATIVE} CXX)
+
+# Load versions.
+FILE(READ "${DEPTH_VERSIONS}/DepthApplicationNative.txt" DEPTH_APPLICATION_NATIVE_VERSION)
+FILE(READ "${DEPTH_VERSIONS}/DepthApplicationNative-so.txt" DEPTH_APPLICATION_NATIVE_SOVERSION)
+
+# Include directories definition for the 'DepthApplicationNative' static library.
+INCLUDE_DIRECTORIES(${DEPTH})
+
+# Prepare sources directories for the 'DepthApplicationNative' static library.
+LIST(APPEND DEPTH_APPLICATION_NATIVE_SOURCES_DIRS
+        "${DEPTH_SOURCE}/system/sys-All/application-native"
+        "${DEPTH_SOURCE}/system/sys-Cygwin/application-native"
+        "${DEPTH_SOURCE}/system/sys-Dummy/application-native"
+        "${DEPTH_SOURCE}/system/sys-Linux/application-native"
+        "${DEPTH_SOURCE}/system/sys-Unix/application-native"
+        "${DEPTH_SOURCE}/system/sys-Windows/application-native"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile/application-native")
+
+# Collect sources for the 'DepthApplicationNative' static library.
+FOREACH(DEPTH_APPLICATION_NATIVE_SOURCES_DIR ${DEPTH_APPLICATION_NATIVE_SOURCES_DIRS})
+  FILE(GLOB DEPTH_APPLICATION_NATIVE_SOURCES_FILES RELATIVE "${CMAKE_SOURCE_DIR}" "${DEPTH_APPLICATION_NATIVE_SOURCES_DIR}/*.cpp")
+  LIST(APPEND DEPTH_APPLICATION_NATIVE_SOURCES ${DEPTH_APPLICATION_NATIVE_SOURCES_FILES})
+ENDFOREACH(DEPTH_APPLICATION_NATIVE_SOURCES_DIR)
+
+# Add the 'DepthApplicationNative' static library.
+ADD_LIBRARY(${DEPTH_APPLICATION_NATIVE} STATIC ${DEPTH_APPLICATION_NATIVE_SOURCES})
+
+# Set compiler flags.
+SET_PROPERTY(TARGET ${DEPTH_APPLICATION_NATIVE} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_STATIC_LIB__" "DEPTH_APPLICATION_NATIVE_VERSION=${DEPTH_APPLICATION_NATIVE_VERSION}" "DEPTH_APPLICATION_NATIVE_SOVERSION=${DEPTH_APPLICATION_NATIVE_SOVERSION}")
+
+# Set version and soversion of the static library.
+SET_TARGET_PROPERTIES(${DEPTH_APPLICATION_NATIVE} PROPERTIES VERSION "${DEPTH_APPLICATION_NATIVE_VERSION}" SOVERSION "${DEPTH_APPLICATION_NATIVE_SOVERSION}")
+
+# Add dependence from the 'DepthBase' shared library to the 'DepthApplicationNative' static library.
+ADD_DEPENDENCIES(${DEPTH_APPLICATION_NATIVE} ${DEPTH_BASE})
+# Add dependence from the 'DepthApplication' shared library to the 'DepthApplicationNative' static library.
+ADD_DEPENDENCIES(${DEPTH_APPLICATION_NATIVE} ${DEPTH_APPLICATION})
+
+# Link the 'DepthApplicationNative' static library with the system libraries.
+TARGET_LINK_LIBRARIES(${DEPTH_APPLICATION_NATIVE} ${CMAKE_SYSTEM_LIBRARIES})
+# Link the 'DepthApplicationNative' static library with the 'DepthBase' shared library.
+TARGET_LINK_LIBRARIES(${DEPTH_APPLICATION_NATIVE} ${DEPTH_BASE})
+# Link the 'DepthApplicationNative' static library with the 'DepthApplication' shared library.
+TARGET_LINK_LIBRARIES(${DEPTH_APPLICATION_NATIVE} ${DEPTH_APPLICATION})
+
+# Install the 'DepthApplicationNative' static library.
+INSTALL(TARGETS ${DEPTH_APPLICATION_NATIVE}
+        RUNTIME DESTINATION ${DEPTH_BIN}
+        LIBRARY DESTINATION ${DEPTH_LIB_SHARED}
+        ARCHIVE DESTINATION ${DEPTH_LIB_STATIC})
+
+# Add 'DepthApplicationNative' project to the 'Depth' dependencies.
+LIST(APPEND DEPTH_TARGETS ${DEPTH_APPLICATION_NATIVE})

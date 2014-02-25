@@ -1,0 +1,71 @@
+# Define the presents flag of the 'DepthTokenizer' shared library.
+SET(DEPTH_TOKENIZER_PRESENT 1)
+
+# Define 'DepthTokenizer' project name.
+SET(DEPTH_TOKENIZER "DepthTokenizer")
+
+# Define 'DepthTokenizer' project.
+PROJECT(${DEPTH_TOKENIZER} CXX)
+
+# Load versions.
+FILE(READ "${DEPTH_VERSIONS}/DepthTokenizer.txt" DEPTH_TOKENIZER_VERSION)
+FILE(READ "${DEPTH_VERSIONS}/DepthTokenizer-so.txt" DEPTH_TOKENIZER_SOVERSION)
+
+# Include directories definition for the 'DepthTokenizer' shared library.
+INCLUDE_DIRECTORIES(${DEPTH})
+
+# Prepare sources directories for the 'DepthTokenizer' shared library.
+LIST(APPEND DEPTH_TOKENIZER_SOURCES_DIRS
+        "${DEPTH_SOURCE}/tokenizer"
+        "${DEPTH_SOURCE}/tokenizer/iterators"
+        "${DEPTH_SOURCE}/shared"
+        "${DEPTH_SOURCE}/system/sys-All/tokenizer"
+        "${DEPTH_SOURCE}/system/sys-All/shared"
+        "${DEPTH_SOURCE}/system/sys-Cygwin/tokenizer"
+        "${DEPTH_SOURCE}/system/sys-Cygwin/shared"
+        "${DEPTH_SOURCE}/system/sys-Dummy/tokenizer"
+        "${DEPTH_SOURCE}/system/sys-Dummy/shared"
+        "${DEPTH_SOURCE}/system/sys-Linux/tokenizer"
+        "${DEPTH_SOURCE}/system/sys-Linux/shared"
+        "${DEPTH_SOURCE}/system/sys-Unix/tokenizer"
+        "${DEPTH_SOURCE}/system/sys-Unix/shared"
+        "${DEPTH_SOURCE}/system/sys-Windows/tokenizer"
+        "${DEPTH_SOURCE}/system/sys-Windows/shared"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile/tokenizer"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile/shared")
+
+# Collect sources for the 'DepthTokenizer' shared library.
+FOREACH(DEPTH_TOKENIZER_SOURCES_DIR ${DEPTH_TOKENIZER_SOURCES_DIRS})
+  FILE(GLOB DEPTH_TOKENIZER_SOURCES_FILES RELATIVE "${CMAKE_SOURCE_DIR}" "${DEPTH_TOKENIZER_SOURCES_DIR}/*.cpp")
+  LIST(APPEND DEPTH_TOKENIZER_SOURCES ${DEPTH_TOKENIZER_SOURCES_FILES})
+ENDFOREACH(DEPTH_TOKENIZER_SOURCES_DIR)
+
+# Add the 'DepthTokenizer' shared library.
+ADD_LIBRARY(${DEPTH_TOKENIZER} SHARED ${DEPTH_TOKENIZER_SOURCES})
+
+# Set shared library export symbol.
+SET_PROPERTY(TARGET ${DEPTH_TOKENIZER} PROPERTY DEFINE_SYMBOL "__TOKENIZER_EXPORT__")
+
+# Set compiler flags.
+SET_PROPERTY(TARGET ${DEPTH_TOKENIZER} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_SHARED_LIB__" "DEPTH_TOKENIZER_VERSION=${DEPTH_TOKENIZER_VERSION}" "DEPTH_TOKENIZER_SOVERSION=${DEPTH_TOKENIZER_SOVERSION}")
+SET_PROPERTY(TARGET ${DEPTH_TOKENIZER} APPEND PROPERTY COMPILE_FLAGS "${CMAKE_INCLUDE_PREFIX}${DEPTH_SOURCE}/system/sys-All/tokenizer")
+
+# Set version and soversion of the shared library.
+SET_TARGET_PROPERTIES(${DEPTH_TOKENIZER} PROPERTIES VERSION "${DEPTH_TOKENIZER_VERSION}" SOVERSION "${DEPTH_TOKENIZER_SOVERSION}")
+
+# Add dependence from the 'DepthBase' shared library to the 'DepthTokenizer' shared library.
+ADD_DEPENDENCIES(${DEPTH_TOKENIZER} ${DEPTH_BASE})
+
+# Link the 'DepthTokenizer' shared library with the system libraries.
+TARGET_LINK_LIBRARIES(${DEPTH_TOKENIZER} ${CMAKE_SYSTEM_LIBRARIES})
+# Link the 'DepthTokenizer' shared library with the 'DepthBase' shared library.
+TARGET_LINK_LIBRARIES(${DEPTH_TOKENIZER} ${DEPTH_BASE})
+
+# Install the 'DepthTokenizer' shared library.
+INSTALL(TARGETS ${DEPTH_TOKENIZER}
+        RUNTIME DESTINATION ${DEPTH_BIN}
+        LIBRARY DESTINATION ${DEPTH_LIB_SHARED}
+        ARCHIVE DESTINATION ${DEPTH_LIB_STATIC})
+
+# Add 'DepthTokenizer' project to the 'Depth' dependencies.
+LIST(APPEND DEPTH_TARGETS ${DEPTH_TOKENIZER})

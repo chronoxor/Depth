@@ -1,0 +1,59 @@
+1) Simple connection
+
+conn = connect(TFunction, index = max)
+conn = connect(TClass, TMethod, index = max)
+conn = connect(const TClass, TMethod, index = max)
+conn = connect(CFunctor, index = max)
+conn = connect(CSignal, index = max)
+
+3) Disconnecting
+
+disconnectAll()
+disconnect(index)
+disconnect(TFunction)
+disconnect(TClass, TMethod)
+disconnect(const TClass, TMethod)
+disconnect(CFunctor)
+disconnect(CSignal)
+
+4) Calling
+
+operator()
+
+5) Connection management
+
+Use shared pointer in CSignal and connections.
+
+isEmpty()
+getSize()
+
+getConnection(index)
+getConnection(TFunction)
+getConnection(TClass, TMethod)
+getConnection(const TClass, TMethod)
+getConnection(CFunctor)
+getConnection(CSignal)
+
+conn.isValid()
+conn.getIndex()
+conn.isConnected()
+conn.disconnect()
+conn.isBlocked()
+conn.block()
+conn.unblock()
+
+6) Scoped connections
+
+{
+  scoped_connection c = sig.connect(ShortLived());
+  sig(); // will call ShortLived function object
+}
+sig();
+
+7) Combiner
+
+mutable Combiner m_Comm;
+getCombiner()
+getCombiner() const
+
+CCombinerAgrigate

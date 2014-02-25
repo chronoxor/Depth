@@ -1,0 +1,37 @@
+ * CStack
+   - InsertForward()  - top;
+   - InsertNext()     - any valid;
+   - RemoveForward()  - top;
+   - RemoveNext()     - any valid, not last;
+
+ * CQueue, CListSL
+   - InsertForward()  - begin, end;
+   - InsertNext()     - any valid;
+   - RemoveForward()  - begin;
+   - RemoveNext()     - any valid, not last;
+
+ * CDeque, CListDL
+   - InsertForward()  - any;
+   - InsertBackward() - any;
+   - InsertNext()     - any valid;
+   - InsertPrev()     - any valid;
+   - RemoveForward()  - any valid;
+   - RemoveBackward() - any valid;
+   - RemoveNext()     - any valid, not last;
+   - RemovePrev()     - any valid, not first;
+
+ * CListSC
+   - InsertForward()  - empty;
+   - InsertNext()     - any;
+   - RemoveForward()  - single;
+   - RemoveNext()     - any valid;
+
+ * CListDC
+   - InsertForward()  - any;
+   - InsertBackward() - any;
+   - InsertNext()     - any;
+   - InsertPrev()     - any;
+   - RemoveForward()  - any valid;
+   - RemoveBackward() - any valid;
+   - RemoveNext()     - any valid;
+   - RemovePrev()     - any valid;

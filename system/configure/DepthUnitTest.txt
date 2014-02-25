@@ -1,0 +1,73 @@
+# Define the presents flag of the 'DepthUnitTest' shared library.
+SET(DEPTH_UNITTEST_PRESENT 1)
+
+# Define 'DepthUnitTest' project name.
+SET(DEPTH_UNITTEST "DepthUnitTest")
+
+# Define 'DepthUnitTest' project.
+PROJECT(${DEPTH_UNITTEST} CXX)
+
+# Load versions.
+FILE(READ "${DEPTH_VERSIONS}/DepthUnitTest.txt" DEPTH_UNITTEST_VERSION)
+FILE(READ "${DEPTH_VERSIONS}/DepthUnitTest-so.txt" DEPTH_UNITTEST_SOVERSION)
+
+# Include directories definition for the 'DepthUnitTest' shared library.
+INCLUDE_DIRECTORIES(${DEPTH})
+
+# Prepare sources directories for the 'DepthUnitTest' shared library.
+LIST(APPEND DEPTH_UNITTEST_SOURCES_DIRS
+        "${DEPTH_SOURCE}/unit"
+        "${DEPTH_SOURCE}/unit/details"
+        "${DEPTH_SOURCE}/shared"
+        "${DEPTH_SOURCE}/system/sys-All/unit"
+        "${DEPTH_SOURCE}/system/sys-All/shared"
+        "${DEPTH_SOURCE}/system/sys-Cygwin/unit"
+        "${DEPTH_SOURCE}/system/sys-Cygwin/shared"
+        "${DEPTH_SOURCE}/system/sys-Dummy/unit"
+        "${DEPTH_SOURCE}/system/sys-Dummy/shared"
+        "${DEPTH_SOURCE}/system/sys-Linux/unit"
+        "${DEPTH_SOURCE}/system/sys-Linux/shared"
+        "${DEPTH_SOURCE}/system/sys-Unix/unit"
+        "${DEPTH_SOURCE}/system/sys-Unix/shared"
+        "${DEPTH_SOURCE}/system/sys-Windows/unit"
+        "${DEPTH_SOURCE}/system/sys-Windows/shared"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile/unit"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile/shared")
+
+# Collect sources for the 'DepthUnitTest' shared library.
+FOREACH(DEPTH_UNITTEST_SOURCES_DIR ${DEPTH_UNITTEST_SOURCES_DIRS})
+  FILE(GLOB DEPTH_UNITTEST_SOURCES_FILES RELATIVE "${CMAKE_SOURCE_DIR}" "${DEPTH_UNITTEST_SOURCES_DIR}/*.cpp")
+  LIST(APPEND DEPTH_UNITTEST_SOURCES ${DEPTH_UNITTEST_SOURCES_FILES})
+ENDFOREACH(DEPTH_UNITTEST_SOURCES_DIR)
+
+# Add the 'DepthUnitTest' shared library.
+ADD_LIBRARY(${DEPTH_UNITTEST} SHARED ${DEPTH_UNITTEST_SOURCES})
+
+# Set shared library export symbol.
+SET_PROPERTY(TARGET ${DEPTH_UNITTEST} PROPERTY DEFINE_SYMBOL "__UNITTEST_EXPORT__")
+
+# Set compiler flags.
+SET_PROPERTY(TARGET ${DEPTH_UNITTEST} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_SHARED_LIB__" "DEPTH_UNITTEST_VERSION=${DEPTH_UNITTEST_VERSION}" "DEPTH_UNITTEST_SOVERSION=${DEPTH_UNITTEST_SOVERSION}")
+SET_PROPERTY(TARGET ${DEPTH_UNITTEST} APPEND PROPERTY COMPILE_FLAGS "${CMAKE_INCLUDE_PREFIX}${DEPTH_SOURCE}/system/sys-All/unit")
+
+# Set version and soversion of the shared library.
+SET_TARGET_PROPERTIES(${DEPTH_UNITTEST} PROPERTIES VERSION "${DEPTH_UNITTEST_VERSION}" SOVERSION "${DEPTH_UNITTEST_SOVERSION}")
+
+# Add dependence from the 'DepthBase' and 'DepthApplication' shared libraries to the 'DepthUnitTest' shared library.
+ADD_DEPENDENCIES(${DEPTH_UNITTEST} ${DEPTH_BASE} ${DEPTH_APPLICATION})
+
+# Link the 'DepthUnitTest' shared library with the system libraries.
+TARGET_LINK_LIBRARIES(${DEPTH_UNITTEST} ${CMAKE_SYSTEM_LIBRARIES})
+# Link the 'DepthUnitTest' shared library with the 'DepthBase' shared library.
+TARGET_LINK_LIBRARIES(${DEPTH_UNITTEST} ${DEPTH_BASE})
+# Link the 'DepthUnitTest' shared library with the 'DepthApplication' shared library.
+TARGET_LINK_LIBRARIES(${DEPTH_UNITTEST} ${DEPTH_APPLICATION})
+
+# Install the 'DepthUnitTest' shared library.
+INSTALL(TARGETS ${DEPTH_UNITTEST}
+        RUNTIME DESTINATION ${DEPTH_BIN}
+        LIBRARY DESTINATION ${DEPTH_LIB_SHARED}
+        ARCHIVE DESTINATION ${DEPTH_LIB_STATIC})
+
+# Add 'DepthUnitTest' project to the 'Depth' dependencies.
+LIST(APPEND DEPTH_TARGETS ${DEPTH_UNITTEST})

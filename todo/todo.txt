@@ -1,0 +1,233 @@
+TODO
+
+==============================================================================
+ Building
+==============================================================================
+ done - Build under VS9 x32
+ done - Build under VS9 x64
+ done - Build under VS9 Mobile
+ done - Build under VS10 x32
+ done - Build under VS10 x64
+ done - Build under NMake
+ done - Build under MSYS
+ done - Build under MinGW
+ done - Build under Cygwin
+ done - Build under Linux
+==============================================================================
+
+==============================================================================
+ Refactoring
+==============================================================================
+ done - Remove 'void'
+ done - Add CALL
+ done - Add NDepth
+ done - Remove using NTypes
+ done - Declarations
+ done - Check for ASSERT, VERIFY
+      - Change Treal from float to double and test on all systems
+      - Change __UNICODE__ to __ASCII__ and test on all systems
+==============================================================================
+
+==============================================================================
+ Cxx0x features
+==============================================================================
+      ? Rvalue references (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2118.html)
+      ? Variadic templates (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2242.pdf)
+      ? Initializer lists (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2672.htm)
+      ? Static assertions (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1720.html)
+      ? Lambda (http://www.open-std.org/JTC1/SC22/WG21/docs/papers/2009/n2927.pdf)
+      ? Declared type of an expression (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2343.pdf)
+      ? Right Angle Brackets (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1757.html)
+      ? Default template arguments for function templates (http://www.open-std.org/jtc1/sc22/wg21/docs/cwg_defects.html#226)
+      - Template aliases (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2258.pdf)
+      ? Extern templates (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1987.htm)
+      ? Null pointer constant (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2431.pdf)
+      ? Strongly-typed enums (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2347.pdf)
+      - Alignment support (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2341.pdf)
+      - Delegating constructors (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1986.pdf)
+      ? New character types (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2249.html)
+      ? Unicode string literals (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2442.htm)
+      ? __func__ predefined identifier (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2340.htm)
+==============================================================================
+
+==============================================================================
+ Containers & algorithms
+==============================================================================
+ done - Implement - ItemContainer, ItemIterator.
+ done - Implement - ArrayContainer, ArrayIterator.
+ done - Implement - PriorityQueue.
+ done - Implement - Interval.
+ done - Implement - hash tables.
+ done - Implement - hash concept.
+ done - Implement - search algorithms.
+ done - Implement - container algorithms.
+ done - Implement - transform algorithms.
+==============================================================================
+
+==============================================================================
+ Debugging
+==============================================================================
+      - Implement - CCallFrameContext.
+      - Implement - FLog.
+      - Implement - FTrace.
+      - Implement - logs. Memory log.
+      - Implement - call stack.
+==============================================================================
+
+==============================================================================
+ Doxygen
+==============================================================================
+ done - Anonymous namespaces.
+ done - Fix buffer[] issue.
+ done - UML view.
+==============================================================================
+
+==============================================================================
+ Errors handling
+==============================================================================
+      - Implement - FAssert.
+      - Implement - FAssume.
+      - Implement - FError.
+      - Implement - FVerify.
+      - Implement - FWarning.
+      - Implement - errors and warnings.
+      - Add timestamp to log, error, warning, trace.
+==============================================================================
+
+==============================================================================
+ File system
+==============================================================================
+      - Update CTZDatabase to load TZ info database from file system.
+      - Update utility-TZParser.
+      - Update utility-UCDParser.
+      - CUnitTestLauncherCMake, CUnitTestLauncherMobile - onLog() -> "UTname.log"
+==============================================================================
+ Functors & Signals
+==============================================================================
+ done - Implement - functors.
+      - Implement - functors conceptions.
+      - Implement - trackable functors.
+      - Implement - property class
+      - Change memory handlers to functors.
+ done - Change integral calculations through functors.
+      - Implement - signals.
+      - Implement - binders.
+      - Implement - lambda functions.
+      - Observer\IConnector - forEach + memFuct
+      - Thread safe connections. See boost
+==============================================================================
+
+==============================================================================
+ Locale
+==============================================================================
+      - Implement locale.
+      - Update integer stream methods to use locale ('+', '-', ' ', '0', '0x', '0'-'9', 'A' - 'Z', 'a' - 'z', ',').
+      - Update real stream methods to use locale ('PosInf', 'NegInf', 'QNaN', 'SNaN', 'Unnormal', '+', '-', ' ', '0'-'9', 'e', 'E', '.', ',').
+      - Update boolean stream methods to use locale ('1', '0', 'TRUE', 'FALSE', 'true', 'false', ' ').
+      - Update pointer stream methods to use locale ('0x', '0'-'9', 'A' - 'Z', 'a' - 'z').
+      - Update new line stream methods to use locale ('\r', '\n', '\0').
+      - Update unit test methods to use locale (' line ', 'ASSERT: ', "Test begin...").
+==============================================================================
+
+==============================================================================
+ Memory managment
+==============================================================================
+ done - Implement - Onew.
+ done - Implement - Odelete.
+ done - Memory class.
+ done - Smart pointers.
+ done - Garbage collection.
+ done - Memory debug structure.
+ done - Align allocation.
+ done - Allocator conception.
+ done - Memory managers.
+      - Memory managers - thread.
+      - Memory managers - boost: pool.
+      - Memory managers - boost: A simple shared memory management algorithm.
+==============================================================================
+
+==============================================================================
+ Process
+==============================================================================
+ done - Implement Critical Sections.
+      - Implement Process (environment variables).
+      - Implement Process container.
+      - Implement Process iterator.
+      - Implement Thread.
+      - Implement Thread local data.
+      - Implement Thread container.
+      - Implement Thread iterator.
+      - Implement Pipe.
+      - Implement Mutex.
+      - Implement Semaphore.
+      - Implement STD streams (stdin, stdout, stderr).
+==============================================================================
+
+==============================================================================
+ Serialization
+==============================================================================
+      - Implement - MConceptArchive.
+      - Implement - MConceptSerializable.
+      - Serialize - CAllocatorNew.
+      - Serialize - CAllocatorNewEx.
+      - Serialize for template classes should add name of the templates args.
+      - Note! For function pointers do not do anything!!! (comparator in pair)
+      - Add serialize allocators to create objects without default constructors.
+      - Serialization of the virtual classes should be done by pointers, add tracking mechanism.
+      - Serialization of the base pointers should be done with type registration.
+==============================================================================
+
+==============================================================================
+ Streams
+==============================================================================
+ done - Think about general exchange format.
+ done - Implement streams (StreamNULL, StreamFilter, StreamString, StreamMemory).
+ done - Implement Debugger stream (Windows, Linux).
+ done - Implement filters (Filter, FilterBuffered, FilterCopy, FilterFork, FilterStream).
+ done - Implement parsing/reading from text streams.
+ done - Implement - UTF filter with BOM prefix.
+ done - Implement - string encoder filters (stringencoders-v3.1.0.tar.gz).
+==============================================================================
+
+==============================================================================
+ Strings
+==============================================================================
+      - Write an utility to convert all string literal to hash and make local literal table.
+ done - Implement - character class.
+ done - Implement - string.
+ done - Implement - string iterators.
+ done - Implement - string conception.
+ done - Implement - string traits.
+ done - Implement - string buffer.
+      - Implement - toString() methods.
+      - Implement - encoded string.
+      - Implement - encoded string iterators.
+      - Implement - encoded string conception.
+      - Implement - encoded string traits.
+ done - Implement - system string.
+ done - Implement - string algorithms (find, replace, delete).
+ done - Implement - string finders - brute-force (no case), oneof (no case), Boyer-Moore, Knuth-Morris-Pratt, Linear (ASCII & Unicode).
+      - Implement - regular expressions.
+ done - Implement - tokenizer.
+==============================================================================
+
+==============================================================================
+ System
+==============================================================================
+ done - Add simple synchronize object.
+==============================================================================
+
+==============================================================================
+ Time
+==============================================================================
+ done - Design time, date, date & time library.
+      - CTimeZone, CDateTimeLocal.
+ done - Add timing to UnitTest library.
+ done - Add timeouts tests to UnitTest library.
+==============================================================================
+
+==============================================================================
+ Utility
+==============================================================================
+ done - Implement - Typeinfo wrapper.
+==============================================================================

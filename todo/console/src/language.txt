@@ -1,0 +1,39 @@
+Here's how to properly setup your language and font settings for Console. *Please read this carefully*, especially if you're using double width character languages. As far as I know, they're:
+
+- Japanese Shift-JIS (codepage 932)
+- Simplified Chinese GBK (codepage 936)
+- Korean (codepage 949)
+- Traditional Chinese Big5 (codepage 950)
+
+So, to setup your language:
+
+1. Start registry editor (Start->Run, type regedit). Find HKEY_CURRENT_USER\Console key. If there is a subkey named "Console2 command window", delete it.
+
+NOTE: PLEASE be careful when deleting stuff from registry. You can break things.
+
+2. Open Control Panel and run "Regional and Language options". Go to "Advanced" tab. In the "Language for non-Unicode programs" find your language. This is especially critical for DBCS languages. Click OK. you may get a dialog saying that required files are already installed on the hard disk. You can click 'yes' here to skip installing language files from a Windows CD/DVD. After that you will get 'restart computer' dialog. Click yes.
+
+3. After restart, run Console 2. Unhide windows console (View->Console window) and open its properties dialog. Go to "Font" tab. Raster Fonts will be selected in the fonts list. Choose the other, TrueType font. For most languages, this will be Lucida Console. For DBCS languages, these should be proper fonts (I don't read Japanese/Chinese/Korean ideograms, I just read these from the registry :)
+
+- Japanese (932) - MS Gothic
+- Simplified Chinese (936) - NSimSun
+- Korean (949) - GulimChe
+- Traditional Chinese (950) - MingLiU
+
+Anyway, select proper TrueType console font and set its size to something small (8 or 10 points). Small size will allow you bigger max Console window size.
+
+Click OK. "Apply Properties" dialog will appear, select "Save properties for future windows with same title" and click OK. This will save Windows console settings for Console 2. You can check your registry again, HKEY_CURRENT_USER\Console key. There should be "Console2 command window" subkey there again.
+
+4. You can now open Console settings and choose whatever fixed-width font you like (make sure it has characters you need :)
+
+
+Unfortunatelly, all of this is needed due to historic reasons: Windows console still uses codepages, and this seems to be the only way to set all of the options properly.
+
+
+NOTE: I have noted that even Windows console shows some strange behavior with DBCS languages. As usual, if you notice something strange, unhide the hidden console window first and check what's happening there.
+
+NOTE 2: When Console gets setup procedure, non-DBCS-language-users will not have to do this. Setup procedure will do this automagically. I will try to automate this for our Japanese/Chinese/Korean friends :-)
+
+
+
+

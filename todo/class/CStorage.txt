@@ -1,0 +1,31 @@
+Type:
+ * Binary
+ * Text
+ * XML
+ * Registry
+
+Acceess mode:
+ * Read
+ * Peek
+ * Push
+ * Write
+
+getType();
+getName();
+getVersion();
+getAccessMode();
+
+isOpened();
+
+open();
+flush();
+close();
+
+doBeginType("TypeName", version);
+doProperty("PropertyName", value);
+doBeginBody();
+doAttribute("AttributeName", value);
+doPointer("PointerName", value);
+doSharedPointer("SharedPointerName", value);
+doEndBody();
+doEndType();

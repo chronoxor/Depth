@@ -1,0 +1,2076 @@
+Code Conventions
+
+==============================================================================
+ Introduction
+==============================================================================
+
+About:
+ * This document defines the C++ coding style for the Depth project.  It  also
+   tries to provide guidelines on how to use the various features found in the
+   C++  language.  The  establishment  of  a  common  style  will   facilitate
+   understanding and maintaining code developed by more than one programmer as
+   well as making it easier for several people to cooperate in the development
+   of the same program. In addition, following a common programming style will
+   enable the construction  of  tools  that  incorporate  knowledge  of  these
+   standards to help in the programming task.
+
+ * Using a consistent coding style throughout a particular module, package, or
+   project is important because it allows people  other  than  the  author  to
+   easily understand and  (hopefully)  maintain  the  code.  Most  programming
+   styles are somewhat arbitrary, and this one is no exception. In the  places
+   where there were choices to be made, we attempted to include the  rationale
+   for our decisions.
+
+ * One more thing to keep in mind is that when modifying  an  existing  source
+   file, the modifications should be coded in the same style as the file being
+   modified. A consistent style is important, even if it  isn't  the  one  you
+   usually use.
+
+ * The best way to follow this Code Convention is to look  into  the  existing
+   components implementation to see how they structured. Also you may take one
+   of them as a template for the new one  (or  take  existing  templates  from
+   "doc/templates").
+
+------------------------------------------------------------------------------
+
+*** Why a Coding Style? ***
+
+About:
+ * Every programmer uses some sort of  style,  some  good,  some  terrible.  A
+   coding style can give code a uniform look.  It  can  make  algorithms  more
+   clear or more complex. There are 2 main reasons for a certain coding style:
+
+   1) Develop clean and readable code, so when someone else has to dig through
+      it, he can pick it up rather quickly. And more important  when  you  get
+      back to some old code you have written  a  year  ago,  you  don't  start
+      thinking "I can't remember being that wasted...".
+
+   2) When working in team, it's best that everybody uses the  same  style  so
+      the code has a uniform look.
+
+------------------------------------------------------------------------------
+
+*** The Basic Rules ***
+
+About:
+ * The most important aspects of coding style are captured  in  the  following
+   rules:
+   - All should be as understandable as possible.
+   - All should be as readable as possible, except when it would conflict with
+     the previous rule.
+   - All should be as simple as possible, except when it would  conflict  with
+     the previous rules.
+
+ * The best way to look at  these  rules  is  make  everything  as  simple  as
+   possible, unless understandability  or  readability  suffer.  Or  to  quote
+   Albert Einstein: "Make everything as simple as possible, but not simpler."
+
+ * As a programmer you must always try to respect the above rules, even if you
+   don't follow this style of coding.
+
+==============================================================================
+ Files
+==============================================================================
+
+*** Directory Structure ***
+
+About:
+ * Each directory contains fixed set of files. Following list  describes  this
+   dependencies:
+   - bin          - Contains binary executables and dynamic-link libraries.
+   - doc          - Contains documentation and help files.
+   - examples     - Contains examples source files.
+   - images       - Contains images files.
+   - include      - Contains headers and inline files.
+   - lib          - Contains library files.
+   - source       - Contains source files.
+   - system       - Contains compiler/platform dependant make files.
+   - tests        - Contains tests source files.
+   - todo         - Contains all TODO information, source, examples.
+   - utilities    - Contains various kinds of utilities.
+
+------------------------------------------------------------------------------
+
+*** File Naming Conventions ***
+
+About:
+ * Try to pick filenames that are meaningful  and  understandable.  File  name
+   length  is  not  limited.  The  following  table  shows  the  file   naming
+   conventions we will use:
+   -----------------------------------------------
+   File contents                        Extension
+   -----------------------------------------------
+   C++ source code                      .cpp
+   C++ header file                      .hpp
+   C source code                        .c
+   C header file                        .h
+   Object code                          .o
+   Archive libraries                    .a
+   Dynamic-shared libraries             .so
+   Dynamic-link libraries               .dll
+   Static libraries                     .lib
+   Shell scripts                        .sh
+   Yacc/C source code                   .y
+   Yacc/C++ source code                 .ypp
+   Lex/C source code                    .l
+   Lex/C++ source code                  .lpp
+   Build rules for make                 makefile
+   -----------------------------------------------
+
+ * If file contains algorithm, class or meta-class, it should be reflected  in
+   corresponding file name:
+   -----------------------------------------------
+   File contents                        File name
+   -----------------------------------------------
+   C++ algorithm "ATest" source         ATest.cpp
+   C++ class "CTest" source             CTest.cpp
+   C++ function/functor "FTest" source  FTest.cpp
+   C++ interface "ITest" source         ITest.cpp
+   C++ meta-class "MTest" source        MTest.cpp
+   C++ operator "new" source            Onew.cpp
+   -----------------------------------------------
+
+------------------------------------------------------------------------------
+
+*** C++ Header File Content ***
+
+About:
+ * Header  files  should  be  functionally  organized,  with  declarations  of
+   separate subsystems placed in separate header files. For class definitions,
+   header files should be treated as interface definition files.
+   - Declare related class and types that are likely to be used together in  a
+     single header file.
+   - If a set of declarations is likely to change when code is ported from one
+     machine to another, put them into a separate header file.
+   - Never declare static variables or non-member static  function  prototypes
+     in a header file.
+   - Never define variables in a header file.
+   - Private header files which are used only  by  a  specific  implementation
+     should live with that implementation's source code (for example,  in  the
+     same directory), and be included using the #include "name" construct.
+
+ * The required ordering in header files is as follows:
+   - Special documentation sub-header.
+   - Short brief sub-header.
+   - License.
+   - Version control log.
+   - An #ifndef that checks  whether  the  header  file  has  been  previously
+     included, and if it has, ignores the rest of the file. The  name  of  the
+     variable tested looks like __FILE_HPP__, where "FILE_HPP" is replaced  by
+     the header file name in upper case registry,  using  underscore  for  any
+     character not legal in an identifier. Immediately  after  the  test,  the
+     variable is defined.
+   - #include  directives.  Every  header  file  should  be  self-sufficient,
+     including all other header files it needs.
+   - Namespace declarations.
+   - Header body (class, defines, types, etc. declarations).
+   - Inline functions/methods includes.
+   - The header guard's #endif need be followed by a  comment  describing  the
+     #ifdef head guard.
+
+Example:
+ See "doc/templates/CClassTemplate.hpp"
+
+------------------------------------------------------------------------------
+
+*** C++ Inline File Content ***
+
+About:
+ * Inline   functions/methods   files   should   be   used   to   put    small
+   functions/methods in a source place where they used as inline to  speed  up
+   the performance. Note that they all should be marked as "inline".
+
+ * The required ordering in inline files is same as in header.
+
+Example:
+ See "doc/templates/CClassTemplate.inl"
+
+------------------------------------------------------------------------------
+
+*** C++ Source File Content ***
+
+About:
+ * Source  file  should  contain  an  implementation  of  a  closely  related
+   functionality (interfaces, classes, etc.).
+
+ * Do not place the implementation of more than  one  interface  in  a  single
+   source file. (Classes private to an  implementation  may  be  declared  and
+   defined within the same source file.)
+
+ * The required ordering in source files is same as in header.
+
+Example:
+ See "doc/templates/CClassTemplate.cpp"
+
+==============================================================================
+ Compilation
+==============================================================================
+
+About:
+ * Code should compile without errors or warnings.  "Compile"  in  this  sense
+   applies  to  lint-like  code  analyzers,  a  standard-validating  compilers
+   (ANSI-C++, POSIX, Style Guide Verification, etc.), and C++ compilers on all
+   supported hardware/software platforms.
+
+ * The   following    file    contains   currently   supported   compilers   -
+   "doc/Compilers.txt". If you try to build the project  on  a  compiler  that
+   does not mentioned in the above file,  there is no guaranty that it will be
+   successfully build.
+
+ * If some code part (library, example, test)  does  not  compile  with  fixed
+   compiler or does not work correct on a fixed platform. This  issues  should
+   be noted in the following file - "doc/CompilersIssues.txt".
+
+==============================================================================
+ Formatting
+==============================================================================
+
+*** A Line Should Not Exceed 78 Characters ***
+
+About:
+ * Lines should not exceed 78 characters.
+
+Justification:
+ * Even though with big monitors we stretch windows wide our printers can only
+   print so wide. And we still need to print code.
+ * The wider the window the fewer windows  we  can  have  on  a  screen.  More
+   windows is better than wider windows.
+ * We even view and print diff output correctly on all terminals and printers.
+
+------------------------------------------------------------------------------
+
+*** Indentation/Tabs/Space Policy ***
+
+About:
+ * Indent using 0, 2, 4, etc. spaces for each level.
+ * Do not use tabs, use spaces. Most editors can substitute spaces for tabs.
+ * Tabs should be fixed at 8 spaces.  Don't set  tabs to a different  spacing,
+   uses spaces instead.
+ * Indent as much as needed, but no more. There are no arbitrary rules  as  to
+   the maximum indenting level. If the indenting level is more  than  4  or  5
+   levels you may think about factoring out code.
+
+Justification:
+ * Tabs aren't used because 8 space indentation severely limits the number  of
+   indentation levels one can have. The argument that if this is a problem you
+   have too many indentation levels has some force, but real code can often be
+   three or more levels deep. Changing a tab to be less than  8  spaces  is  a
+   problem because that setting is usually  local.  When  someone  prints  the
+   source tabs will be 8 characters and the code will look horrible. Same  for
+   people using other editors. Which is why we use spaces...
+ * When people using different tab settings the code is impossible to read  or
+   print, which is why spaces are preferable to tabs.
+ * Nobody can ever agree on the correct number of spaces, just be  consistent.
+   In general people have found 2 or 4 spaces per indentation level workable.
+ * As much as people would like to limit the  maximum  indentation  levels  it
+   never seems to work in general. We'll trust that  programmers  will  choose
+   wisely how deep to nest code.
+
+Example:
+   void func()
+   {
+     if (something bad)
+     {
+       if (another thing bad)
+       {
+         while (more input)
+         {
+         }
+       }
+     }
+   }
+
+------------------------------------------------------------------------------
+
+*** Braces {} Policy ***
+
+About:
+ * Of the three major brace placement strategies two are acceptable, with  the
+   first one listed being preferable:
+
+ * Place brace under and inline with keywords:
+
+   if (condition)        while (condition)
+   {                     {
+     ...                   ...
+   }                     }
+
+ * Traditional Unix policy of placing the initial brace on the  same  line  as
+   the keyword and the trailing brace inline on its own line with the keyword:
+
+   if (condition) {      while (condition) {
+     ...                   ...
+   }                     }
+
+Justification:
+ * Another religious issue of great debate solved by compromise.  Either  form
+   is acceptable, many people, however, find the first form more pleasant. Why
+   is the topic of many psychological studies.
+
+   There are more reasons than psychological for preferring the  first  style.
+   If you use an editor (such as vi) that supports brace matching,  the  first
+   is a much better style. Why? Let's say you have a large block of  code  and
+   want to know where the block ends. You move to the first brace  hit  a  key
+   and the editor finds the matching brace.
+   Example:
+
+   if (very_long_condition && second_very_long_condition)
+   {
+     ...
+   }
+   else if (...)
+   {
+     ...
+   }
+
+   To move from block to block you just need to use cursor down and your  brace
+   matching key. No need to move to the end of the line to match a  brace  then
+   jerk back and forth.
+
+Example:
+   void func()
+   {
+     if (something bad)
+     {
+       while (more input)
+       {
+         do_something();
+       }
+     }
+   }
+
+------------------------------------------------------------------------------
+
+*** Parens () with Key Words and Functions Policy ***
+
+About:
+ * Do not put parens next to keywords. Put a space between.
+ * Do put parens next to function names.
+ * Do not use parens in return statements when it's not necessary.
+
+Justification:
+ * Keywords are not functions. By putting parens next to keywords keywords and
+   function names are made to look alike.
+
+Example:
+   void func()
+   {
+     if (condition)
+     {
+     }
+
+     while (condition)
+     {
+     }
+
+     strcpy(s, s1);
+
+     return 1;
+   }
+
+------------------------------------------------------------------------------
+
+*** Blank Spaces ***
+
+About:
+ * Blank spaces should be used in the following circumstances:
+   - A keyword followed by a parenthesis  should  be  separated  by  a  space.
+     Example:
+
+     while (true)
+     {
+       ...
+     }
+
+
+     Note that a blank space should not be used between a method name and  its
+     opening parenthesis. This  helps  to  distinguish  keywords  from  method
+     calls.
+
+   - A blank space should appear after commas in argument lists.
+   - All binary operators except . should be separated from their operands  by
+     spaces. Blank spaces should never separate unary operators such as  unary
+     minus, increment  ("++"),  and  decrement  ("--")  from  their  operands.
+     Example:
+
+     a += c + d;
+     a = (a + b) / (c * d);
+
+     while (d++ = s++)
+     {
+        n++;
+     }
+
+     cout << "size is " + foo + "\n";
+
+
+   - The expressions in a for statement should be separated by  blank  spaces.
+     Example:
+
+     for (expr1; expr2; expr3)
+
+
+   - Casts should be followed by a blank space. Examples:
+
+      function((int) num, (CTest) x);
+      function((int) (cp + 5), ((int) (i + 3)) + 1);
+
+==============================================================================
+ Comments
+==============================================================================
+
+About:
+ * Implementation comments are meant for commenting out code or  for  comments
+   about the particular implementation. Doc comments are meant to describe the
+   specification of the code, from an implementation-free perspective.  to  be
+   read by developers who might not necessarily have the source code at hand.
+
+ * Comments should be used to give overviews of code  and  provide  additional
+   information that is not readily available  in  the  code  itself.  Comments
+   should  contain  only  information  that  is  relevant   to   reading   and
+   understanding  the  program.  For  example,  information  about   how   the
+   corresponding package is built or in what directory it resides  should  not
+   be included as a comment.
+
+ * Discussion of nontrivial or nonobvious design decisions is appropriate, but
+   avoid duplicating information that is present in (and clear from) the code.
+   It is too easy for redundant comments to get out of date. In general, avoid
+   any comments that are likely to get out of date as the code evolves.
+
+ * Comments should not be enclosed in large  boxes  drawn  with  asterisks  or
+   other characters.
+
+ * Comments should never include special  characters  such  as  form-feed  and
+   backspace.
+
+------------------------------------------------------------------------------
+
+*** Implementation Comment Formats ***
+
+About:
+ *  Programs  can  have  four  styles  of  implementation   comments:   block,
+    single-line, trailing, and end-of-line.
+
+------------------------------------------------------------------------------
+
+*** Block Comments ***
+
+About:
+ * Block comments are used to provide descriptions  of  files,  methods,  data
+   structures and algorithms. Block comments may be used at the  beginning  of
+   each file and before each method. They can also be used  in  other  places,
+   such as within methods. Block comments inside a function or  method  should
+   be indented to the same level as the code they describe.
+
+ * A block comment should be preceded by a blank line to set it apart from the
+   rest of the code.
+
+Example:
+   /*
+      Here is a block comment.
+   */
+
+------------------------------------------------------------------------------
+
+*** Single-Line Comments ***
+
+About:
+ * Short comments can appear on a single line indented to  the  level  of  the
+   code that follows. If a comment can't be  written  in  a  single  line,  it
+   should follow the block comment format. A  single-line  comment  should  be
+   preceded by a blank line.
+
+Example:
+   void function (int a /* = 0 */)
+   {
+     ...
+   }
+
+------------------------------------------------------------------------------
+
+*** Trailing Comments ***
+
+About:
+ * Very short comments can appear on the same line as the code they  describe,
+   but should be shifted far enough to separate them from the  statements.  If
+   more than one short comment appears in a chunk of code, they should all  be
+   indented to the same tab setting.
+
+ * The best position of trailing comments is the 41 position in a line.
+
+Example:
+   if (a == 2)
+     return TRUE;                       // Special case.
+   else
+     return isPrime(a);                 /* Works only for odd a. */
+
+------------------------------------------------------------------------------
+
+*** End-Of-Line Comments ***
+
+About:
+ * The // comment delimiter can comment out a complete line or only a  partial
+   line. It shouldn't be used on consecutive multiple lines for text comments;
+   however, it can be used in consecutive multiple lines  for  commenting  out
+   sections of code.
+
+Example:
+   if (foo > 1)
+   {
+      // Do a double-flip.
+      ...
+   }
+   else
+     return false;                      // Explain why here.
+
+   //if (bar > 1)
+   //{
+   //  // Do a triple-flip.
+   //  ...
+   //}
+   //else
+   //{
+   //  return false;
+   //}
+
+------------------------------------------------------------------------------
+
+*** Documentation Comments ***
+
+About:
+ * All documentation comments are build for Doxygen tool.
+
+ * Doxygen is a documentation system for C++, C,  Java,  Objective-C,  Python,
+   IDL (Corba and Microsoft flavors) and to some extent PHP, C#, and D. It can
+   help you in three ways:
+   - It can generate an on-line documentation  browser  (in  HTML)  and/or  an
+     off-line reference manual (in LaTeX  from  a  set  of  documented  source
+     files. There is also support for  generating  output  in  RTF  (MS-Word),
+     PostScript, hyperlinked PDF, compressed HTML, and  Unix  man  pages.  The
+     documentation is extracted directly from the sources, which makes it much
+     easier to keep the documentation consistent with the source code.
+   - You can configure doxygen to extract the code structure from undocumented
+     source files. This is very useful to  quickly  find  your  way  in  large
+     source distributions. You can also visualize the  relations  between  the
+     various elements by  means  of  include  dependency  graphs,  inheritance
+     diagrams,  and  collaboration   diagrams,   which   are   all   generated
+     automatically.
+
+   - You can even `abuse' doxygen for creating normal documentation (as I  did
+     for this manual).
+
+   Doxygen is developed under Linux and Mac OS X, but is set-up to  be  highly
+   portable. As a result,  it  runs  on  most  other  Unix  flavors  as  well.
+   Furthermore, executables for Windows are available.
+
+ * To    learn    about   Doxygen   comments    read    online    manual    at
+   http://www.doxygen.org/manual.html.
+
+==============================================================================
+ Naming Conventions
+==============================================================================
+
+*** #define and Macro Names ***
+
+About:
+ * Put #defines and macros in all upper using '_' separators.
+
+Justification:
+ * This makes it very clear that the value is not alterable and in the case of
+   macros, makes it clear that you are using a construct that requires care.
+ * Some subtle errors can occur when macro names and enum labels use the  same
+   name.
+
+Example:
+   #define MAX(a,b) blah
+   #define IS_ERR(err) blah
+
+------------------------------------------------------------------------------
+
+*** Namespace Names ***
+
+About:
+ * Use upper case letters as word separators, lower case for  the  rest  of  a
+   word.
+ * First character in a name is 'N'.
+ * No underbars ('_').
+
+Justification:
+ * Of all the different naming strategies many people found this one the  best
+   compromise.
+
+Example:
+   namespace NMath {...}
+   namespace NStd {...}
+
+------------------------------------------------------------------------------
+
+*** Interfaces Names ***
+
+About:
+ * Interface is just a class with only abstract methods.
+ * Use upper case letters as word separators, lower case for  the  rest  of  a
+   word.
+ * First character in a name is 'I'.
+ * No underbars ('_').
+
+Justification:
+ * Of all the different naming strategies many people found this one the  best
+   compromise.
+
+Example:
+   class IClonable
+   {
+     virtual IClonable* clone() = 0;
+   };
+
+------------------------------------------------------------------------------
+
+*** Type Names ***
+
+About:
+ * Use upper case letters as word separators, lower case for  the  rest  of  a
+   word.
+ * First character in a name is 'T'.
+ * No underbars ('_').
+
+Justification:
+ * Of all the different naming strategies many people found this one the  best
+   compromise.
+
+Example:
+   typedef int Tint;
+   typedef float Treal32;
+
+------------------------------------------------------------------------------
+
+*** Enumerations Names ***
+
+About:
+ * Use upper case letters as word separators, lower case for  the  rest  of  a
+   word.
+ * First character in a name is 'E'.
+ * No underbars ('_').
+
+Justification:
+ * Of all the different naming strategies many people found this one the  best
+   compromise.
+
+Example:
+   enum ENameOneTwo {...};
+   enum EName {...};
+
+------------------------------------------------------------------------------
+
+*** Enumeration Values Names ***
+
+About:
+ * Use only upper case letters.
+ * Use '_' as world separator.
+ * First character in a name is 'e' than '_' goes.
+
+Justification:
+ * Of all the different naming strategies many people found this one the  best
+   compromise.
+
+Example:
+   enum ENameOneTwoThree
+   {
+     e_ONE,
+     e_TWO,
+     e_THREE
+   };
+
+------------------------------------------------------------------------------
+
+*** Function Objects (Functors) Names ***
+
+About:
+ * Use upper case letters as word separators, lower case for  the  rest  of  a
+   word.
+ * First character in a name is 'F'.
+ * No underbars ('_').
+
+Justification:
+ * Of all the different naming strategies many people found this one the  best
+   compromise.
+
+Example:
+   class FTester
+   {
+     ...
+     // Functor operator.
+     void operator () (int v);
+     ...
+   };
+
+------------------------------------------------------------------------------
+
+*** Unions Names ***
+
+About:
+ * Use upper case letters as word separators, lower case for  the  rest  of  a
+   word.
+ * First character in a name is 'U'.
+ * No underbars ('_').
+
+Justification:
+ * Of all the different naming strategies many people found this one the  best
+   compromise.
+
+Example:
+   union UNameOneTwo {...};
+   union UName {...};
+
+------------------------------------------------------------------------------
+
+*** Structures Names ***
+
+About:
+ * Use upper case letters as word separators, lower case for  the  rest  of  a
+   word.
+ * First character in a name is 'S'.
+ * No underbars ('_').
+
+Justification:
+ * Of all the different naming strategies many people found this one the  best
+   compromise.
+
+Example:
+   struct SNameOneTwo {...};
+   struct SName {...};
+
+------------------------------------------------------------------------------
+
+*** Class Names ***
+
+About:
+ * Use upper case letters as word separators, lower case for  the  rest  of  a
+   word.
+ * First character in a name is 'C'.
+ * No underbars ('_').
+
+Justification:
+ * Of all the different naming strategies many people found this one the  best
+   compromise.
+
+Example:
+   class CNameOneTwo {...};
+   class CName {...};
+
+------------------------------------------------------------------------------
+
+*** Class Collections Names ***
+
+About:
+ * If you have class collection with one base class  and  lots  of  child  sub
+   classes witch implements base interface (algorithms, hash  functions,  ets)
+   you should include base class name first, than insert sub class name.
+ * Use upper case letters as word separators, lower case for  the  rest  of  a
+   word.
+ * First character in a name is 'C'.
+ * No underbars ('_').
+
+Justification:
+ * Of all the different naming strategies many people found this one the  best
+   compromise.
+
+Example:
+   class CBaseSub {...};
+   class CHashCRC32 {...};
+   class CHashCRC16 {...};
+
+------------------------------------------------------------------------------
+
+*** Meta-Class Names ***
+
+About:
+ * Use upper case letters as word separators, lower case for  the  rest  of  a
+   word.
+ * First character in a name is 'M'.
+ * No underbars ('_').
+
+Justification:
+ * Of all the different naming strategies many people found this one the  best
+   compromise.
+
+Example:
+   tempate<class T_Iterator>
+   class MItratorTraits {...};
+
+------------------------------------------------------------------------------
+
+*** Class Method Names ***
+
+About:
+ * The first character should be lower case.
+ * Use upper case letters as word separators, lower case for  the  rest  of  a
+   word.
+ * No underbars ('_').
+
+Justification:
+ * Of all the different naming strategies many people found this one the  best
+   compromise.
+
+Example:
+   class CExample
+   {
+     int getInt();
+     float getFloat();
+   };
+
+------------------------------------------------------------------------------
+
+*** Class Method Argument Names ***
+
+About:
+ * Use upper case letters as word separators, lower case for  the  rest  of  a
+   word.
+ * First character in a name is 'a' than '_' goes.
+ * No underbars ('_').
+
+Justification:
+ * Prepending 'a' prevents any conflict with class attributes names and  local
+   variables.  Often  your  methods  and  attribute  names  will  be  similar,
+   especially for accessors.
+
+Example:
+   class CExample
+   {
+     void setInt(const int a_IntValue);
+     void setFloat(const float a_FloatValue);
+   };
+
+------------------------------------------------------------------------------
+
+*** Class Attribute Names ***
+
+About:
+ * Use upper case letters as word separators, lower case for  the  rest  of  a
+   word.
+ * First character in a name is 'm' than '_' goes.
+ * No underbars ('_').
+
+Justification:
+ * Prepending 'm' prevents any conflict with method attributes names and local
+   variables.  Often  your  methods  and  attribute  names  will  be  similar,
+   especially for accessors.
+
+Example:
+   class CExample
+   {
+   public:
+     int getVarAbc();
+     int getErrorNumber();
+   private:
+     int m_VarAbc;
+     int m_ErrorNumber;
+     String* m_pName;
+   }
+
+------------------------------------------------------------------------------
+
+*** Template Types Names (Template Arguments) ***
+
+About:
+ * Use upper case letters as word separators, lower case for  the  rest  of  a
+   word.
+ * First character in a name is 'T' than '_' goes.
+ * No underbars ('_').
+
+Justification:
+ * It's important to know the scope of a type name.
+
+Example:
+  template <class T_Type>
+  class Test
+  {
+    T_Type m_a;
+  };
+
+------------------------------------------------------------------------------
+
+*** Template Values Names (Template Arguments) ***
+
+About:
+ * Use upper case letters as word separators, lower case for  the  rest  of  a
+   word.
+ * First character in a name is 't' than '_' goes.
+ * No underbars ('_').
+
+Justification:
+ * It's important to know the scope of a type name.
+
+Example:
+  template <int t_Max>
+  class Test
+  {
+    int m_a[t_Max];
+  };
+
+------------------------------------------------------------------------------
+
+*** Global Constants, Class Static Constants and Magic Numbers ***
+
+About:
+ * Use only upper case letters.
+ * Use '_' as world separator.
+
+Justification:
+ * It's tradition for global constants to named this way. You must be  careful
+   to not conflict with other global #defines and enum labels.
+
+Example:
+   const int GLOBAL_CONSTANT = 5;
+
+   class CExample
+   {
+   public:
+     const int MAGIC_NUMBER = 90;
+     static const float MAX_FLOAT;
+   };
+
+------------------------------------------------------------------------------
+
+*** Variables Names on the global scope (Global Variables) ***
+
+About:
+ * Use upper case letters as word separators, lower case for  the  rest  of  a
+   word.
+ * First character in a name is 'the' than '_' goes.
+ * No underbars ('_').
+
+Justification:
+ * It's important to know the scope of a variable.
+
+Example:
+   Logger  the_Log;
+   Logger* the_pLog;
+
+------------------------------------------------------------------------------
+
+*** Variables Names on the Stack (Local Variables) ***
+
+About:
+ * Use all lower case letters.
+ * Use '_' as the word separator.
+
+Justification:
+ * With this approach the scope of the variable is clear in the code.
+ * Now all variables look different and are identifiable in the code.
+
+Example:
+   int CExample::getVarAbc()
+   {
+     int test = 0;
+     int test_and_one = test + 1;
+     return m_VarAbc + test_and_one;
+   }
+
+------------------------------------------------------------------------------
+
+*** Static Variables Names ***
+
+About:
+ * Variable name starts with 's_' for local variables.
+ * Variable name starts with 'gs_' for global variables.
+ * Variable name starts with 'ms_' for static class attributes.
+
+Justification:
+ * Prepending 's' prevents any conflict with method attributes names and local
+   variables.  Often  your  methods  and  attribute  names  will  be  similar,
+   especially for accessors.
+
+Example:
+   class CExample
+   {
+   public:
+     static int getVarAbc();
+     static int ms_VarAbc;
+   };
+
+   int CExample::getVarAbc()
+   {
+     static int s_tmp = ms_VarAbc;
+     return s_tmp;
+   };
+
+------------------------------------------------------------------------------
+
+*** Variables Names with Qualificators ***
+
+About:
+ * For different qualificators use first character before the variable name.
+ * For 'const' use 'c'.
+ * For functors or pointers to function use 'f'.
+ * For 'mutable' use 'm'.
+ * For pointers use 'p'.
+ * For reference use 'r'.
+ * For 'volatile' use 'v'.
+ * For mixed qualificators use lexical sorting.
+
+Justification:
+ * With this approach the scope of the variable is clear in the code.
+ * Now all variables look different and are identifiable in the code.
+ * The idea is that the difference between a pointer, object, and a  reference
+   to an object is important for understanding the  code,  especially  in  C++
+   where -> can be overloaded, and casting and copy semantics are important.
+ * Pointers really are a change of type so the * belongs near  the  type.  One
+   reservation with this policy relates to declaring multiple  variables  with
+   the same type on the same line. In C++ the pointer modifier only applies to
+   the closest variable, not  all  of  them,  which  can  be  very  confusing,
+   especially for newbies. You want to have one declaration per line anyway so
+   you can document each variable.
+
+Example:
+   class CExample
+   {
+   private:
+     const int* m_cpVar2;
+     volatile int& m_rvVar3;
+     String* m_pName, m_Name, m_Address; // Note, only pName is a pointer.
+     // But...
+     static const int CONST_1;
+     static const volatile int CONST_2;
+   };
+
+------------------------------------------------------------------------------
+
+*** C Function Names ***
+
+About:
+ * In a C++ project there should be very few C functions.
+ * For C functions use the GNU convention of all lower case letters  with  '_'
+   as the word delimiter.
+
+Justification:
+ * It makes C functions very different from any C++ related names.
+
+Example:
+   int some_bloody_function()
+   {
+   }
+
+==============================================================================
+ Declarations
+==============================================================================
+
+*** Number Per Line ***
+
+About:
+ * One declaration per line is recommended since it encourages commenting.  In
+   other words:
+
+   int level; // Indentation level.
+   int size;  // Size of table.
+
+   is preferred over
+
+   int level, size;
+
+ * Do not put different types on the same line. Example:
+
+   int foo, fooarray[10];               // WRONG!!!
+
+------------------------------------------------------------------------------
+
+*** Initialization ***
+
+About:
+ * Try to initialize local variables where they're declared. The  only  reason
+   not to initialize a variable where it's declared is if  the  initial  value
+   depends on some computation occurring first.
+
+------------------------------------------------------------------------------
+
+*** Placement ***
+
+About:
+ * Put declarations only at the beginning of blocks.  (A  block  is  any  code
+   surrounded by curly braces "{" and "}".) Don't wait  to  declare  variables
+   until their first use; it can confuse the unwary programmer and hamper code
+   portability within the scope.
+
+   void function()
+   {
+     int int1 = 0;                      // Beginning of method block.
+
+     if (condition)
+     {
+       int int2 = 0;                    // Beginning of "if" block.
+       ...
+     }
+   }
+
+ * The one exception to the rule is indexes of for loops, which in Java can be
+   declared in the for statement:
+
+   for (int i = 0; i < count; i++)
+   {
+     ...
+   }
+
+ * Avoid local declarations that  hide  declarations  at  higher  levels.  For
+   example, do not declare the same variable name in an inner block:
+
+   int count;
+   ...
+   function()
+   {
+     if (condition)
+     {
+       int count = 0;                   // AVOID!!!
+       ...
+     }
+     ...
+   }
+
+------------------------------------------------------------------------------
+
+*** Alignment of Declaration Blocks ***
+
+About:
+ * Block of declarations may be aligned to the maximal declaration length.
+
+Justification:
+ * Clarity.
+ * Similarly blocks of initialization of variables should be tabulated.
+ * The '&' and '*' tokens should be adjacent to the type, not the name.
+
+Example:
+   DWORD  m_Dword
+   DWORD* m_pDword
+   char*  m_pChar
+   char   m_Char
+
+   m_Dword  = 0;
+   m_pDword = NULL;
+   m_pChar  = 0;
+   m_Char   = NULL;
+
+==============================================================================
+ Classes
+==============================================================================
+
+*** Required Methods for a Class ***
+
+About:
+ * To be good citizens almost  all  classes  should  implement  the  following
+   methods. If you don't have to define and implement any  of  the  "required"
+   methods they should still  be  represented  in  your  class  definition  as
+   comments.
+
+ * Default Constructor.
+   If your class needs a constructor, make sure to provide one. You  need  one
+   if during the operation of the class it creates something or does something
+   that needs to be undone  when  the  object  dies.  This  includes  creating
+   memory, opening file descriptors, opening transactions etc.
+
+   If the default constructor is sufficient add a comment indicating that  the
+   compiler-generated version will be used.
+
+   If your default constructor has one  or  more  optional  arguments,  add  a
+   comment indicating that it still functions as the default constructor.
+
+ * Virtual Destructor.
+   If your class is intended to be derived from by other classes then make the
+   destructor virtual.
+
+ * Copy Constructor.
+   If your class is copyable, either define a copy constructor and  assignment
+   operator or add a comment indicating that the  compiler-generated  versions
+   will be used.
+
+   If your class objects should not be copied, make the copy  constructor  and
+   assignment operator private and don't define bodies for them. If you  don't
+   know whether the class objects should be copyable, then assume  not  unless
+   and until the copy operations are needed.
+
+ * Assignment Operator.
+   If your class is assignable, either define a assignment operator or  add  a
+   comment indicating that the compiler-generated versions will be used.
+
+   If your objects should  not  be  assigned,  make  the  assignment  operator
+   private and don't define bodies for them. If you  don't  know  whether  the
+   class objects should be assignable, then assume not.
+
+Justification:
+ * Virtual destructors ensure objects will be completely destructed regardless
+   of inheritance depth. You don't have to use a virtual destructor when:
+   - You don't expect a class to have descendants.
+   - The overhead of virtualness would be too much.
+   - An object must have a certain data layout and size.
+ * A default constructor allows an object to be used in an array.
+ * The copy constructor and assignment operator ensure  an  object  is  always
+   properly constructed.
+
+Example:
+   The default class template with all  required  methods.  An  example  using
+   default values:
+
+   class CPlanet
+   {
+   public:
+     // The following is the default constructor if
+     // no arguments are supplied:
+     //
+     CPlanet(int radius= 5);
+
+     // Use compiler-generated copy constructor, assignment, and destructor.
+     // CPlanet(const Planet&);
+     // CPlanet& operator=(const Planet&);
+     // ~CPlanet();
+   };
+
+------------------------------------------------------------------------------
+
+*** Automatically-Provided Member Functions ***
+
+About:
+ * C++ automatically provides the following methods for your  classes  (unless
+   you provide your own):
+   - A constructor;
+   - A copy constructor;
+   - An assignment operator;
+   - Two address-of operators (const and non-const);
+   - A destructor.
+
+Justification:
+ * Every class writer must consider whether the default functions are  correct
+   for that class. If they are, a comment must be provided where the  function
+   would be declared so that a reader of the class knows that  the  issue  was
+   considered, not forgotten.
+
+ * If a class has no valid meaning for these functions, you should declare  an
+   implementation in the private section of the class. Such a function  should
+   probably call abort(), throw an exception, or otherwise generate a  visible
+   runtime error.
+
+ * This ensures that the compiler will not use  the  default  implementations,
+   that it will not allow users to invoke that function, and that if a  member
+   function uses it by accident, it may at least be caught at runtime.
+
+ * It is a good idea to always define a constructor, copy constructor,  and  a
+   destructor for every class you write, even if they don't do anything.
+
+Example:
+   // You write this ...
+   class CEmpty { };
+
+   // You really get this ...
+   class CEmpty
+   {
+   public:
+     // Constructor.
+     CEmpty() { }
+     // Destructor.
+    ~CEmpty() { }
+     // Copy constructor.
+     CEmpty(const CEmpty &rhs);
+
+     // Assignment operator.
+     CEmpty& operator = (const CEmpty &rhs);
+
+     // Address-of operators.
+     CEmpty* operator & ();
+     const CEmpty* operator & () const;
+   };
+
+------------------------------------------------------------------------------
+
+*** Function Overloading ***
+
+About:
+ *  Overloading  function  names  must  only  be  done  if  the  functions  do
+    essentially the same thing. If they do not, they must not  share  a  name.
+    Declarations of overloaded functions should be grouped together.
+
+------------------------------------------------------------------------------
+
+*** Operator Overloading ***
+
+About:
+ * Deciding when to overload  operators  requires  careful  thought.  Operator
+   overloading does not simply create a short-hand for  an  operation  ---  it
+   creates a set of expectations in the  mind  of  the  reader,  and  inherits
+   precedence from the language.
+
+ * You should only use  an  operator  shorthand  if  the  logical  meaning  of
+   applying the operator on the type(s) involved is intuitive, either  because
+   of common usage (for example, + on  strings  concatenates,  <<  adds  to  a
+   stream) or real algebra on the types (for example, a position class plus an
+   offset gets a different position).
+
+ * If you overload one  operator  of  a  logically  connected  set,  you  must
+   overload the rest of the set, if for no other reason than  to  generate  an
+   error if the others are called when they are not meaningful. Overloading  <
+   without overloading > or >= will astonish the user in unhappy ways, as will
+   overloading + and = but not += . In particular, -> . and []  should  always
+   be considered a set:
+
+   foo->member();               // Should be identical to...
+   (*foo).member();             // which should also be identical to...
+   foo[0].member();
+
+   Overloading == requires overloading !=, and vice versa.
+
+   If the expression (a !=  b)  is  not  equivalent  to  !(a  ==  b)  we  have
+   unacceptably astonished the user.
+
+ * Note  that  while  you  can  overload  operators,  you  cannot  change  the
+   language's precedence rules.
+
+ * If an operator in a set does not make sense, you must override  it  in  the
+   private section so that the compiler will report the error  to  anyone  who
+   assumes that the set is complete. However, this should be a flag for you to
+   consider whether the operator overloading really is natural --- the  strong
+   presumption is that you are not going to override all members  in  the  set
+   then none of the members of the set should be overridden.
+
+ * Use type-cast operators  selectively.  Like  so  many  C++  features,  type
+   casting can either clarify or obscure your  code.  If  a  type  cast  seems
+   "natural", like the conversion between floating point  and  integers,  then
+   providing a cast function seems like a good  idea.  If  the  conversion  is
+   unusual or nonsensical, then the existence of a cast function can  make  it
+   very hard to figure out what's going on. In the  latter  case,  you  should
+   define a conversion function that must be called explicitly. If you provide
+   a type-cast operator, you must provide an equivalent conversion function as
+   well.
+
+   This allows the user of the class to determine if a cast is  more  readable
+   than a member function invocation, for example, to avoid  casts  that  look
+   like they should be automatically done by the compiler, but are explicit to
+   invoke the cast.
+
+==============================================================================
+ Statements
+==============================================================================
+
+*** One Statement Per Line ***
+
+About:
+ * There should be only one statement per line unless the statements are  very
+   closely related.
+
+------------------------------------------------------------------------------
+
+*** Compound Statements ***
+
+About:
+ * Compound  statements  are  statements  that  contain  lists  of  statements
+   enclosed in braces.
+
+Justification:
+ * Each line must contain at most one statement. In particular, do not use the
+   comma operator to group multiple statements on one line, or to avoid  using
+   braces. For example:
+
+   // The bad way.
+   {
+     // Multiple statements are bad.
+     argv++; argc--;
+     // Using `,' is worse.
+     if (err)
+       fprintf(stderr, "error\n"), exit(1);
+   }
+
+   // The right way.
+   {
+     argv++;
+     argc--;
+     if (err)
+     {
+       fprintf(stderr, "error\n");
+       exit(1);
+
+     }
+   }
+
+ * The enclosed list must  be  indented  one  more  level  than  the  compound
+   statement itself. The opening left brace must be at the  end  of  the  line
+   beginning the compound statement and the closing right brace must be  alone
+   on a line, positioned under the beginning of the  compound  statement  (see
+   example below).
+ * The left brace that begins a function body, a class definition,  or  a  new
+   scope are the only occurrences of a left brace that should be  alone  on  a
+   line.
+
+   {
+     // New Block Scope
+     int some_variable;
+
+     statements;
+   }
+
+
+ * Braces are always used around any multi-line statement when it is part of a
+   control structure, such as an if/else or for statement, as in:
+
+   // Braces required; following "if" is two lines.
+   if (condition)
+   {
+     // Braces not required -- only one line follows.
+     if (other_condition)
+       statement;
+   }
+
+ * Braces are not required for control  structures  with  single-line  bodies,
+   except for do/while loops, whose  always  require  enclosing  braces.  This
+   single-line rule includes a full if/else/else/... statement:
+
+   if (condition)
+     single_thing();
+   else if (other_condition)
+     other_thing();
+   else
+     final_thing();
+
+   Note that this is a "single-line rule", not a "single statement  rule".  It
+   applies to things that fit on a single line.
+
+------------------------------------------------------------------------------
+
+*** return Statements ***
+
+About:
+ * Simple expression associated with return statements is not required  to  be
+   enclosed in parentheses. Otherwise complex  exception  is  required  to  be
+   enclosed in parentheses.
+
+Example:
+   {
+     if (test1)
+       return a;
+     else if (test2)
+       return (a + b);
+     else
+       return (int)c;
+   }
+
+------------------------------------------------------------------------------
+
+*** If Then Else Statement ***
+
+About:
+ * Layout.
+   It's up to the programmer. Different bracing  styles  will  yield  slightly
+   different looks. One common approach is:
+
+   // Condition comment.
+   if (condition)
+   {
+     // If comment.
+     ...
+   }
+   else if (condition)
+   {
+     // Else-If comment.
+     ...
+   }
+   else
+   {
+     // Else comment.
+     ...
+   }
+
+   If you have else if statements then it is usually a  good  idea  to  always
+   have an else block for finding unhandled cases. Maybe put a log message  in
+   the else even if there is no corrective action taken.
+
+ * Condition Format.
+   You may put the constant on the left hand side  of  an  equality/inequality
+   comparison. For example:
+
+   if (6 == errorNum) ...
+
+   One reason is that if you leave out one of the = signs, the  compiler  will
+   find the error for you. A second reason is that it puts the value  you  are
+   looking for right up front where you can find it instead of buried  at  the
+   end of your expression. It takes a little time to get used to this  format,
+   but then it really gets useful.
+
+------------------------------------------------------------------------------
+
+*** for Statements ***
+
+About:
+ * A for statement should have the form as in following example.
+ * An empty for  statement  (one  in  which  all  the  work  is  done  in  the
+   initialization, condition, and update  clauses)  should  have  form  as  in
+   following example.
+ * When using the comma operator in the initialization or update clause  of  a
+   for statement, avoid the complexity of using more than three variables.  If
+   needed, use separate statements before the for loop (for the initialization
+   clause) or at the end of the loop (for the update clause).
+
+Example:
+   // A non empty for statement.
+   for (initialization; condition; update)
+   {
+      statements;
+   }
+
+   // An empty for statement.
+   for (initialization; condition; update);
+
+------------------------------------------------------------------------------
+
+*** while Statements ***
+
+About:
+ * A while statement should have the form as in following example.
+ * An empty while statement should have form as in following example.
+
+Example:
+    // A non empty while statement.
+    while (condition)
+    {
+      statements;
+    }
+
+    // An empty while statement.
+    while (condition);
+
+------------------------------------------------------------------------------
+
+*** do-while Statements ***
+
+About:
+ * A do-while statement should have the form as in following example.
+
+Example:
+    do
+    {
+      statements;
+    } while (condition);
+
+------------------------------------------------------------------------------
+
+*** switch Statement ***
+
+About:
+ * Falling through a case statement into the  next  case  statement  shall  be
+   permitted as long as a comment is included.
+ * The default case should always be present and trigger an error if it should
+   not be reached, yet is reached.
+ * If you need to create variables put all the code in a block.
+
+Example:
+   switch (...)
+   {
+     case 1:
+       ...
+
+     // FALL THROUGH!!!
+     case 2:
+     {
+       int v;
+       ...
+     }
+     break;
+
+     default:
+   }
+
+------------------------------------------------------------------------------
+
+*** Use of goto, continue, break and ?: ***
+
+About:
+ * Goto.
+   Goto statements should be used sparingly, as in any  well-structured  code.
+   The goto debates are boring so we won't go into them here. The  main  place
+   where they can be usefully employed is to break out of  several  levels  of
+   switch, for, and while nesting, although the need to do such  a  thing  may
+   indicate that the inner constructs should be broken  out  into  a  separate
+   function, with a success/failure return code.
+
+   for (...)
+   {
+     while (...)
+     {
+       ...
+       if (disaster)
+         goto error;
+     }
+   }
+   ...
+   error:
+     clean up the mess
+
+   When a goto is necessary the accompanying label should be alone on  a  line
+   and to the left of the code that follows.  The  goto  should  be  commented
+   (possibly in the block header) as to its utility and purpose.
+
+ * Continue and Break.
+   Continue and break are really disguised gotos so  they  are  covered  here.
+   Continue and break like goto should be used sparingly as they are magic  in
+   code. With a simple spell the reader is beamed to god knows where for  some
+   usually undocumented reason.
+
+   The two main problems with continue are:
+    - It may bypass the test condition.
+    - It may bypass the increment/decrement expression.
+
+   Consider the following example where both problems occur:
+
+   while (TRUE)
+   {
+     ...
+     // A lot of code
+     ...
+     if (/* some condition */)
+       continue;
+     ...
+     // A lot of code
+     ...
+     if ( i++ > STOP_VALUE)
+       break;
+   }
+
+   Note: "A lot of code" is necessary in order  that  the  problem  cannot  be
+   caught easily by the programmer.
+
+   From the above example, a further rule may be given: Mixing  continue  with
+   break in the same loop is a sure way to disaster.
+
+ * ?:
+   The trouble is people usually try and stuff too much code in between the  ?
+   and :. Here are a couple of clarity rules to follow:
+    - Put the condition in parens so as to set it off from other code.
+    - If possible, the actions for the test should be simple functions.
+    - Put the action for the then and else statement on a separate line unless
+      it can be clearly put on one line.
+
+Example:
+   (condition) ? funct1() : func2();
+
+   or
+
+   (condition)
+     ? long statement
+     : another long statement;
+
+------------------------------------------------------------------------------
+
+*** Infinite Loops ***
+
+About:
+ * The infinite loop is written using a for loop: for (;;) ...
+
+Justification:
+ * This form is better than the functionally equivalent while (TRUE) or  while
+   (1) since they imply a test against TRUE (or 1), which is neither necessary
+   nor meaningful (if TRUE ever is not true, then we are all in real trouble).
+
+Example:
+   for (;;)
+   {
+      infinite_action();
+   }
+
+------------------------------------------------------------------------------
+
+*** Empty Loops ***
+
+About:
+ * Loops that have no body must use the "continue" keyword to make it  obvious
+   that this was intentional.
+
+Example:
+   while (*string_pointer++ != '\0')
+     continue;
+
+------------------------------------------------------------------------------
+
+*** try/catch Statements ***
+
+About:
+ * The proposed C++ syntax for exception handling is not to be used in  shared
+   code at this time. Instead it we use return flag checking.
+ * If you decide to use try/catch  statements,  use  syntax  as  in  following
+   example .
+
+Example:
+   // A try-catch statement should have the following format.
+   try
+   {
+     statements;
+   }
+   catch (...)
+   {
+     statements;
+   }
+
+   // A try-catch statement may also be followed by  finally,  which  executes
+   // regardless of whether or not the try block has completed successfully.
+   try
+   {
+     statements;
+   }
+   catch (...)
+   {
+     statements;
+   }
+   finally
+   {
+     statements;
+   }
+
+==============================================================================
+ Miscellaneous
+==============================================================================
+
+*** No Magic Numbers ***
+
+About:
+ * A magic number is a bare naked number  used  in  source  code.  It's  magic
+   because no-one has a clue what it  means  including  the  author  inside  3
+   months. For example:
+
+   if (foo == 22)
+   {
+     start_thermo_nuclear_war();
+   }
+   else if (foo == 19)
+   {
+     refund_lotso_money();
+   }
+   else if (foo == 16)
+   {
+     infinite_loop();
+   }
+   else
+   {
+     cry_cause_im_lost();
+   }
+
+   In the above example what do 22 and 19 mean? If there was a  number  change
+   or the numbers were just plain wrong how would you know? Instead  of  magic
+   numbers use a real name that  means  something.  You  can  use  #define  or
+   constants or enums as names. Which one is a design choice. For example:
+
+   #define PRESIDENT_WENT_CRAZY (22)
+   const int WE_GOOFED = 19;
+   enum
+   {
+     THEY_DIDNT_PAY = 16
+   };
+
+   if (foo == PRESIDENT_WENT_CRAZY)
+   {
+     start_thermo_nuclear_war();
+   }
+   else if (foo == WE_GOOFED)
+   {
+     refund_lotso_money();
+   }
+   else if (foo == THEY_DIDNT_PAY)
+   {
+     infinite_loop();
+   }
+   else
+   {
+     happy_days_i_know_why_im_here();
+   }
+
+   Now isn't that better?
+
+------------------------------------------------------------------------------
+
+*** Error Return Check Policy ***
+
+About:
+ * Check every system call for an error return, unless you know  you  wish  to
+   ignore errors. For example, printf returns an error code but  rarely  would
+   you check for its return code. In which case you can  cast  the  return  to
+   (void) if you really care.
+ * Include the system error text for every system error message.
+ * Check every call to malloc or realloc unless  you  know  your  versions  of
+   these calls do the right thing.
+
+------------------------------------------------------------------------------
+
+*** To Use Enums or Not to Use Enums ***
+
+About:
+ * C++ allows constant variables, which should deprecate the use of  enums  as
+   constants. Unfortunately, in most  compilers  constants  take  space.  Some
+   compilers will remove  constants,  but  not  all.  Constants  taking  space
+   precludes them from being used in tight memory environments  like  embedded
+   systems. Workstation users should use constants and ignore the rest of this
+   discussion.
+
+   In general enums are preferred to #define as enums are  understood  by  the
+   debugger.
+
+   Be aware enums are not of a guaranteed size. So if you have a type that can
+   take a known range of values and it is transported in a message  you  can't
+   use an enum as the type. Use the correct integer size and use constants  or
+   #define. Casting between integers and enums is  very  error  prone  as  you
+   could cast a value not in the enum.
+
+ * C++ Workaround.
+   C++ allows static class variables. These variables are  available  anywhere
+   and only the expected amount of space is taken.
+
+Example:
+   class CVariables
+   {
+   public:
+     static const int A_VARIABLE;
+     static const int B_VARIABLE;
+     static const int C_VARIABLE;
+   }
+
+------------------------------------------------------------------------------
+
+*** Macros ***
+
+About:
+ * Don't Turn C++ into Pascal.
+   Don't  change  syntax  via  macro  substitution.  It  makes   the   program
+   unintelligible to all but the perpetrator.
+
+ * Replace Macros with Inline Functions.
+   In C++ macros are not needed for code efficiency. Use inlines.
+   Example:
+
+   #define MAX(x,y) (((x) > (y) ? (x) : (y))
+
+   The macro above can be replaced for  integers  with  the  following  inline
+   function with no loss of efficiency:
+
+   inline int max(int x, int y)
+   {
+      return (x > y ? x : y);
+   }
+
+ * Be Careful of Side Effects.
+   Macros should be used with caution because of the potential for error  when
+   invoked with an expression that has side effects.
+   Example:
+
+   MAX(f(x),z++);
+
+------------------------------------------------------------------------------
+
+*** Do Not Default If Test to Non-Zero ***
+
+About:
+ * Do not default the test for non-zero, i.e.
+
+   if (f() == FAIL)
+
+   is better than
+
+   if (f())
+
+   even though FAIL may have the value 0 which C considers to be false.
+
+------------------------------------------------------------------------------
+
+*** Use #if 0 to Comment Out Code Blocks ***
+
+About:
+ * Sometimes large blocks of code need to be commented out  for  testing.  The
+   easiest way to do this is with an #if 0 block:
+
+   void example()
+   {
+     great looking code
+
+     #if 0
+     lots of code
+     #endif
+
+     more code
+   }
+
+ * You can't use /**/ style comments because comments can't  contain  comments
+   and surely a large block of your code will contain a comment, won't it?
+
+ * Don't use #ifdef  as  someone  can  unknowingly  trigger  ifdefs  from  the
+   compiler command line.
+
+------------------------------------------------------------------------------
+
+*** Use #if Not #ifdef ***
+
+About:
+ * Use #if MACRO not #ifdef MACRO. Someone might write code like:
+
+   #ifdef DEBUG
+     temporary_debugger_break();
+   #endif
+
+   Someone else might compile the code with turned-of debug info like:
+
+   cc -c lurker.cpp -DDEBUG=0
+
+ * Alway use #if, if you have to use the preprocessor. This  works  fine,  and
+   does the right thing, even if DEBUG is not defined at all (!)
+
+   #if DEBUG
+     temporary_debugger_break();
+   #endif
+
+ * If you really need to test whether a symbol is defined or not, test it with
+   the defined() construct, which allows you to add more things later  to  the
+   conditional without editing text that's already in the program:
+
+   #if !defined(USER_NAME)
+     #define USER_NAME "john smith"
+   #endif
+
+------------------------------------------------------------------------------
+
+*** Mixing C and C++ ***
+
+About:
+ * In order to be backward compatible with dumb linkers C++'s link  time  type
+   safety is implemented by encoding  type  information  in  link  symbols,  a
+   process called name mangling. This creates a problem when linking to C code
+   as C function names are not mangled. When calling a C function from C++ the
+   function name will be mangled unless you turn  it  off.  Name  mangling  is
+   turned off with the extern "C" syntax. If you want to create a  C  function
+   in C++ you must wrap it with the above syntax. If you  want  to  call  a  C
+   function in a C library from C++ you must wrap in the  above  syntax.
+   Here are some examples:
+
+   - Calling C Functions from C++.
+
+     extern "C" int strncpy(...);
+     extern "C" int my_great_function();
+     extern "C"
+     {
+       int strncpy(...);
+       int my_great_function();
+     };
+
+   - Creating a C Function in C++.
+
+     extern "C" void a_c_function_in_cplusplus(int a)
+     {
+     }
+
+   - __cplusplus Preprocessor Directive.
+     If you have code that must compile in a C and C++  environment  then  you
+     must use the __cplusplus preprocessor directive. For example:
+
+     #ifdef __cplusplus
+       extern "C" some_function();
+     #else
+       extern some_function();
+     #endif
+
+------------------------------------------------------------------------------
+
+*** Alignment of Class Members ***
+
+About:
+ * There seems to be disagreement on how to align class data members. Be aware
+   that different platforms have different alignment rules and it  can  be  an
+   issue. Alignment may also be an issue when using shared memory  and  shared
+   libraries.
+
+ * The real thing to remember when it comes to alignment is to put the biggest
+   data members first, and smaller members later, and to pad  with  char[]  so
+   that the same structure would be used no matter whether the compiler was in
+   "naturally aligned" or "packed" mode.
+
+ * For the Mac there's no blanket "always on  four  byte  boundaries"  rule  -
+   rather, the rule is "alignment is natural, but never bigger than  4  bytes,
+   unless the member is a double and first in the struct in which case  it  is
+   8". And that rule was inherited from PowerOpen/AIX.
+
+------------------------------------------------------------------------------
+
+*** No Data Definitions in Header Files ***
+
+About:
+ * Do not put data definitions in header files. for example:
+
+   /*
+    * aheader.h
+    */
+   int x = 0;
+
+   1) It's bad magic to have space consuming code  silently  inserted  through
+      the innocent use of header files.
+   2) It's not common practice to define variables in the header  file  so  it
+      will not occur to devellopers to look for this when there are problems.
+   3) Consider defining the variable once in a .cpp file  and  use  an  extern
+      statement to reference it.
+   4) Consider using a singleton for access to the data.
+
+------------------------------------------------------------------------------
+
+*** Other things ***
+
+ * Don't use floating-point variables where discrete values are needed.  Using
+   a float for a loop counter is a great way to shoot yourself  in  the  foot.
+   Always test floating-point  numbers  as  <=  or  >=,  never  use  an  exact
+   comparison (== or !=).
+
+ * Compilers have bugs. Common trouble spots include structure assignment  and
+   bit fields. You cannot generally predict which bugs  a  compiler  has.  You
+   could write a program that avoids all constructs that are known  broken  on
+   all compilers. You won't be able to write anything useful, you might  still
+   encounter bugs, and the compiler might get fixed in  the  meanwhile.  Thus,
+   you should write ``around'' compiler bugs only when you are forced to use a
+   particular buggy compiler.
+
+ * Do not rely on automatic beautifiers. The main  person  who  benefits  from
+   good program style is the programmer him/herself,  and  especially  in  the
+   early  design  of  handwritten   algorithms   or   pseudo-code.   Automatic
+   beautifiers can only be applied to complete, syntactically correct programs
+   and hence are not available when the need for attention to white space  and
+   indentation is greatest. Programmers can do a better job  of  making  clear
+   the complete visual layout of a function or file, with the normal attention
+   to detail of a careful programmer (in  other  words,  some  of  the  visual
+   layout is dictated by intent rather than syntax and beautifiers cannot read
+   minds). Sloppy programmers should learn to be careful  programmers  instead
+   of relying on a beautifier to make  their  code  readable.  Finally,  since
+   beautifiers  are  non-trivial  programs  that  must  parse  the  source,  a
+   sophisticated beautifier is  not  worth  the  benefits  gained  by  such  a
+   program. Beautifiers are best for  gross  formatting  of  machine-generated
+   code.
+
+ * Accidental omission of the  second  ``=''  of  the  logical  compare  is  a
+   problem. The following is confusing and prone to error.
+
+   if (abool = bbool)
+   {
+     ...
+   }
+
+   Does the programmer really mean assignment here? Often yes, but usually no.
+   The solution is to just not do it, an inverse Nike philosophy. Instead  use
+   explicit tests and avoid assignment with an implicit test. The  recommended
+   form is to do the assignment before doing the test:
+
+   abool = bbool;
+   if (abool)
+   {
+     ...
+   }
+
+ * Modern compilers will put variables in  registers  automatically.  Use  the
+   register sparingly to indicate  the  variables  that  you  think  are  most
+   critical. In extreme cases, mark the 2-4 most critical values  as  register
+   and mark the rest as REGISTER. The latter can be #defined  to  register  on
+   those machines with many registers.
+
+==============================================================================
+ References
+==============================================================================
+
+ 1. Todd Hoff. C++ Coding Standard.
+    http://www.chris-lott.org/resources/cstyle/CppCodingStandard.html
+ 2. Keith Gabryelski. Wildfire C++ Programming Style.
+    http://www.chris-lott.org/resources/cstyle/Wildfire-C++Style.html
+ 3. Koen Witters. Tao of Coding.
+    http://www.chris-lott.org/resources/cstyle/witters_tao_coding.html
+
+==============================================================================

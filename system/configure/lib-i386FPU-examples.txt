@@ -1,0 +1,63 @@
+# Check for the possibility to build 'i386FPU' static library examples.
+IF(LIB_I386FPU_IS_SUPPORTED)
+
+  # Define the presents flag of the 'i386FPU' static library examples.
+  SET(LIB_I386FPU_EXAMPLES_PRESENT 1)
+
+  # Define 'i386FPU' examples project name.
+  SET(LIB_I386FPU_EXAMPLES "lib-i386FPU-examples")
+
+  # Define 'i386FPU' examples project.
+  PROJECT(${LIB_I386FPU_EXAMPLES})
+
+  # Define source path of the 'i386FPU' static library examples.
+  SET(LIB_I386FPU_EXAMPLES_SRC_PATH "${DEPTH_EXAMPLES}/lib-i386FPU")
+
+  # Define sources of the 'i386FPU' static library examples.
+  FILE(GLOB LIB_I386FPU_EXAMPLES_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/${LIB_I386FPU_EXAMPLES_SRC_PATH} "${LIB_I386FPU_EXAMPLES_SRC_PATH}/*.cpp")
+
+  # Define example targets of the 'i386FPU' static library.
+  SET(LIB_I386FPU_EXAMPLES_TARGETS)
+
+  # Compile the 'i386FPU' static library examples.
+  FOREACH(LIB_I386FPU_EXAMPLES_SOURCE ${LIB_I386FPU_EXAMPLES_SOURCES})
+
+    # Get example name.
+    STRING(REGEX REPLACE "(.*)\\.cpp" "\\1" LIB_I386FPU_EXAMPLE ${LIB_I386FPU_EXAMPLES_SOURCE})
+
+    # Add new local example target.
+    LIST(APPEND LIB_I386FPU_EXAMPLES_TARGETS ${LIB_I386FPU_EXAMPLE})
+    # Add new global example target.
+    LIST(APPEND DEPTH_EXAMPLES_TARGETS ${LIB_I386FPU_EXAMPLE})
+
+    # Build new example.
+    ADD_EXECUTABLE(${LIB_I386FPU_EXAMPLE} ${LIB_I386FPU_EXAMPLES_SRC_PATH}/${LIB_I386FPU_EXAMPLES_SOURCE})
+
+    # Set compiler flags.
+    SET_PROPERTY(TARGET ${LIB_I386FPU_EXAMPLE} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_APP__" "__CONSOLE__")
+
+    # Link the example with the 'i386FPU' static library.
+    TARGET_LINK_LIBRARIES(${LIB_I386FPU_EXAMPLE} ${LIB_I386FPU})
+    # Link the example with the 'DepthBase' shared library.
+    TARGET_LINK_LIBRARIES(${LIB_I386FPU_EXAMPLE} ${DEPTH_BASE})
+    # Link the example with the 'DepthApplication' shared library.
+    TARGET_LINK_LIBRARIES(${LIB_I386FPU_EXAMPLE} ${DEPTH_APPLICATION})
+    # Link the example with the 'DepthApplicationConsole' static library.
+    TARGET_LINK_LIBRARIES(${LIB_I386FPU_EXAMPLE} ${DEPTH_APPLICATION_CONSOLE})
+
+    # Install the 'i386FPU' example.
+    INSTALL(TARGETS ${LIB_I386FPU_EXAMPLE}
+            RUNTIME DESTINATION ${DEPTH_BIN}
+            OPTIONAL)
+
+  ENDFOREACH(LIB_I386FPU_EXAMPLES_SOURCE)
+
+  # Add 'i386FPU' example set.
+  ADD_CUSTOM_TARGET(${LIB_I386FPU_EXAMPLES} DEPENDS ${LIB_I386FPU_EXAMPLES_TARGETS})
+
+ELSE(LIB_I386FPU_IS_SUPPORTED)
+
+  # Define the presents flag of the 'i386FPU' static library examples.
+  SET(LIB_I386FPU_EXAMPLES_PRESENT 0)
+
+ENDIF(LIB_I386FPU_IS_SUPPORTED)

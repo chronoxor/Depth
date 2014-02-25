@@ -1,0 +1,85 @@
+# Define the presents flag of the 'DepthBase' shared library tests.
+SET(DEPTH_BASE_TESTS_PRESENT 1)
+
+# Define 'DepthBase' tests project name.
+SET(DEPTH_BASE_TESTS "DepthBase-tests")
+
+# Define 'DepthBase' tests project.
+PROJECT(${DEPTH_BASE_TESTS})
+
+# Prepare sources directories for the 'DepthBase' shared library tests.
+LIST(APPEND DEPTH_BASE_TESTS_SOURCES_DIRS
+        "${DEPTH_TESTS}/algorithms"
+        "${DEPTH_TESTS}/base"
+        "${DEPTH_TESTS}/common"
+        "${DEPTH_TESTS}/configure"
+        "${DEPTH_TESTS}/containers"
+        "${DEPTH_TESTS}/errors"
+        "${DEPTH_TESTS}/functors"
+        "${DEPTH_TESTS}/math"
+        "${DEPTH_TESTS}/memory"
+        "${DEPTH_TESTS}/stream"
+        "${DEPTH_TESTS}/string"
+        "${DEPTH_TESTS}/time"
+        "${DEPTH_TESTS}/tuple"
+        "${DEPTH_TESTS}/traits"
+        "${DEPTH_TESTS}/utility")
+
+# Collect and parse sources for the 'DepthBase' shared library tests.
+FOREACH(DEPTH_BASE_TESTS_SOURCES_DIR ${DEPTH_BASE_TESTS_SOURCES_DIRS})
+
+  # Define source path of the 'DepthBase' shared library tests.
+  SET(DEPTH_BASE_TESTS_SRC_PATH ${DEPTH_BASE_TESTS_SOURCES_DIR})
+
+  # Define sources of the 'DepthBase' shared library tests.
+  FILE(GLOB DEPTH_BASE_TESTS_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/${DEPTH_BASE_TESTS_SRC_PATH} "${DEPTH_BASE_TESTS_SRC_PATH}/*.cpp")
+
+  # Define test targets of the 'DepthBase' shared library.
+  SET(DEPTH_BASE_TESTS_TARGETS)
+
+  # Compile the 'DepthBase' shared library tests.
+  FOREACH(DEPTH_BASE_TESTS_SOURCE ${DEPTH_BASE_TESTS_SOURCES})
+
+    # Get test name.
+    STRING(REGEX REPLACE "(.*)\\.cpp" "\\1" DEPTH_BASE_TEST ${DEPTH_BASE_TESTS_SOURCE})
+
+    # Add new local test target.
+    LIST(APPEND DEPTH_BASE_TESTS_TARGETS ${DEPTH_BASE_TEST})
+    # Add new global test target.
+    LIST(APPEND DEPTH_TESTS_TARGETS ${DEPTH_BASE_TEST})
+
+    # Build new test.
+    ADD_EXECUTABLE(${DEPTH_BASE_TEST} ${DEPTH_BASE_TESTS_SRC_PATH}/${DEPTH_BASE_TESTS_SOURCE})
+
+    # Set compiler flags.
+    SET_PROPERTY(TARGET ${DEPTH_BASE_TEST} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_APP__" "__CONSOLE__")
+    SET_PROPERTY(TARGET ${DEPTH_BASE_TEST} APPEND PROPERTY COMPILE_FLAGS "${CMAKE_INCLUDE_PREFIX}${DEPTH_SOURCE}/system/sys-All/unit")
+
+    # Add new test.
+    ADD_TEST(${DEPTH_BASE_TEST} ${DEPTH_BIN}/${DEPTH_BASE_TEST})
+
+    # Set test property.
+    SET_TESTS_PROPERTIES(${DEPTH_BASE_TEST} PROPERTIES PASS_REGULAR_EXPRESSION "Test passed successfully!;Test passed with some warnings!" FAIL_REGULAR_EXPRESSION "Test failed with some errors!;Test execution was stopped!")
+
+    # Link the test with the 'DepthBase' shared library.
+    TARGET_LINK_LIBRARIES(${DEPTH_BASE_TEST} ${DEPTH_BASE})
+    # Link the test with the 'DepthRandom' shared library.
+    TARGET_LINK_LIBRARIES(${DEPTH_BASE_TEST} ${DEPTH_RANDOM})
+    # Link the test with the 'DepthUnitTest' shared library.
+    TARGET_LINK_LIBRARIES(${DEPTH_BASE_TEST} ${DEPTH_UNITTEST})
+    # Link the test with the 'DepthUnitTestCMake' shared library.
+    TARGET_LINK_LIBRARIES(${DEPTH_BASE_TEST} ${DEPTH_UNITTEST_CMAKE})
+    # Link the test with the 'DepthUnitTestMobile' shared library.
+    TARGET_LINK_LIBRARIES(${DEPTH_BASE_TEST} ${DEPTH_UNITTEST_MOBILE})
+
+    # Install the 'DepthBase' test.
+    INSTALL(TARGETS ${DEPTH_BASE_TEST}
+            RUNTIME DESTINATION ${DEPTH_BIN}
+            OPTIONAL)
+
+  ENDFOREACH(DEPTH_BASE_TESTS_SOURCE)
+
+ENDFOREACH(DEPTH_BASE_TESTS_SOURCES_DIR)
+
+# Add 'DepthBase' test set.
+ADD_CUSTOM_TARGET(${DEPTH_BASE_TESTS} DEPENDS ${DEPTH_BASE_TESTS_TARGETS})

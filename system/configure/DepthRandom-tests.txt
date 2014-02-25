@@ -1,0 +1,62 @@
+# Define the presents flag of the 'DepthRandom' shared library tests.
+SET(DEPTH_RANDOM_TESTS_PRESENT 1)
+
+# Define 'DepthRandom' tests project name.
+SET(DEPTH_RANDOM_TESTS "DepthRandom-tests")
+
+# Define 'DepthRandom' tests project.
+PROJECT(${DEPTH_RANDOM_TESTS})
+
+# Define source path of the 'DepthRandom' shared library tests.
+SET(DEPTH_RANDOM_TESTS_SRC_PATH "${DEPTH_TESTS}/random")
+
+# Define sources of the 'DepthRandom' shared library tests.
+FILE(GLOB DEPTH_RANDOM_TESTS_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/${DEPTH_RANDOM_TESTS_SRC_PATH} "${DEPTH_RANDOM_TESTS_SRC_PATH}/*.cpp")
+
+# Define test targets of the 'DepthRandom' shared library.
+SET(DEPTH_RANDOM_TESTS_TARGETS)
+
+# Compile the 'DepthRandom' shared library tests.
+FOREACH(DEPTH_RANDOM_TESTS_SOURCE ${DEPTH_RANDOM_TESTS_SOURCES})
+
+  # Get test name.
+  STRING(REGEX REPLACE "(.*)\\.cpp" "\\1" DEPTH_RANDOM_TEST ${DEPTH_RANDOM_TESTS_SOURCE})
+
+  # Add new local test target.
+  LIST(APPEND DEPTH_RANDOM_TESTS_TARGETS ${DEPTH_RANDOM_TEST})
+  # Add new global test target.
+  LIST(APPEND DEPTH_TESTS_TARGETS ${DEPTH_RANDOM_TEST})
+
+  # Build new test.
+  ADD_EXECUTABLE(${DEPTH_RANDOM_TEST} ${DEPTH_RANDOM_TESTS_SRC_PATH}/${DEPTH_RANDOM_TESTS_SOURCE})
+
+  # Set compiler flags.
+  SET_PROPERTY(TARGET ${DEPTH_RANDOM_TEST} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_APP__" "__CONSOLE__")
+  SET_PROPERTY(TARGET ${DEPTH_RANDOM_TEST} APPEND PROPERTY COMPILE_FLAGS "${CMAKE_INCLUDE_PREFIX}${DEPTH_SOURCE}/system/sys-All/unit")
+
+  # Add new test.
+  ADD_TEST(${DEPTH_RANDOM_TEST} ${DEPTH_BIN}/${DEPTH_RANDOM_TEST})
+
+  # Set test property.
+  SET_TESTS_PROPERTIES(${DEPTH_RANDOM_TEST} PROPERTIES PASS_REGULAR_EXPRESSION "Test passed successfully!;Test passed with some warnings!" FAIL_REGULAR_EXPRESSION "Test failed with some errors!;Test execution was stopped!")
+
+  # Link the test with the 'DepthBase' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_RANDOM_TEST} ${DEPTH_BASE})
+  # Link the test with the 'DepthRandom' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_RANDOM_TEST} ${DEPTH_RANDOM})
+  # Link the test with the 'DepthUnitTest' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_RANDOM_TEST} ${DEPTH_UNITTEST})
+  # Link the test with the 'DepthUnitTestCMake' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_RANDOM_TEST} ${DEPTH_UNITTEST_CMAKE})
+  # Link the test with the 'DepthUnitTestMobile' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_RANDOM_TEST} ${DEPTH_UNITTEST_MOBILE})
+
+  # Install the 'DepthRandom' test.
+  INSTALL(TARGETS ${DEPTH_RANDOM_TEST}
+          RUNTIME DESTINATION ${DEPTH_BIN}
+          OPTIONAL)
+
+ENDFOREACH(DEPTH_RANDOM_TESTS_SOURCE)
+
+# Add 'DepthRandom' test set.
+ADD_CUSTOM_TARGET(${DEPTH_RANDOM_TESTS} DEPENDS ${DEPTH_RANDOM_TESTS_TARGETS})

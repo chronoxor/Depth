@@ -1,0 +1,57 @@
+# Define the presents flag of the 'DepthStatistic' shared library examples.
+SET(DEPTH_STATISTIC_EXAMPLES_PRESENT 1)
+
+# Define 'DepthStatistic' examples project name.
+SET(DEPTH_STATISTIC_EXAMPLES "DepthStatistic-examples")
+
+# Define 'DepthStatistic' examples project.
+PROJECT(${DEPTH_STATISTIC_EXAMPLES})
+
+# Define source path of the 'DepthStatistic' shared library examples.
+SET(DEPTH_STATISTIC_EXAMPLES_SRC_PATH "${DEPTH_EXAMPLES}/statistic")
+
+# Define sources of the 'DepthStatistic' shared library examples.
+FILE(GLOB DEPTH_STATISTIC_EXAMPLES_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/${DEPTH_STATISTIC_EXAMPLES_SRC_PATH} "${DEPTH_STATISTIC_EXAMPLES_SRC_PATH}/*.cpp")
+
+# Define example targets of the 'DepthStatistic' shared library.
+SET(DEPTH_STATISTIC_EXAMPLES_TARGETS)
+
+# Compile the 'DepthStatistic' shared library examples.
+FOREACH(DEPTH_STATISTIC_EXAMPLES_SOURCE ${DEPTH_STATISTIC_EXAMPLES_SOURCES})
+
+  # Get example name.
+  STRING(REGEX REPLACE "(.*)\\.cpp" "\\1" DEPTH_STATISTIC_EXAMPLE ${DEPTH_STATISTIC_EXAMPLES_SOURCE})
+
+  # Add new local example target.
+  LIST(APPEND DEPTH_STATISTIC_EXAMPLES_TARGETS ${DEPTH_STATISTIC_EXAMPLE})
+  # Add new global example target.
+  LIST(APPEND DEPTH_EXAMPLES_TARGETS ${DEPTH_STATISTIC_EXAMPLE})
+
+  # Build new example.
+  ADD_EXECUTABLE(${DEPTH_STATISTIC_EXAMPLE} ${DEPTH_STATISTIC_EXAMPLES_SRC_PATH}/${DEPTH_STATISTIC_EXAMPLES_SOURCE})
+
+  # Set compiler flags.
+  SET_PROPERTY(TARGET ${DEPTH_STATISTIC_EXAMPLE} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_APP__" "__CONSOLE__")
+
+  # Link the example with the 'DepthBase' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_STATISTIC_EXAMPLE} ${DEPTH_BASE})
+  # Link the example with the 'DepthGeometry' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_STATISTIC_EXAMPLE} ${DEPTH_GEOMETRY})
+  # Link the example with the 'DepthRandom' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_STATISTIC_EXAMPLE} ${DEPTH_RANDOM})
+  # Link the example with the 'DepthStatistic' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_STATISTIC_EXAMPLE} ${DEPTH_STATISTIC})
+  # Link the example with the 'DepthApplication' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_STATISTIC_EXAMPLE} ${DEPTH_APPLICATION})
+  # Link the example with the 'DepthApplicationConsole' static library.
+  TARGET_LINK_LIBRARIES(${DEPTH_STATISTIC_EXAMPLE} ${DEPTH_APPLICATION_CONSOLE})
+
+  # Install the 'DepthStatistic' example.
+  INSTALL(TARGETS ${DEPTH_STATISTIC_EXAMPLE}
+          RUNTIME DESTINATION ${DEPTH_BIN}
+          OPTIONAL)
+
+ENDFOREACH(DEPTH_STATISTIC_EXAMPLES_SOURCE)
+
+# Add 'DepthStatistic' example set.
+ADD_CUSTOM_TARGET(${DEPTH_STATISTIC_EXAMPLES} DEPENDS ${DEPTH_STATISTIC_EXAMPLES_TARGETS})

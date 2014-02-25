@@ -1,0 +1,227 @@
+Compilers issues
+
+==============================================================================
+ GCC
+==============================================================================
+
+ * Compiler does not understand the following code:
+
+   template <typename T>
+   class A
+   {
+   public:
+     class AA { };
+   };
+
+   template <typename T>
+   class B : public A<T>
+   {
+   public:
+     class BB : public AA { };
+   };
+
+   int main(int argc, char* argv[])
+   {
+     B<int> b;
+     return 0;
+   }
+
+------------------------------------------------------------------------------
+
+ * Compiler does not understand the following code:
+
+   template <typename T>
+   class A
+   {
+   public:
+     typedef int TType;
+
+   private:
+     typedef T tmp;
+   };
+
+   template <typename T>
+   class B :
+     public A<T>
+   {
+   public:
+     typedef char* TType;
+
+   private:
+     typedef T tmp;
+   };
+
+   template <typename T>
+   class Test
+   {
+   public:
+     static void test()
+     {
+       typename B<T>::A::TType a = 0;
+       typename B<T>::TType b = "test";
+     }
+   };
+
+
+   int main(int argc, char* argv[])
+   {
+     Test<int>::test();
+   }
+
+   So we use workaround in iterator concept classes.
+
+------------------------------------------------------------------------------
+
+ * Compiler does not understand the following code:
+
+   template <typename T_Type>
+   class MTraitsType
+   {
+   public:
+     typedef T_Type type;
+     typedef T_Type bottom;
+     typedef void parent;
+   };
+
+   template <class T_Class, typename T_Type>
+   class MTraitsType<T_Type T_Class::*>
+   {
+   public:
+     typedef T_Type (T_Class::*type);
+     typedef typename MTraitsType<T_Type>::bottom bottom;
+     typedef T_Class parent;
+   };
+
+   class CClass
+   {
+   public:
+     int m_Field;
+
+     int method(int a, int b) const
+     {
+       int result = a + b;
+       return result;
+     }
+   };
+
+   int main(int argc, char* argv[])
+   {
+     MTraitsType<int CClass::*>::parent a;
+     MTraitsType<int CClass::*>::type field = &CClass::m_Field;
+     MTraitsType<int (CClass::*)(int, int) const>::type method = &CClass::method;
+
+     a.*field = (a.*method)(10, 20);
+     return 0;
+   }
+
+
+------------------------------------------------------------------------------
+
+ * Compiler does not understand the following code:
+
+   template <typename T>
+   class traits
+   {
+   public:
+     typedef T type;
+   };
+
+   template <class TClass, typename TType>
+   class traits<TType TClass::*>
+   {
+   public:
+     typedef TType TClass::* type;
+
+     typedef TType ret;
+     typedef TClass base;
+   };
+
+   class CClass
+   {
+   public:
+     int field;
+
+     int method(int a, int b) const
+     {
+       return a + b;
+     }
+   };
+
+   int main(int argc, char* argv[])
+   {
+     traits<int CClass::*>::base a;
+     traits<int CClass::*>::type field = &CClass::field;
+     traits<int (CClass::*)(int, int) const>::type method = &CClass::method;
+     a.*field = (a.*method)(10, 20);
+     return 0;
+   }
+
+------------------------------------------------------------------------------
+
+ * Compiler does not understand the following code:
+
+   template <typename T>
+   class traits;
+
+   template <class TClass, typename TType>
+   class traits<TType TClass::*>
+   {
+   public:
+     typedef TType TClass::* type;
+
+     typedef TType ret;
+     typedef TClass base;
+   };
+
+   template <class TClass, typename TType>
+   class traits<TType TClass::* const>
+   {
+   public:
+     typedef TType TClass::* type;
+
+     typedef TType ret;
+     typedef TClass base;
+   };
+
+   template <typename TR, typename TA1, typename TA2>
+   class traits<TR (*)(TA1, TA2)>
+   {
+   public:
+     typedef TR (*type)(TA1, TA2);
+   };
+
+   class CClass
+   {
+   public:
+     int field;
+
+     int method(int a, int b)
+     {
+       return a + b;
+     }
+
+     int cmethod(int a, int b) const
+     {
+       return a + b;
+     }
+
+     static int smethod(int a, int b)
+     {
+       return a + b;
+     }
+   };
+
+   int main(int argc, char* argv[])
+   {
+     traits<int CClass::*>::base a;
+     traits<int CClass::*>::type field = &CClass::field;
+     traits<int (CClass::*)(int, int)>::type method = &CClass::method;
+     traits<int (CClass::*)(int, int) const>::type cmethod = &CClass::cmethod;
+     traits<int (*)(int, int)>::type smethod = &CClass::smethod;
+     a.*field = (a.*method)(10, 20);
+     a.*field = (a.*cmethod)(10, 20);
+     a.*field = smethod(10, 20);
+     return 0;
+   }
+
+==============================================================================

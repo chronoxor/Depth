@@ -1,0 +1,27 @@
+Errors analysis
+
+ * ERROR(message) - when  application  cannot  be  run  on  anymore  cause  of
+   segmentation fault. Shows 'message' and terminate the application.
+
+ * WARNING(message) - when application can  be  run  on  without  segmentation
+   fault, but something goes wrong. Shows 'message'.
+
+ * ASSERT(condition, message) - check 'condition' to be true, otherwise  shows
+   'message' and perform the next operation in Debug mode,  in  release  works
+   just like warning.
+
+ * ASSUME(condition, message) - assume 'condition' to be true, otherwise shows
+   'message' and perform the next operation until 'condition' is true in Debug
+   mode, in release works just like warning.
+
+ * VERIFY(condition, message) - verify 'condition' to be true, otherwise shows
+   error 'message' and terminate the application.
+
+ * STATIC_ERROR(message) - Shows 'message' and stop  the  compilation  process
+   with error.
+
+ * STATIC_WARNING(message) - Shows 'message', but do not stop the  compilation
+   process.
+
+ * STATIC_ASSERT(condition, message) - check 'condition' to be true at compile
+   time, Otherwise stop the compilation process with error.

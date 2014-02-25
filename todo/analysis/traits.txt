@@ -1,0 +1,4 @@
+Traits analysis
+
+ * Currently isClass, isUnion are not supported. Should wait  until  GCC  will
+   support it.

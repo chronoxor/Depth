@@ -1,0 +1,18 @@
+# Find doxygen program.
+FIND_PACKAGE(Doxygen)
+
+IF(DOXYGEN_FOUND)
+
+  # Define 'Doxygen' project name.
+  SET(DOXYGEN "Doxygen")
+
+  # Define 'Doxygen' project.
+  PROJECT(${DOXYGEN})
+
+  # Generate documentation.
+  ADD_CUSTOM_COMMAND(OUTPUT "Doxyfile" COMMAND ${DOXYGEN_EXECUTABLE} "../doc/Doxyfile" WORKING_DIRECTORY ${DEPTH_DOC})
+
+  # Add 'Doxygen' documentation.
+  ADD_CUSTOM_TARGET(${DOXYGEN} DEPENDS "Doxyfile")
+
+ENDIF(DOXYGEN_FOUND)

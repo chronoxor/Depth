@@ -1,0 +1,71 @@
+# Define the presents flag of the 'DepthApplication' shared library.
+SET(DEPTH_APPLICATION_PRESENT 1)
+
+# Define 'DepthApplication' project name.
+SET(DEPTH_APPLICATION "DepthApplication")
+
+# Define 'DepthApplication' project.
+PROJECT(${DEPTH_APPLICATION} CXX)
+
+# Load versions.
+FILE(READ "${DEPTH_VERSIONS}/DepthApplication.txt" DEPTH_APPLICATION_VERSION)
+FILE(READ "${DEPTH_VERSIONS}/DepthApplication-so.txt" DEPTH_APPLICATION_SOVERSION)
+
+# Include directories definition for the 'DepthApplication' shared library.
+INCLUDE_DIRECTORIES(${DEPTH})
+
+# Prepare sources directories for the 'DepthApplication' shared library.
+LIST(APPEND DEPTH_APPLICATION_SOURCES_DIRS
+        "${DEPTH_SOURCE}/application"
+        "${DEPTH_SOURCE}/application/details"
+        "${DEPTH_SOURCE}/shared"
+        "${DEPTH_SOURCE}/system/sys-All/application"
+        "${DEPTH_SOURCE}/system/sys-All/shared"
+        "${DEPTH_SOURCE}/system/sys-Cygwin/application"
+        "${DEPTH_SOURCE}/system/sys-Cygwin/shared"
+        "${DEPTH_SOURCE}/system/sys-Dummy/application"
+        "${DEPTH_SOURCE}/system/sys-Dummy/shared"
+        "${DEPTH_SOURCE}/system/sys-Linux/application"
+        "${DEPTH_SOURCE}/system/sys-Linux/shared"
+        "${DEPTH_SOURCE}/system/sys-Unix/application"
+        "${DEPTH_SOURCE}/system/sys-Unix/shared"
+        "${DEPTH_SOURCE}/system/sys-Windows/application"
+        "${DEPTH_SOURCE}/system/sys-Windows/shared"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile/application"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile/shared")
+
+# Collect sources for the 'DepthApplication' shared library.
+FOREACH(DEPTH_APPLICATION_SOURCES_DIR ${DEPTH_APPLICATION_SOURCES_DIRS})
+  FILE(GLOB DEPTH_APPLICATION_SOURCES_FILES RELATIVE "${CMAKE_SOURCE_DIR}" "${DEPTH_APPLICATION_SOURCES_DIR}/*.cpp")
+  LIST(APPEND DEPTH_APPLICATION_SOURCES ${DEPTH_APPLICATION_SOURCES_FILES})
+ENDFOREACH(DEPTH_APPLICATION_SOURCES_DIR)
+
+# Add the 'DepthApplication' shared library.
+ADD_LIBRARY(${DEPTH_APPLICATION} SHARED ${DEPTH_APPLICATION_SOURCES})
+
+# Set shared library export symbol.
+SET_PROPERTY(TARGET ${DEPTH_APPLICATION} PROPERTY DEFINE_SYMBOL "__APPLICATION_EXPORT__")
+
+# Set compiler flags.
+SET_PROPERTY(TARGET ${DEPTH_APPLICATION} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_SHARED_LIB__" "DEPTH_APPLICATION_VERSION=${DEPTH_APPLICATION_VERSION}" "DEPTH_APPLICATION_SOVERSION=${DEPTH_APPLICATION_SOVERSION}")
+SET_PROPERTY(TARGET ${DEPTH_APPLICATION} APPEND PROPERTY COMPILE_FLAGS "${CMAKE_INCLUDE_PREFIX}${DEPTH_SOURCE}/system/sys-All/application")
+
+# Set version and soversion of the shared library.
+SET_TARGET_PROPERTIES(${DEPTH_APPLICATION} PROPERTIES VERSION "${DEPTH_APPLICATION_VERSION}" SOVERSION "${DEPTH_APPLICATION_SOVERSION}")
+
+# Add dependence from the 'DepthBase' shared library to the 'DepthApplication' shared library.
+ADD_DEPENDENCIES(${DEPTH_APPLICATION} ${DEPTH_BASE})
+
+# Link the 'DepthApplication' shared library with the system libraries.
+TARGET_LINK_LIBRARIES(${DEPTH_APPLICATION} ${CMAKE_SYSTEM_LIBRARIES})
+# Link the 'DepthApplication' shared library with the 'DepthBase' shared library.
+TARGET_LINK_LIBRARIES(${DEPTH_APPLICATION} ${DEPTH_BASE})
+
+# Install the 'DepthApplication' shared library.
+INSTALL(TARGETS ${DEPTH_APPLICATION}
+        RUNTIME DESTINATION ${DEPTH_BIN}
+        LIBRARY DESTINATION ${DEPTH_LIB_SHARED}
+        ARCHIVE DESTINATION ${DEPTH_LIB_STATIC})
+
+# Add 'DepthApplication' project to the 'Depth' dependencies.
+LIST(APPEND DEPTH_TARGETS ${DEPTH_APPLICATION})

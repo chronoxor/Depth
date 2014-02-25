@@ -1,0 +1,954 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "atlres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""atlres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST ""res\\\\Console.exe.manifest""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR  16, 16
+BEGIN
+    BUTTON      ID_FILE_NEW_TAB
+    BUTTON      ID_PREV_TAB
+    BUTTON      ID_NEXT_TAB
+    SEPARATOR
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_APP_ABOUT
+    BUTTON      ID_HELP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU 
+BEGIN
+    POPUP "File"
+    BEGIN
+        MENUITEM "&New Tab",                    ID_FILE_NEW_TAB
+        MENUITEM "&Close Tab",                  ID_FILE_CLOSE_TAB
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "Edit"
+    BEGIN
+        MENUITEM "&Copy",                       ID_EDIT_COPY
+        MENUITEM "&Paste",                      ID_EDIT_PASTE
+        MENUITEM SEPARATOR
+        MENUITEM "&Rename Tab",                 ID_EDIT_RENAME_TAB
+        MENUITEM SEPARATOR
+        MENUITEM "&Settings...",                ID_EDIT_SETTINGS
+    END
+    POPUP "View"
+    BEGIN
+        MENUITEM "&Console Window",             ID_VIEW_CONSOLE
+        MENUITEM SEPARATOR
+        MENUITEM "&Menu",                       ID_VIEW_MENU
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+        MENUITEM "Ta&bs",                       ID_VIEW_TABS
+    END
+    POPUP "Help"
+    BEGIN
+        MENUITEM "&Help",                       ID_HELP
+        MENUITEM SEPARATOR
+        MENUITEM "&About Console...",           ID_APP_ABOUT
+    END
+END
+
+IDR_POPUP_MENU_TAB MENU 
+BEGIN
+    POPUP "_"
+    BEGIN
+        POPUP "&File"
+        BEGIN
+            MENUITEM "&New Tab",                    32775
+            MENUITEM "&Close Tab",                  32779
+            MENUITEM SEPARATOR
+            MENUITEM "E&xit",                       57665
+        END
+        POPUP "&Edit"
+        BEGIN
+            MENUITEM "&Copy",                       57634
+            MENUITEM "&Paste",                      57637
+            MENUITEM SEPARATOR
+            MENUITEM "&Rename Tab",                 32781
+            MENUITEM SEPARATOR
+            MENUITEM "&Settings...",                ID_EDIT_SETTINGS
+        END
+        POPUP "&View"
+        BEGIN
+            MENUITEM "&Console Window",             32777
+            MENUITEM SEPARATOR
+            MENUITEM "&Menu",                       32784
+            MENUITEM "&Toolbar",                    59392
+            MENUITEM "&Status Bar",                 59393
+            MENUITEM "Ta&bs",                       32789
+        END
+        POPUP "&Help"
+        BEGIN
+            MENUITEM "&Help",                       57670
+            MENUITEM SEPARATOR
+            MENUITEM "&About Console...",           57664
+        END
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 187, 102
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,130,81,50,14
+    CTEXT           "Console 2.0",IDC_STATIC_VERSION,25,56,78,8,0,
+                    WS_EX_ACCEPTFILES
+    ICON            IDR_MAINFRAME,IDC_STATIC,55,26,20,20
+    GROUPBOX        "",IDC_STATIC,7,7,115,88
+    CTEXT           "Copyright (C) 2001-2007\nMarko Bozikovic",IDC_STATIC,25,
+                    71,78,17
+END
+
+IDD_RENAME_TAB DIALOGEX 0, 0, 186, 55
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Rename Tab"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "&New tab name:",IDC_STATIC,7,11,50,8
+    EDITTEXT        IDC_TAB_NAME,58,8,121,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,74,34,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,129,34,50,14
+END
+
+IDD_SETTINGS_MAIN DIALOGEX 0, 0, 354, 321
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Console Settings"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_TREE_SECTIONS,"SysTreeView32",TVS_HASBUTTONS | 
+                    TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | 
+                    TVS_NOSCROLL | WS_BORDER | WS_TABSTOP,7,7,98,265
+    CONTROL         "",IDC_CHILD_PLACEHOLDER,"Static",SS_BLACKFRAME,112,7,
+                    235,265
+    CONTROL         "Save settings to user directory",
+                    IDC_CHECK_USER_DATA_DIR,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,280,115,10
+    LTEXT           "Settings marked with * will take effect after restart",
+                    IDC_STATIC,7,296,164,8
+    PUSHBUTTON      "OK",IDOK,241,300,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,297,300,50,14
+END
+
+IDD_SETTINGS_CONSOLE DIALOGEX 0, 0, 226, 254
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "S&hell:",IDC_STATIC,10,6,23,8
+    EDITTEXT        IDC_SHELL,55,3,145,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BTN_BROWSE_SHELL,203,3,15,14
+    LTEXT           "Startup &dir:",IDC_STATIC,10,21,38,8
+    EDITTEXT        IDC_INIT_DIR,55,18,145,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BTN_BROWSE_DIR,203,18,15,14
+    LTEXT           "On &change:",IDC_STATIC,10,56,38,8
+    EDITTEXT        IDC_CHANGE_REFRESH,55,53,40,14,ES_AUTOHSCROLL | 
+                    ES_NUMBER,WS_EX_RIGHT
+    CONTROL         "",IDC_SPIN_CHANGE_REFRESH,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS | UDS_NOTHOUSANDS,86,46,11,14
+    LTEXT           "ms",IDC_STATIC,100,56,10,8
+    LTEXT           "&Periodic:",IDC_STATIC,116,56,28,8
+    EDITTEXT        IDC_REFRESH,146,53,40,14,ES_AUTOHSCROLL | ES_NUMBER,
+                    WS_EX_RIGHT
+    CONTROL         "",IDC_SPIN_REFRESH,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | 
+                    UDS_NOTHOUSANDS,180,46,11,14
+    LTEXT           "ms",IDC_STATIC,190,56,10,8
+    GROUPBOX        "Update timeouts *",IDC_STATIC,0,40,210,37
+    LTEXT           "&Rows:",IDC_STATIC,10,94,21,8
+    EDITTEXT        IDC_ROWS,46,91,40,14,ES_AUTOHSCROLL | ES_NUMBER,
+                    WS_EX_RIGHT
+    CONTROL         "",IDC_SPIN_ROWS,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | 
+                    UDS_NOTHOUSANDS,74,91,11,14
+    LTEXT           "C&olumns:",IDC_STATIC,10,109,30,8
+    EDITTEXT        IDC_COLUMNS,46,106,40,14,ES_AUTOHSCROLL | ES_NUMBER,
+                    WS_EX_RIGHT
+    CONTROL         "",IDC_SPIN_COLUMNS,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | 
+                    UDS_NOTHOUSANDS,74,106,11,14
+    CONTROL         "Save on exit",IDC_CHECK_SAVE_SIZE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,123,52,10
+    GROUPBOX        "Window size *",IDC_STATIC,0,80,100,58
+    LTEXT           "Ro&ws:",IDC_STATIC,120,93,21,8
+    EDITTEXT        IDC_BUFFER_ROWS,155,91,40,14,ES_AUTOHSCROLL | ES_NUMBER,
+                    WS_EX_RIGHT
+    CONTROL         "",IDC_SPIN_BUFFER_ROWS,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS | UDS_NOTHOUSANDS,184,91,11,14
+    LTEXT           "Col&umns:",IDC_STATIC,120,110,30,8
+    EDITTEXT        IDC_BUFFER_COLUMNS,155,106,40,14,ES_AUTOHSCROLL | 
+                    ES_NUMBER,WS_EX_RIGHT
+    CONTROL         "",IDC_SPIN_BUFFER_COLUMNS,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS | UDS_NOTHOUSANDS,184,106,11,14
+    GROUPBOX        "Buffer size *",IDC_STATIC,110,80,100,57
+    GROUPBOX        "Console colors map",IDC_STATIC,0,140,210,103
+    CONTROL         "",IDC_DEF_00,"Static",SS_BLACKFRAME,10,152,16,14
+    CONTROL         "",IDC_DEF_01,"Static",SS_BLACKFRAME,10,167,16,14
+    CONTROL         "",IDC_DEF_02,"Static",SS_BLACKFRAME,10,182,16,14
+    CONTROL         "",IDC_DEF_03,"Static",SS_BLACKFRAME,10,197,16,14
+    CONTROL         "",IDC_DEF_04,"Static",SS_BLACKFRAME,60,152,16,14
+    CONTROL         "",IDC_DEF_05,"Static",SS_BLACKFRAME,60,167,16,14
+    CONTROL         "",IDC_DEF_06,"Static",SS_BLACKFRAME,60,182,16,14
+    CONTROL         "",IDC_DEF_07,"Static",SS_BLACKFRAME,60,197,16,14
+    CONTROL         "",IDC_DEF_08,"Static",SS_BLACKFRAME,110,152,16,14
+    CONTROL         "",IDC_DEF_09,"Static",SS_BLACKFRAME,110,167,16,14
+    CONTROL         "",IDC_DEF_10,"Static",SS_BLACKFRAME,110,182,16,14
+    CONTROL         "",IDC_DEF_11,"Static",SS_BLACKFRAME,110,197,16,14
+    CONTROL         "",IDC_DEF_12,"Static",SS_BLACKFRAME,160,152,16,14
+    CONTROL         "",IDC_DEF_13,"Static",SS_BLACKFRAME,160,167,16,14
+    CONTROL         "",IDC_DEF_14,"Static",SS_BLACKFRAME,160,182,16,14
+    CONTROL         "",IDC_DEF_15,"Static",SS_BLACKFRAME,160,197,16,14
+    CONTROL         "",IDC_CLR_00,"Static",SS_BLACKFRAME | SS_NOTIFY,32,152,
+                    16,14,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_CLR_01,"Static",SS_BLACKFRAME | SS_NOTIFY,32,167,
+                    16,14,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_CLR_02,"Static",SS_BLACKFRAME | SS_NOTIFY,32,182,
+                    16,14,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_CLR_03,"Static",SS_BLACKFRAME | SS_NOTIFY,32,197,
+                    16,14,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_CLR_04,"Static",SS_BLACKFRAME | SS_NOTIFY,82,152,
+                    16,14,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_CLR_05,"Static",SS_BLACKFRAME | SS_NOTIFY,82,167,
+                    16,14,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_CLR_06,"Static",SS_BLACKFRAME | SS_NOTIFY,82,182,
+                    16,14,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_CLR_07,"Static",SS_BLACKFRAME | SS_NOTIFY,82,197,
+                    16,14,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_CLR_08,"Static",SS_BLACKFRAME | SS_NOTIFY,132,152,
+                    16,14,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_CLR_09,"Static",SS_BLACKFRAME | SS_NOTIFY,132,167,
+                    16,14,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_CLR_10,"Static",SS_BLACKFRAME | SS_NOTIFY,132,182,
+                    16,14,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_CLR_11,"Static",SS_BLACKFRAME | SS_NOTIFY,132,197,
+                    16,14,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_CLR_12,"Static",SS_BLACKFRAME | SS_NOTIFY,182,152,
+                    16,14,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_CLR_13,"Static",SS_BLACKFRAME | SS_NOTIFY,182,167,
+                    16,14,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_CLR_14,"Static",SS_BLACKFRAME | SS_NOTIFY,182,182,
+                    16,14,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_CLR_15,"Static",SS_BLACKFRAME | SS_NOTIFY,182,197,
+                    16,14,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "Re&set",IDC_BTN_RESET_COLORS,153,219,50,14
+END
+
+IDD_SETTINGS_APPEARANCE DIALOGEX 0, 0, 235, 265
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Tit&le:",IDC_STATIC,10,16,17,8
+    EDITTEXT        IDC_WINDOW_TITLE,33,13,122,14,ES_AUTOHSCROLL
+    CONTROL         "Use tab &titles",IDC_CHECK_USE_TAB_TITLE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,160,15,58,10
+    CONTROL         "Use console window title *",IDC_CHECK_USE_CONSOLE_TITLE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,30,100,10
+    CONTROL         "S&how command",IDC_CHECK_SHOW_COMMAND,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,40,65,10
+    CONTROL         "Sho&w command in tabs",IDC_CHECK_SHOW_COMMAND_TABS,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,50,89,10
+    CONTROL         "Trim tab titles",IDC_CHECK_TRIM_TAB_TITLES,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,103,50,59,10
+    EDITTEXT        IDC_TRIM_TAB_TITLES,162,48,31,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_SPIN_TRIM_TAB_TITLES,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS,178,35,11,14
+    LTEXT           "characters",IDC_STATIC_TRIM_CHARS,195,51,34,8
+    LTEXT           "I&con:",IDC_STATIC,10,71,18,8
+    EDITTEXT        IDC_WINDOW_ICON,33,68,165,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BTN_BROWSE_ICON,200,68,16,14
+    CONTROL         "Use tab &icons",IDC_CHECK_USE_TAB_ICON,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,33,85,59,10
+    GROUPBOX        "Title && icon",IDC_STATIC,0,0,235,100
+    LTEXT           "Name:",IDC_STATIC,10,118,20,8
+    EDITTEXT        IDC_FONT,33,115,110,14,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "...",IDC_BTN_BROWSE_FONT,145,115,16,14
+    LTEXT           "Si&ze:",IDC_STATIC,168,118,16,8
+    EDITTEXT        IDC_FONT_SIZE,186,115,30,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_SPIN_FONT_SIZE,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,196,132,
+                    11,14
+    CONTROL         "&Bold",IDC_CHECK_BOLD,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,10,137,29,10
+    CONTROL         "It&alic",IDC_CHECK_ITALIC,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,47,137,31,10
+    CONTROL         "C&ustom color:",IDC_CHECK_USE_COLOR,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,86,137,56,10
+    CONTROL         "",IDC_FONT_COLOR,"Static",SS_BLACKFRAME | SS_NOTIFY,145,
+                    135,16,14,WS_EX_DLGMODALFRAME
+    GROUPBOX        "Font",IDC_STATIC,0,102,235,53
+    CONTROL         "Initial p&osition*",IDC_CHECK_POSITION,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,172,60,10
+    LTEXT           "X:",IDC_STATIC,73,173,8,8
+    EDITTEXT        IDC_POS_X,83,170,37,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_SPIN_X,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,107,160,
+                    11,14
+    LTEXT           "Y:",IDC_STATIC,126,173,8,8
+    EDITTEXT        IDC_POS_Y,136,170,37,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_SPIN_Y,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,160,160,
+                    11,14
+    CONTROL         "Save on exit",IDC_CHECK_SAVE_POSITION,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,179,172,52,10
+    CONTROL         "&Snap to desktop edges",IDC_CHECK_SNAP,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,187,89,10
+    LTEXT           "&Distance:",IDC_STATIC,104,188,31,8
+    EDITTEXT        IDC_SNAP,136,185,37,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_SPIN_SNAP,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,166,192,
+                    11,14
+    LTEXT           "pixels",IDC_STATIC,179,188,19,8
+    GROUPBOX        "Position",IDC_STATIC,0,157,235,47
+    CONTROL         "&None",IDC_RADIO_DOCK_NONE,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,10,218,33,10
+    CONTROL         "Top le&ft",IDC_RADIO_DOCK_TL,"Button",
+                    BS_AUTORADIOBUTTON,10,231,41,10
+    CONTROL         "Top ri&ght",IDC_RADIO_DOCK_TR,"Button",
+                    BS_AUTORADIOBUTTON,10,244,45,10
+    CONTROL         "Botto&m left",IDC_RADIO_DOCK_BL,"Button",
+                    BS_AUTORADIOBUTTON,60,218,51,10
+    CONTROL         "Bottom &right",IDC_RADIO_DOCK_BR,"Button",
+                    BS_AUTORADIOBUTTON,60,231,55,10
+    GROUPBOX        "Docking *",IDC_STATIC,0,206,123,59,WS_GROUP
+    CONTROL         "R&egular",IDC_RADIO_Z_REGULAR,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,140,218,41,10
+    CONTROL         "Always on to&p",IDC_RADIO_Z_ONTOP,"Button",
+                    BS_AUTORADIOBUTTON,140,229,61,10
+    CONTROL         "Alwa&ys on bottom",IDC_RADIO_Z_BOTTOM,"Button",
+                    BS_AUTORADIOBUTTON,140,240,73,10
+    CONTROL         "Pinned to desktop",IDC_RADIO_Z_DESKTOP,"Button",
+                    BS_AUTORADIOBUTTON,140,251,73,10
+    GROUPBOX        "Z order",IDC_STATIC,130,206,105,59,WS_GROUP
+END
+
+IDD_SETTINGS_HOTKEYS DIALOGEX 0, 0, 226, 254
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_HOTKEYS,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | 
+                    WS_BORDER | WS_TABSTOP,0,0,225,179,WS_EX_CLIENTEDGE
+    LTEXT           "&Command:",IDC_STATIC,10,190,35,8
+    EDITTEXT        IDC_EDIT_COMMAND,47,187,67,14,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "&Hotkey:",IDC_STATIC,10,211,26,8
+    EDITTEXT        IDC_EDIT_HOTKEY,47,208,67,14,ES_AUTOHSCROLL | 
+                    ES_WANTRETURN
+    PUSHBUTTON      "&Assign",IDC_BTN_ASSIGN,119,208,42,14
+    PUSHBUTTON      "&Clear",IDC_BTN_CLEAR,168,208,42,14
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDFRAME,0,230,225,1
+    CONTROL         "Use Scroll Lock for scrolling",
+                    IDC_CHECK_USE_SCROLL_LOCK,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,10,240,101,10
+END
+
+IDD_SETTINGS_STYLES DIALOGEX 0, 0, 226, 254
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Show &menu",IDC_CHECK_SHOW_MENU,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,12,53,10
+    CONTROL         "Show &toolbar",IDC_CHECK_SHOW_TOOLBAR,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,24,58,10
+    CONTROL         "Sho&w status bar",IDC_CHECK_SHOW_STATUS,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,36,68,10
+    CONTROL         "Show t&abs",IDC_CHECK_SHOW_TABS,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,48,49,10
+    CONTROL         "Hide single tab",IDC_CHECK_HIDE_SINGLE_TAB,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,22,60,59,10
+    GROUPBOX        "Controls",IDC_STATIC,0,0,88,77
+    CONTROL         "&Caption *",IDC_CHECK_STYLE_CAPTION,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,102,12,47,10
+    CONTROL         "Resi&zable *",IDC_CHECK_STYLE_RESIZABLE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,102,24,52,10
+    CONTROL         "Bo&rder *",IDC_CHECK_STYLE_BORDER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,102,36,43,10
+    CONTROL         "Tas&kbar button *",IDC_CHECK_STYLE_TASKBAR,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,154,12,68,10
+    CONTROL         "Tra&y icon",IDC_CHECK_STYLE_TRAY,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,154,24,45,10
+    LTEXT           "Inside &border:",IDC_STATIC,102,53,46,8
+    EDITTEXT        IDC_INSIDE_BORDER,153,50,33,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_SPIN_INSIDE_BORDER,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS,191,50,11,14
+    GROUPBOX        "Styles",IDC_STATIC,92,0,134,77
+    CONTROL         "&None",IDC_TRANSPARENCY_TYPE,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,8,93,33,10
+    CONTROL         "&Alpha",IDC_TRANSPARENCY_TYPE2,"Button",
+                    BS_AUTORADIOBUTTON,8,108,34,10
+    CONTROL         "Color &key",IDC_TRANSPARENCY_TYPE3,"Button",
+                    BS_AUTORADIOBUTTON,8,197,46,10
+    LTEXT           "A&ctive window",IDC_STATIC_ACTIVE_WINDOW,19,121,47,8
+    CONTROL         "",IDC_ACTIVE_ALPHA,"msctls_trackbar32",TBS_AUTOTICKS | 
+                    WS_TABSTOP,19,132,185,22
+    LTEXT           "255",IDC_STATIC_ACTIVE_ALPHA,204,134,14,8,0,WS_EX_RIGHT
+    LTEXT           "&Inactive window",IDC_STATIC_INACTIVE_WINDOW,19,156,53,
+                    8
+    CONTROL         "",IDC_INACTIVE_ALPHA,"msctls_trackbar32",TBS_AUTOTICKS | 
+                    WS_TABSTOP,19,169,185,22
+    LTEXT           "255",IDC_STATIC_INACTIVE_ALPHA,204,171,14,8,0,
+                    WS_EX_RIGHT
+    LTEXT           "Key col&or:",IDC_STATIC_KEY_COLOR,19,214,33,8
+    CONTROL         "",IDC_KEY_COLOR,"Static",SS_BLACKFRAME | SS_NOTIFY,54,
+                    211,16,14,WS_EX_DLGMODALFRAME
+    GROUPBOX        "Window transparency",IDC_STATIC,0,79,226,154
+END
+
+IDD_SETTINGS_TEMP DIALOGEX 0, 0, 611, 555
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_TAB1,"SysTabControl32",0x0,0,140,223,148
+    CONTROL         "Check1",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,79,151,39,10
+    LTEXT           "Ro&ws:",IDC_STATIC,27,41,21,8
+    EDITTEXT        IDC_BUFFER_ROWS,63,38,40,14,ES_AUTOHSCROLL | ES_NUMBER,
+                    WS_EX_RIGHT
+    CONTROL         "",IDC_SPIN_BUFFER_ROWS,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS | UDS_NOTHOUSANDS,91,38,11,14
+    LTEXT           "Col&umns:",IDC_STATIC,27,61,30,8
+    EDITTEXT        IDC_BUFFER_COLUMNS,63,58,40,14,ES_AUTOHSCROLL | 
+                    ES_NUMBER,WS_EX_RIGHT
+    CONTROL         "",IDC_SPIN_BUFFER_COLUMNS,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS | UDS_NOTHOUSANDS,91,58,11,14
+    GROUPBOX        "Buffer size *",IDC_STATIC,17,26,100,57
+    LTEXT           "&Rows:",IDC_STATIC,163,43,21,8
+    EDITTEXT        IDC_ROWS,199,41,40,14,ES_AUTOHSCROLL | ES_NUMBER,
+                    WS_EX_RIGHT
+    CONTROL         "",IDC_SPIN_ROWS,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | 
+                    UDS_NOTHOUSANDS,227,41,11,14
+    LTEXT           "C&olumns:",IDC_STATIC,163,63,30,8
+    EDITTEXT        IDC_COLUMNS,199,60,40,14,ES_AUTOHSCROLL | ES_NUMBER,
+                    WS_EX_RIGHT
+    CONTROL         "",IDC_SPIN_COLUMNS,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | 
+                    UDS_NOTHOUSANDS,227,60,11,14
+    GROUPBOX        "Window size *",IDC_STATIC,153,28,100,68
+    CONTROL         "Save on exit",IDC_CHECK_SAVE_SIZE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,163,81,52,10
+    LTEXT           "Ro&ws:",IDC_STATIC,289,158,21,8
+    EDITTEXT        IDC_BUFFER_ROWS2,325,155,40,14,ES_AUTOHSCROLL | 
+                    ES_NUMBER,WS_EX_RIGHT
+    CONTROL         "",IDC_SPIN_BUFFER_ROWS2,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS | UDS_NOTHOUSANDS,353,155,11,14
+    LTEXT           "Col&umns:",IDC_STATIC,372,158,30,8
+    EDITTEXT        IDC_BUFFER_COLUMNS2,407,155,40,14,ES_AUTOHSCROLL | 
+                    ES_NUMBER,WS_EX_RIGHT
+    CONTROL         "",IDC_SPIN_BUFFER_COLUMNS2,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS | UDS_NOTHOUSANDS,436,155,11,14
+    GROUPBOX        "Buffer size *",IDC_STATIC,279,143,184,36
+END
+
+IDD_SETTINGS_TABS DIALOGEX 0, 0, 232, 265
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_TABS,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | 
+                    WS_BORDER | WS_TABSTOP,0,0,128,75
+    PUSHBUTTON      "Add",IDC_BTN_ADD,130,5,50,14
+    PUSHBUTTON      "Delete",IDC_BTN_DELETE,130,22,50,14
+    PUSHBUTTON      "Move up",IDC_BTN_UP,130,39,50,14
+    PUSHBUTTON      "Move down",IDC_BTN_DOWN,130,56,50,14
+    CONTROL         "",IDC_TABS,"SysTabControl32",WS_TABSTOP,0,80,232,185
+END
+
+IDD_SETTINGS_BEHAVIOR DIALOGEX 0, 0, 226, 254
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Copy on select",IDC_CHECK_COPY_ON_SELECT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,15,62,10
+    CONTROL         "Don't wrap long lines",IDC_CHECK_NO_WRAP,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,30,82,10
+    CONTROL         "Trim trailing spaces",IDC_CHECK_TRIM_SPACES,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,45,77,10
+    GROUPBOX        "Copy && Paste",IDC_STATIC,0,0,105,66
+    CONTROL         "Scroll one screen",IDC_PAGE_SCROLL,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,124,15,70,10
+    CONTROL         "Scroll",IDC_PAGE_SCROLL2,"Button",BS_AUTORADIOBUTTON,
+                    124,30,29,10
+    EDITTEXT        IDC_SCROLL_PAGE_ROWS,155,28,33,14,ES_AUTOHSCROLL | 
+                    WS_GROUP
+    CONTROL         "",IDC_SPIN_SCROLL_PAGE_ROWS,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS,190,14,11,14
+    LTEXT           "rows",IDC_STATIC_ROWS,192,31,16,8
+    GROUPBOX        "Page Scrolling",IDC_STATIC,114,0,105,66
+END
+
+IDD_SETTINGS_TABS_1 DIALOGEX 0, 0, 223, 171
+STYLE DS_SETFONT | DS_3DLOOK | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+EXSTYLE WS_EX_CONTROLPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "&Title:",-1,8,19,17,8,0,WS_EX_TRANSPARENT
+    EDITTEXT        IDC_TAB_TITLE,28,16,94,14,ES_AUTOHSCROLL
+    LTEXT           "Icon:",-1,8,34,18,8
+    EDITTEXT        IDC_TAB_ICON,28,31,105,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BTN_BROWSE_ICON,136,31,15,14
+    LTEXT           "S&hell:",-1,7,71,23,8
+    EDITTEXT        IDC_TAB_SHELL,46,68,145,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BTN_BROWSE_SHELL,193,68,15,14
+    LTEXT           "Startup &dir:",-1,7,86,38,8
+    EDITTEXT        IDC_TAB_INIT_DIR,46,83,145,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BTN_BROWSE_DIR,193,83,15,14
+    GROUPBOX        "Shell",-1,0,55,217,49,WS_GROUP,WS_EX_TRANSPARENT
+    LTEXT           "Style:",-1,5,123,20,8
+    COMBOBOX        IDC_COMBO_CURSOR,28,121,82,83,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Col&or:",-1,5,141,20,8
+    CONTROL         "",IDC_CURSOR_COLOR,"Static",SS_BLACKFRAME | SS_NOTIFY,
+                    28,138,16,14,WS_EX_DLGMODALFRAME
+    GROUPBOX        "Cursor",-1,0,107,120,53,0,WS_EX_TRANSPARENT
+    GROUPBOX        "Title && icon",-1,0,3,160,50,0,WS_EX_TRANSPARENT
+END
+
+IDD_SETTINGS_TABS_2 DIALOGEX 0, 0, 223, 172
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+EXSTYLE WS_EX_TRANSPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Solid",IDC_RADIO_BK_TYPE,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,5,8,31,10
+    CONTROL         "Image",IDC_RADIO_BK_TYPE2,"Button",BS_AUTORADIOBUTTON,5,
+                    33,36,10
+    CONTROL         "Wallpaper",IDC_RADIO_BK_TYPE3,"Button",
+                    BS_AUTORADIOBUTTON,5,95,48,10
+    LTEXT           "Col&or:",IDC_STATIC_BK_COLOR,23,20,20,8
+    CONTROL         "",IDC_BK_COLOR,"Static",SS_BLACKFRAME | SS_NOTIFY,48,17,
+                    16,14,WS_EX_DLGMODALFRAME
+    LTEXT           "File:",IDC_STATIC_BK_IMAGE,23,49,23,8,NOT WS_GROUP
+    EDITTEXT        IDC_BK_IMAGE,48,46,145,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BTN_BROWSE_BK,196,46,15,14
+    CONTROL         "Relative",IDC_CHECK_BK_RELATIVE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,23,65,42,10
+    CONTROL         "Extend across monitors",IDC_CHECK_BK_EXTEND,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,23,80,91,10
+    LTEXT           "Position:",IDC_STATIC_BK_POS,116,66,28,8,NOT WS_GROUP
+    COMBOBOX        IDC_COMBO_BK_POS,145,64,48,53,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Tint col&or:",IDC_STATIC_TINT_COLOR,12,116,33,8,NOT 
+                    WS_GROUP
+    CONTROL         "",IDC_TINT_COLOR,"Static",SS_BLACKFRAME | SS_NOTIFY,47,
+                    113,16,14,WS_EX_DLGMODALFRAME
+    LTEXT           "Tint opacity",IDC_STATIC_TINT_OPACITY,13,132,38,8,NOT 
+                    WS_GROUP
+    CONTROL         "",IDC_TINT_OPACITY,"msctls_trackbar32",TBS_AUTOTICKS | 
+                    WS_TABSTOP,13,141,185,22
+    LTEXT           "255",IDC_TINT_OPACITY_VAL,199,145,14,8,0,WS_EX_RIGHT
+END
+
+IDD_SETTINGS_MOUSE DIALOGEX 0, 0, 226, 254
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_MOUSE_COMMANDS,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | 
+                    WS_BORDER | WS_TABSTOP,0,0,225,179,WS_EX_CLIENTEDGE
+    LTEXT           "&Command:",IDC_STATIC,10,190,34,8
+    EDITTEXT        IDC_EDIT_COMMAND,47,187,67,14,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "&Button:",IDC_STATIC,10,211,25,8
+    COMBOBOX        IDC_COMBO_BUTTONS,47,208,67,49,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Modifiers:",IDC_STATIC,10,232,32,8
+    CONTROL         "Co&ntrol",IDC_CHECK_CTRL,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,47,231,39,10
+    CONTROL         "&Shift",IDC_CHECK_SHIFT,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,92,231,31,10
+    CONTROL         "Al&t",IDC_CHECK_ALT,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,129,231,25,10
+    PUSHBUTTON      "&Assign",IDC_BTN_ASSIGN,119,208,42,14
+    PUSHBUTTON      "&Clear",IDC_BTN_CLEAR,168,208,42,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 95
+    END
+
+    IDD_RENAME_TAB, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        VERTGUIDE, 58
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+        HORZGUIDE, 15
+    END
+
+    IDD_SETTINGS_MAIN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 347
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 314
+        HORZGUIDE, 285
+    END
+
+    IDD_SETTINGS_CONSOLE, DIALOG
+    BEGIN
+        RIGHTMARGIN, 225
+        HORZGUIDE, 10
+        HORZGUIDE, 25
+        HORZGUIDE, 60
+    END
+
+    IDD_SETTINGS_APPEARANCE, DIALOG
+    BEGIN
+        HORZGUIDE, 20
+        HORZGUIDE, 35
+        HORZGUIDE, 45
+        HORZGUIDE, 55
+        HORZGUIDE, 75
+        HORZGUIDE, 90
+        HORZGUIDE, 100
+    END
+
+    IDD_SETTINGS_TEMP, DIALOG
+    BEGIN
+        RIGHTMARGIN, 610
+        VERTGUIDE, 17
+        BOTTOMMARGIN, 550
+        HORZGUIDE, 8
+    END
+
+    IDD_SETTINGS_TABS, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 254
+    END
+
+    IDD_SETTINGS_BEHAVIOR, DIALOG
+    BEGIN
+        HORZGUIDE, 20
+        HORZGUIDE, 35
+        HORZGUIDE, 50
+        HORZGUIDE, 85
+        HORZGUIDE, 102
+    END
+
+    IDD_SETTINGS_TABS_1, DIALOG
+    BEGIN
+        HORZGUIDE, 20
+        HORZGUIDE, 72
+        HORZGUIDE, 87
+        HORZGUIDE, 124
+        HORZGUIDE, 142
+    END
+
+    IDD_SETTINGS_TABS_2, DIALOG
+    BEGIN
+        HORZGUIDE, 70
+        HORZGUIDE, 85
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,0,0,130
+ PRODUCTVERSION 2,0,0,130
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000004b0"
+        BEGIN
+            VALUE "Comments", "Tabbed cool console window (THIS IS NOT A SHELL :-)"
+            VALUE "CompanyName", "Ingenuity Unlimited Ltd."
+            VALUE "FileDescription", "Main Console module"
+            VALUE "FileVersion", "2.00, Build 130 2007.03.16"
+            VALUE "InternalName", "Console"
+            VALUE "LegalCopyright", "Copyright © 2001-2007 Marko Bozikovic"
+            VALUE "LegalTrademarks", "Copyright © 2001-2007 Marko Bozikovic"
+            VALUE "OriginalFilename", "Console.exe"
+            VALUE "ProductName", "Console"
+            VALUE "ProductVersion", "2.00.00.130"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\console.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_SETTINGS_TABS_1 DLGINIT
+BEGIN
+    IDC_COMBO_CURSOR, 0x403, 32, 0
+0x5458, 0x7265, 0x5c6d, 0x4230, 0x6f6c, 0x6b63, 0x305c, 0x6f4e, 0x626e, 
+0x696c, 0x6b6e, 0x6e69, 0x2067, 0x6c62, 0x636f, 0x006b, 
+    IDC_COMBO_CURSOR, 0x403, 6, 0
+0x7550, 0x736c, 0x0065, 
+    IDC_COMBO_CURSOR, 0x403, 4, 0
+0x6142, 0x0072, 
+    IDC_COMBO_CURSOR, 0x403, 8, 0
+0x6f43, 0x736e, 0x6c6f, 0x0065, 
+    IDC_COMBO_CURSOR, 0x403, 23, 0
+0x6f4e, 0x626e, 0x696c, 0x6b6e, 0x6e69, 0x2067, 0x6f68, 0x7a72, 0x202e, 
+0x696c, 0x656e, "\000" 
+    IDC_COMBO_CURSOR, 0x403, 16, 0
+0x6f48, 0x6972, 0x6f7a, 0x746e, 0x6c61, 0x6c20, 0x6e69, 0x0065, 
+    IDC_COMBO_CURSOR, 0x403, 14, 0
+0x6556, 0x7472, 0x6369, 0x6c61, 0x6c20, 0x6e69, 0x0065, 
+    IDC_COMBO_CURSOR, 0x403, 5, 0
+0x6552, 0x7463, "\000" 
+    IDC_COMBO_CURSOR, 0x403, 17, 0
+0x6f4e, 0x626e, 0x696c, 0x6b6e, 0x6e69, 0x2067, 0x6572, 0x7463, "\000" 
+    IDC_COMBO_CURSOR, 0x403, 15, 0
+0x7550, 0x736c, 0x7461, 0x6e69, 0x2067, 0x6572, 0x7463, "\000" 
+    IDC_COMBO_CURSOR, 0x403, 13, 0
+0x6146, 0x6964, 0x676e, 0x6220, 0x6f6c, 0x6b63, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDR_MAINFRAME           "Console"
+    IDS_TAB_CREATE_FAILED   "Failed to open %s tab!\nThe process could still be running (use the Task Manager to find it and end it)"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+    ID_FILE_PAGE_SETUP      "Change the printing options\nPage Setup"
+    ID_FILE_PRINT_SETUP     "Change the printer and printing options\nPrint Setup"
+    ID_FILE_PRINT           "Print the active document\nPrint"
+    ID_FILE_PRINT_PREVIEW   "Display full pages\nPrint Preview"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+    ID_HELP                 "Opens the help file\nHelp"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_WINDOW_NEW           "Open another window for the active document\nNew Window"
+    ID_WINDOW_ARRANGE       "Arrange icons at the bottom of the window\nArrange Icons"
+    ID_WINDOW_CASCADE       "Arrange windows so they overlap\nCascade Windows"
+    ID_WINDOW_TILE_HORZ     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_TILE_VERT     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle ToolBar"
+    ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle StatusBar"
+END
+
+STRINGTABLE 
+BEGIN
+    ATL_IDS_SCSIZE          "Change the window size"
+    ATL_IDS_SCMOVE          "Change the window position"
+    ATL_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    ATL_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    ATL_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    ATL_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    ATL_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE 
+BEGIN
+    ATL_IDS_SCRESTORE       "Restore the window to normal size"
+    ATL_IDS_SCTASKLIST      "Activate Task List"
+    ATL_IDS_MDICHILD        "Activate this window"
+END
+
+STRINGTABLE 
+BEGIN
+    ATL_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE 
+BEGIN
+    ATL_IDS_MRU_FILE        "Open this document"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_NEW_TAB         "Opens a new tab\nNew tab"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_NEXT_TAB             "Switch to next tab\nNext tab"
+    ID_PREV_TAB             "Switch to previous tab\nPrevious tab"
+END
+
+STRINGTABLE 
+BEGIN
+    IDPANE_ROWS_COLUMNS     "%ix%i"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "res\\Console.exe.manifest"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

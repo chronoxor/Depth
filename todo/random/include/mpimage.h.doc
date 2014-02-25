@@ -1,0 +1,372 @@
+//-----------------------------------------------------------------------------//
+// Description of class MpImage in include file "mpimage.h"
+//-----------------------------------------------------------------------------//
+//
+// Class MpImage
+// ------------- 
+// Define a class MpImage for working with RGB full color images. It allows
+// drawing and manipulation of images stored in bit planes and subsequent
+// displaying on the screen or storing as PostScript 2.0, TIFF 6.0, GIF87a
+// or JPEG files.
+//
+// machine and compiler dependencies
+// ---------------------------------
+// The type 'byte' is defined 'unsigned char' which must be 8 bit. 
+// The type 'long' must be at least 32 bit wide. 
+// 
+// Description of structure members
+// --------------------------------
+// 
+// byte *ImageData; 
+// One sample each for red, green, and blue with eight bits per sample  
+// are stored. The sample values for each pixel are stored contiguously,  
+// so that there is a single image plane. The data is stored RGBRGBRGB...  
+// and so on. The upper left corner of the image is the origin (0,0). 
+// 
+// int ImageWidth; 
+// The image's width in pixels (X: horizontal). The number of columns  
+// in the image.  
+// 
+// int ImageLength; 
+// The image's length (height) in pixels (Y: vertical). The number of 
+// rows (sometimes described as "scan lines") in the image.  
+// 
+// int ImageWidthMM; 
+// The image's real width in 1/1000 millimeter.
+// 
+// int ImageLengthMM; 
+// The image's real length in 1/1000 millimeter. 
+// 
+// byte R,G,B; 
+// The current drawing color. It is initialized to RGB = (0,0,0) 
+// that means black. 
+// 
+// int ImageWidth3; 
+// The image's width times 3 equals the number of bytes of a scan line. 
+//  
+// char ImagePath[ImagePathLength+1];
+// Is internally used to store the path name when reading or writing 
+// an image from or to a file. Maximal ImagePathLength (currently 256)
+// characters can be stored.
+//
+//
+// Member functions: 
+// ----------------- 
+// 
+// MpImage::MpImage (void);
+// MpImage::MpImage (int width, int length); 
+// -----------------------------------------
+// The constructor allocates memory for holding an image w pixel wide  
+// (horizontal) and l pixel long (vertical) and resets it to the RGB 
+// value (255,255,255), that means a white background. The forground  
+// drawing color is initialized to black, RGB = (0,0,0). If no argumants 
+// are given then no memory will be allocated.
+// 
+// MpImage::MpImage (const MpImage &image); 
+// ----------------------------------------
+// The copy constructor allocates memory for holding a copy of the 
+// source image and then duplicates it. 
+// 
+// MpImage::~MpImage (void); 
+// -------------------------
+// The destructor frees the image memory. Normally you don't have to 
+// call the destructor explicitely. 
+// 
+// MpImage::Remove (void);
+// -----------------------
+// Frees the image memory. The image will behave as if it where defined
+// without giving size arguments.
+//
+// void MpImage::ResetSize (int w, int l); 
+// ---------------------------------------
+// Resets the size of the existing image to w pixel wide  
+// (horizontal) and l pixel long (vertical) and resets it to the RGB 
+// value: white = (255,255,255) = (0xff,0xff,0xff). 
+// The previous image memory is de-allocated.
+//
+// MpImage::operator int () const; 
+// int MpImage::operator ! () const; 
+// ---------------------------------
+// These operators are overloaded obeying the usual C syntax. Just write 
+// 
+//         MpImage pic(400,400); 
+//	   if (pic) ... 
+//	   if (!pic) ... 
+// 
+// to define a 400x400 full color image and to check if the image has 
+// (or has not) successfully been allocated. If an image has been defined
+// without allocation then False will be returned.
+// 
+// int MpImage::Width (void) const;
+// --------------------------------
+// Returns the horizontal width of the image.
+//
+// int MpImage::Length (void) const;
+// ---------------------------------
+// Returns the vertical length of the image.
+//
+// int WidthMM  (void) const;
+// --------------------------
+// Returns the true horizontal width  of the image 
+// in units of 1/1000 millimeters.
+//
+// int LengthMM (void) const;
+// --------------------------
+// Returns the true vertical length of the image 
+// in units of 1/1000 millimeters.
+//
+// void SetSizeMM (int wMM, int lMM);
+// ----------------------------------
+// Set the true vertical and horizontal size  
+// of the image in units of 1/1000 millimeters.
+//
+// void MpImage::Set (int x, int y, byte r, byte g, byte b);
+// void MpImage::Set (int x, int y, const ColorB& c);
+// void MpImage::Set (int x, int y); 
+// ---------------------------------------------------------
+// Sets the pixel at (x,y) to the RGB value either given by
+// three intensities (0..255) or given by intensities packed into a ColorB 
+// or given by the current drawing color.
+// Boundary checking is  performed, that means 'clipping'. 
+// 
+// void MpImage::Get (int x, int y, ColorB& c);
+// --------------------------------------------
+// Get the RGB value of the pixel at (x,y) and return the intensities in
+// a member of the ColorB class.
+// 
+// void MpImage::Color (byte r, byte g, byte b); 
+// void MpImage::Color (const ColorB& c); 
+// ---------------------------------------------
+// Sets the current drawing color to the RGB value either given by
+// three intensities (0..255) or given by intensities packed into a ColorB.
+//
+// void MpImage::Clear (byte r, byte g, byte b);
+// void MpImage::Clear (const ColorB& c);
+// ---------------------------------------------
+// Clears the image with the given color.
+//
+// void MpImage::FloodFill( int x, int y, const ColorB& c); 
+// --------------------------------------------------------
+// Fills with seed at (x,y) with the current drawing color, stops at
+// either a pixel colored by c, or an image boundary.
+//	
+// int MpImage::Polygon (int n, Pixel2D*p, ColorB c, 
+//                       int mode=Fill|Outline, int x=0,int y=0);
+//---------------------------------------------------------------
+// If mode = Fill an arbitrarily-shaped n-polygon is filled with the 
+// given RGB color c. If the first and last points in p are not the same,
+// the path around the polygon is automatically closed. 
+// All vertices are offset by (x,y) - if the arguments are
+// ommited the offset defaults to (0,0). 
+// If the mode = Outline then the polygon outline is drawn  
+// using the current drawing color. 
+// The flags can be combined like 'Fill | Outline' to fill the polygon
+// with the given RGB color outlined with the current drawing color. 
+// Returns 1 for success, 0 if memory allocation failed.
+//
+// void MpImage::Arc (int x, int y, int ra, int rb, int a, int b, int fill); 
+// -------------------------------------------------------------------------
+//
+// void MpImage::Insert (MpImage& source, int x = 0, int y = 0);
+// -------------------------------------------------------------
+// Inserts the given source image into this image with upper left corner at
+// position (x,y). If parts of the source image don't fit into the
+// destination image, then these parts are clipped.
+//
+// void MpImage::InsertTiled (MpImage& source, int x = 0, int y = 0);
+// ------------------------------------------------------------------
+// Inserts the given source image into this image with upper left 
+// corner at position (x,y) and repeats insertion with adjacient copies
+// until the destination image is completely filled. If parts of the 
+// source image don't fit into the destination image then these parts 
+// are clipped.
+//
+// void MpImage::InsertResize (MpImage& source, int smooth = 0);
+// -------------------------------------------------------------
+// Inserts the given source image into this image doing a resize
+// from the source image size to the image size of this image.
+// If the smooth-flag is zero a coarse resize is done, otherwise if
+// non-zero a smooth resize is done. The later one in general
+// looks better but it is much slower.
+//
+// void MpImage::FlipHorizontal (void);
+// ------------------------------------
+//
+// void MpImage::FlipVertical (void);
+// ----------------------------------
+//
+// void MpImage::LineStyle (int type, int thickness); 
+// --------------------------------------------------
+// Sets the linestyle (Solid,Dotted,Dashed,LongDashed,DotDashed,...)
+// and the linethickness for all subsequent line and arc drawing
+// functions.
+//
+// void MpImage::Line (int x1, int y1, int x2, int y2); 
+// ----------------------------------------------------
+//
+// int MpImage::ReadAnyFile (char* name); 
+// --------------------------------------
+// Tries to read a file with any image format. Currently the following
+// formats are recognized: 
+//     Jpeg, Tiff 6.0, Gif87a, Gif89, PBM, PGM, PPM
+//
+// int MpImage::ReadPbmFile (char* name);
+// --------------------------------------
+// Read the image which is stored in either the portable bitmap (PBM)
+// or in the portable graymap (PBM) or the portable pixmap (PPM) file
+// format. Also the variants of plain or raw formats are recognized.
+// The name of the image file is given by the argument name. 
+// The maximum value for gray or color components is 255.
+// It is recommended to use the standard suffix '.pbm', '.pgm' or '.ppm' 
+// to mark a file as a PBM,PGM or PPM file. 
+// Returns True on success, False otherwise.
+//
+// int MpImage::WritePbmFile (char* name, int raw=True);
+// -----------------------------------------------------  
+// Store the image in the PPM format. If the raw flag is ommitted
+// or set True the image is written in the raw format, otherwise
+// if False the image is output in the plain format. 
+// It is recommended to use the standard suffix '.ppm' to mark 
+// a file as a PPM file. Returns True on success, False otherwise.
+//
+// int MpImage::ReadTiffFile (char* name);
+// ---------------------------------------
+// Read the image which is stored in the TIFF 6.0 format.
+// The name of the Tiff file is given by the argument
+// name. It is recommended to use the standard suffix '.tif' to mark 
+// a file as a Tiff file. Returns True on success, False otherwise.
+//
+// int MpImage::WriteTiffFile (char* name);
+// ----------------------------------------
+// Store the image in the TIFF 6.0 format.
+// The name of the Tiff file is given by the argument name. It is
+// recommended to use the standard suffix '.tif' to mark a file as
+// a Tiff file. Returns True on success, False otherwise.
+//
+// int MpImage::ReadGifFile (char* name);
+// --------------------------------------
+// Read the image which is stored in the GIF87 or GIF89 format.
+// The name of the Gif file is given by the argument
+// name. It is recommended to use the standard suffix '.gif' to mark 
+// a file as a Gif file. Returns True on success, False otherwise.
+//
+// int MpImage::WriteGifFile (char* name);
+// ---------------------------------------
+// Store the image in the GIF87 format.
+// The name of the Gif file is given by the argument name. It is
+// recommended to use the standard suffix '.gif' to mark a file as
+// a GIF file. Returns True on success, False otherwise.
+//
+//
+// int MpImage::ReadJpegFile (char* name);
+// ---------------------------------------
+//
+// int MpImage::WriteJpegFile (char* name, int quality = 80, int smoothing = 0);
+// -----------------------------------------------------------------------------
+//
+// int MpImage::WritePostScriptFile (char* name, 
+//                                   float width=150, float length=150,
+//                                   float xoffset=20, float yoffset=70);
+// ----------------------------------------------------------------------
+// Store the image in the PostScript 2.0 format.
+// The name of the PostScript file is given by the argument name. It is
+// recommended to use the standard suffix '.ps' to mark a file as
+// a PostScript file. 
+// The Postscript image width and length can optionally be given
+// in millimeters (default to 150mm by 150mm). Also the offset of the 
+// left bottom corner can optionally be given (defaults to 20mm and 70mm).
+// There is no function 'ReadPostScriptFile(name)', because that would
+// require the implementation of a complete PostScript interpreter !
+// Returns True on success, False otherwise.
+//
+// void MpImage::Path (char* name);
+// --------------------------------
+// Sets the default file path name for reading and writing operations.
+// Maximal ImagePathLength (currently 256) characters can be stored.
+// This is currently used only internally by the class Scene Tiff driver.
+//
+// char* MpImage::Path (void);
+// ---------------------------
+// Returns the default file path name which has been defined using
+// the funtion above.
+//
+// int MpImage::Smooth (void);
+// ---------------------------
+// Computes a smoothed picture.
+// Returns True on success, otherwise False if an
+// internal allocation failure occurs.
+//
+// int MpImage::AddNoise (byte noise);
+// -----------------------------------
+// Computes a noisy picture by applying color dithering. 
+// The noise parameter can take any value
+// between 0 and 255 controlling the degree of noise.
+// Returns True on success, otherwise False if an
+// internal allocation failure occurs.
+//
+// int MpImage::FilterNoise (int window = 5, 
+//                           float filter = 2.5, float reduction = 1.2);
+// ---------------------------------------------------------------------
+// Pepper noise filter.
+// 
+// int MpImage::Monochrome (void);
+// -------------------------------
+// Converts the 24-bit full color RGB image to monochrome intensities
+// using the formula i = 0.34r+ 0.5g+ 0.16b.  Always returns True. 
+//
+// int MpImage::ColorQuantize (int ncolor, byte *pic, byte *r, byte *g, byte *b);
+// ------------------------------------------------------------------------------
+// Converts this rgb image to a colormap picture with ncolor optimally
+// choosen colors. ncolor must be in the range 1..256.
+// The colormap picture is returned as a vector pic[n] of 
+// n = ImageWidth * ImageLength bytes, which must already be allocated.
+// The rgb color maps are returned as byte vectors r[ncolor], g[ncolor], b[ncolor],
+// which must already be allocated.
+// It returns True on success, otherwise False if ncolor is out of range
+// or if some vectors are not allocated or if an internal allocation failure
+// of auxilliary vectors occurs.
+//
+// int MpImage::Ditherize (byte *pic, byte black, byte white);
+// -----------------------------------------------------------
+// Converts the 24-bit full color RGB image to a 1-bit black and white  
+// version using Floyd-Steinberg dithering for displaying on a monochrome 
+// display. The result is stored as 1 byte per pixel format. The scan lines are 
+// stored contigiously. The errors are propagated as follows:
+// 
+//     ----   x    7/16 
+//     3/16  5/16  1/16 
+// 
+// The picture is returned in a vector pic[n] of  n = ImageWidth * ImageLength 
+// bytes, which must already be allocated. You have to give your screens 
+// notion about what byte values are black or white respectively.
+// Returns False on internal allocation failure, otherwise True if successful.  
+//
+// int MpImage::DitherizeBitPacked (byte *pic, byte black, byte white, int order);
+// -------------------------------------------------------------------------------
+// Converts the 24-bit full color RGB image to a 1-bit black and white  
+// version using Floyd-Steinberg dithering for displaying on a monochrome 
+// display. Stores result as 1 bit per pixel format (8 bit per byte). 
+// The scan line are storded contigiously with a possibly not completely
+// filled byte at the end of the line (that means byte adjusted).
+// The errors are propagated as follows:
+// 
+//     ----   x    7/16 
+//     3/16  5/16  1/16 
+// 
+// The order parmeter can be either set to MSBFirst or LSBFirst, depending 
+// on the required bit ordering (most/least significant bit first). 
+// Eight bits are packed into one byte using the required ordering. 
+// Excess bits of a scanline are contained in an extra byte at the end 
+// of each scanline. The picture is returned in a vector 
+// pic[n] of  n = BytesPerLine * ImageLength  bytes, which must already 
+// be allocated. BytesPerLine is computed  by 
+//
+//    BytesPerLine = ImageWidth / 8; 
+//    if (ImageWidth % 8) BytesPerLine++; // for excess bits 
+// 
+// You have to give your screens  notion about what byte values are black 
+// or white respectively. Returns False on internal allocation failure, 
+// otherwise True if successful.  
+//
+//-----------------------------------------------------------------------------//
+

@@ -1,0 +1,53 @@
+# Define the presents flag of the 'DepthApplication' shared library examples.
+SET(DEPTH_APPLICATION_EXAMPLES_PRESENT 1)
+
+# Define 'DepthApplication' examples project name.
+SET(DEPTH_APPLICATION_EXAMPLES "DepthApplication-examples")
+
+# Define 'DepthApplication' examples project.
+PROJECT(${DEPTH_APPLICATION_EXAMPLES})
+
+# Define source path of the 'DepthApplication' shared library examples.
+SET(DEPTH_APPLICATION_EXAMPLES_SRC_PATH "${DEPTH_EXAMPLES}/application")
+
+# Define sources of the 'DepthApplication' shared library examples.
+FILE(GLOB DEPTH_APPLICATION_EXAMPLES_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/${DEPTH_APPLICATION_EXAMPLES_SRC_PATH} "${DEPTH_APPLICATION_EXAMPLES_SRC_PATH}/*.cpp")
+
+# Define example targets of the 'DepthApplication' shared library.
+SET(DEPTH_APPLICATION_EXAMPLES_TARGETS)
+
+# Compile the 'DepthApplication' shared library examples.
+FOREACH(DEPTH_APPLICATION_EXAMPLES_SOURCE ${DEPTH_APPLICATION_EXAMPLES_SOURCES})
+
+  # Get example name.
+  STRING(REGEX REPLACE "(.*)\\.cpp" "\\1" DEPTH_APPLICATION_EXAMPLE ${DEPTH_APPLICATION_EXAMPLES_SOURCE})
+
+  # Add new local example target.
+  LIST(APPEND DEPTH_APPLICATION_EXAMPLES_TARGETS ${DEPTH_APPLICATION_EXAMPLE})
+  # Add new global example target.
+  LIST(APPEND DEPTH_EXAMPLES_TARGETS ${DEPTH_APPLICATION_EXAMPLE})
+
+  # Build new example.
+  ADD_EXECUTABLE(${DEPTH_APPLICATION_EXAMPLE} ${DEPTH_APPLICATION_EXAMPLES_SRC_PATH}/${DEPTH_APPLICATION_EXAMPLES_SOURCE})
+
+  # Set compiler flags.
+  SET_PROPERTY(TARGET ${DEPTH_APPLICATION_EXAMPLE} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_APP__" "__CONSOLE__")
+
+  # Link the example with the 'DepthBase' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_APPLICATION_EXAMPLE} ${DEPTH_BASE})
+  # Link the example with the 'DepthApplication' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_APPLICATION_EXAMPLE} ${DEPTH_APPLICATION})
+  IF(NOT DEPTH_APPLICATION_EXAMPLE MATCHES "example-application-native")
+    # Link the example with the 'DepthApplicationConsole' static library.
+    TARGET_LINK_LIBRARIES(${DEPTH_APPLICATION_EXAMPLE} ${DEPTH_APPLICATION_CONSOLE})
+  ENDIF(NOT DEPTH_APPLICATION_EXAMPLE MATCHES "example-application-native")
+
+  # Install the 'DepthApplication' example.
+  INSTALL(TARGETS ${DEPTH_APPLICATION_EXAMPLE}
+          RUNTIME DESTINATION ${DEPTH_BIN}
+          OPTIONAL)
+
+ENDFOREACH(DEPTH_APPLICATION_EXAMPLES_SOURCE)
+
+# Add 'DepthApplication' example set.
+ADD_CUSTOM_TARGET(${DEPTH_APPLICATION_EXAMPLES} DEPENDS ${DEPTH_APPLICATION_EXAMPLES_TARGETS})

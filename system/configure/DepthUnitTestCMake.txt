@@ -1,0 +1,69 @@
+# Define the presents flag of the 'DepthUnitTestCMake' static library.
+SET(DEPTH_UNITTEST_CMAKE_PRESENT 1)
+
+# Define 'DepthUnitTestCMake' project name.
+SET(DEPTH_UNITTEST_CMAKE "DepthUnitTestCMake")
+
+# Define 'DepthUnitTestCMake' project.
+PROJECT(${DEPTH_UNITTEST_CMAKE} CXX)
+
+# Load versions.
+FILE(READ "${DEPTH_VERSIONS}/DepthUnitTestCMake.txt" DEPTH_UNITTEST_CMAKE_VERSION)
+FILE(READ "${DEPTH_VERSIONS}/DepthUnitTestCMake-so.txt" DEPTH_UNITTEST_CMAKE_SOVERSION)
+
+# Include directories definition for the 'DepthUnitTestCMake' static library.
+INCLUDE_DIRECTORIES(${DEPTH})
+
+# Prepare sources directories for the 'DepthUnitTestCMake' static library.
+LIST(APPEND DEPTH_UNITTEST_CMAKE_SOURCES_DIRS
+        "${DEPTH_SOURCE}/system/sys-All/unit-cmake"
+        "${DEPTH_SOURCE}/system/sys-Cygwin/unit-cmake"
+        "${DEPTH_SOURCE}/system/sys-Dummy/unit-cmake"
+        "${DEPTH_SOURCE}/system/sys-Linux/unit-cmake"
+        "${DEPTH_SOURCE}/system/sys-Unix/unit-cmake"
+        "${DEPTH_SOURCE}/system/sys-Windows/unit-cmake"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile/unit-cmake")
+
+# Collect sources for the 'DepthUnitTestCMake' static library.
+FOREACH(DEPTH_UNITTEST_CMAKE_SOURCES_DIR ${DEPTH_UNITTEST_CMAKE_SOURCES_DIRS})
+  FILE(GLOB DEPTH_UNITTEST_CMAKE_SOURCES_FILES RELATIVE "${CMAKE_SOURCE_DIR}" "${DEPTH_UNITTEST_CMAKE_SOURCES_DIR}/*.cpp")
+  LIST(APPEND DEPTH_UNITTEST_CMAKE_SOURCES ${DEPTH_UNITTEST_CMAKE_SOURCES_FILES})
+ENDFOREACH(DEPTH_UNITTEST_CMAKE_SOURCES_DIR)
+
+# Add the 'DepthUnitTestCMake' static library.
+ADD_LIBRARY(${DEPTH_UNITTEST_CMAKE} STATIC ${DEPTH_UNITTEST_CMAKE_SOURCES})
+
+# Set compiler flags.
+SET_PROPERTY(TARGET ${DEPTH_UNITTEST_CMAKE} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_STATIC_LIB__" "DEPTH_UNITTEST_CMAKE_VERSION=${DEPTH_UNITTEST_CMAKE_VERSION}" "DEPTH_UNITTEST_CMAKE_SOVERSION=${DEPTH_UNITTEST_CMAKE_SOVERSION}")
+
+# Set version and soversion of the static library.
+SET_TARGET_PROPERTIES(${DEPTH_UNITTEST_CMAKE} PROPERTIES VERSION "${DEPTH_UNITTEST_CMAKE_VERSION}" SOVERSION "${DEPTH_UNITTEST_CMAKE_SOVERSION}")
+
+# Add dependence from the 'DepthBase' shared library to the 'DepthUnitTestCMake' static library.
+ADD_DEPENDENCIES(${DEPTH_UNITTEST_CMAKE} ${DEPTH_BASE})
+# Add dependence from the 'DepthApplication' shared library to the 'DepthUnitTestCMake' static library.
+ADD_DEPENDENCIES(${DEPTH_UNITTEST_CMAKE} ${DEPTH_APPLICATION})
+# Add dependence from the 'DepthApplicationConsole' static library to the 'DepthUnitTestCMake' static library.
+ADD_DEPENDENCIES(${DEPTH_UNITTEST_CMAKE} ${DEPTH_APPLICATION_CONSOLE})
+# Add dependence from the 'DepthUnitTest' shared library to the 'DepthUnitTestCMake' static library.
+ADD_DEPENDENCIES(${DEPTH_UNITTEST_CMAKE} ${DEPTH_UNITTEST})
+
+# Link the 'DepthUnitTestCMake' static library with the system libraries.
+TARGET_LINK_LIBRARIES(${DEPTH_UNITTEST_CMAKE} ${CMAKE_SYSTEM_LIBRARIES})
+# Link the 'DepthUnitTestCMake' static library with the 'DepthBase' shared library.
+TARGET_LINK_LIBRARIES(${DEPTH_UNITTEST_CMAKE} ${DEPTH_BASE})
+# Link the 'DepthUnitTestCMake' static library with the 'DepthApplication' shared library.
+TARGET_LINK_LIBRARIES(${DEPTH_UNITTEST_CMAKE} ${DEPTH_APPLICATION})
+# Link the 'DepthUnitTestCMake' static library with the 'DepthApplicationConsole' static library.
+TARGET_LINK_LIBRARIES(${DEPTH_UNITTEST_CMAKE} ${DEPTH_APPLICATION_CONSOLE})
+# Link the 'DepthUnitTestCMake' static library with the 'DepthUnitTest' shared library.
+TARGET_LINK_LIBRARIES(${DEPTH_UNITTEST_CMAKE} ${DEPTH_UNITTEST})
+
+# Install the 'DepthUnitTestCMake' static library.
+INSTALL(TARGETS ${DEPTH_UNITTEST_CMAKE}
+        RUNTIME DESTINATION ${DEPTH_BIN}
+        LIBRARY DESTINATION ${DEPTH_LIB_SHARED}
+        ARCHIVE DESTINATION ${DEPTH_LIB_STATIC})
+
+# Add 'DepthUnitTestCMake' project to the 'Depth' dependencies.
+LIST(APPEND DEPTH_TARGETS ${DEPTH_UNITTEST_CMAKE})

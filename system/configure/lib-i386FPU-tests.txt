@@ -1,0 +1,72 @@
+# Check for the possibility to build 'i386FPU' static library tests.
+IF(LIB_I386FPU_IS_SUPPORTED)
+
+  # Define the presents flag of the 'i386FPU' static library tests.
+  SET(LIB_I386FPU_TESTS_PRESENT 1)
+
+  # Define 'i386FPU' tests project name.
+  SET(LIB_I386FPU_TESTS "lib-i386FPU-tests")
+
+  # Define 'i386FPU' tests project.
+  PROJECT(${LIB_I386FPU_TESTS})
+
+  # Define source path of the 'i386FPU' static library tests.
+  SET(LIB_I386FPU_TESTS_SRC_PATH "${DEPTH_TESTS}/lib-i386FPU")
+
+  # Define sources of the 'i386FPU' static library tests.
+  FILE(GLOB LIB_I386FPU_TESTS_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/${LIB_I386FPU_TESTS_SRC_PATH} "${LIB_I386FPU_TESTS_SRC_PATH}/*.cpp")
+
+  # Define test targets of the 'i386FPU' static library.
+  SET(LIB_I386FPU_TESTS_TARGETS)
+
+  # Compile the 'i386FPU' static library tests.
+  FOREACH(LIB_I386FPU_TESTS_SOURCE ${LIB_I386FPU_TESTS_SOURCES})
+
+    # Get test name.
+    STRING(REGEX REPLACE "(.*)\\.cpp" "\\1" LIB_I386FPU_TEST ${LIB_I386FPU_TESTS_SOURCE})
+
+    # Add new local test target.
+    LIST(APPEND LIB_I386FPU_TESTS_TARGETS ${LIB_I386FPU_TEST})
+    # Add new global test target.
+    LIST(APPEND DEPTH_TESTS_TARGETS ${LIB_I386FPU_TEST})
+
+    # Build new test.
+    ADD_EXECUTABLE(${LIB_I386FPU_TEST} ${LIB_I386FPU_TESTS_SRC_PATH}/${LIB_I386FPU_TESTS_SOURCE})
+
+    # Set compiler flags.
+    SET_PROPERTY(TARGET ${LIB_I386FPU_TEST} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_APP__" "__CONSOLE__")
+    SET_PROPERTY(TARGET ${LIB_I386FPU_TEST} APPEND PROPERTY COMPILE_FLAGS "${CMAKE_INCLUDE_PREFIX}${DEPTH_SOURCE}/system/sys-All/unit")
+
+    # Add new test.
+    ADD_TEST(${LIB_I386FPU_TEST} ${DEPTH_BIN}/${LIB_I386FPU_TEST})
+
+    # Set test property.
+    SET_TESTS_PROPERTIES(${LIB_I386FPU_TEST} PROPERTIES PASS_REGULAR_EXPRESSION "Test passed successfully!;Test passed with some warnings!" FAIL_REGULAR_EXPRESSION "Test failed with some errors!;Test execution was stopped!")
+
+    # Link the test with the 'i386FPU' static library.
+    TARGET_LINK_LIBRARIES(${LIB_I386FPU_TEST} ${LIB_I386FPU})
+    # Link the test with the 'DepthBase' shared library.
+    TARGET_LINK_LIBRARIES(${LIB_I386FPU_TEST} ${DEPTH_BASE})
+    # Link the test with the 'DepthUnitTest' shared library.
+    TARGET_LINK_LIBRARIES(${LIB_I386FPU_TEST} ${DEPTH_UNITTEST})
+    # Link the test with the 'DepthUnitTestCMake' shared library.
+    TARGET_LINK_LIBRARIES(${LIB_I386FPU_TEST} ${DEPTH_UNITTEST_CMAKE})
+    # Link the test with the 'DepthUnitTestMobile' shared library.
+    TARGET_LINK_LIBRARIES(${LIB_I386FPU_TEST} ${DEPTH_UNITTEST_MOBILE})
+
+    # Install the 'i386FPU' test.
+    INSTALL(TARGETS ${LIB_I386FPU_TEST}
+            RUNTIME DESTINATION ${DEPTH_BIN}
+            OPTIONAL)
+
+  ENDFOREACH(LIB_I386FPU_TESTS_SOURCE)
+
+  # Add 'i386FPU' test set.
+  ADD_CUSTOM_TARGET(${LIB_I386FPU_TESTS} DEPENDS ${LIB_I386FPU_TESTS_TARGETS})
+
+ELSE(LIB_I386FPU_IS_SUPPORTED)
+
+  # Define the presents flag of the 'i386FPU' static library tests.
+  SET(LIB_I386FPU_TESTS_PRESENT 0)
+
+ENDIF(LIB_I386FPU_IS_SUPPORTED)

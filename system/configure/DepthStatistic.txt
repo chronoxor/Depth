@@ -1,0 +1,74 @@
+# Define the presents flag of the 'DepthStatistic' shared library.
+SET(DEPTH_STATISTIC_PRESENT 1)
+
+# Define 'DepthStatistic' project name.
+SET(DEPTH_STATISTIC "DepthStatistic")
+
+# Define 'DepthStatistic' project.
+PROJECT(${DEPTH_STATISTIC} CXX)
+
+# Load versions.
+FILE(READ "${DEPTH_VERSIONS}/DepthStatistic.txt" DEPTH_STATISTIC_VERSION)
+FILE(READ "${DEPTH_VERSIONS}/DepthStatistic-so.txt" DEPTH_STATISTIC_SOVERSION)
+
+# Include directories definition for the 'DepthStatistic' shared library.
+INCLUDE_DIRECTORIES(${DEPTH})
+
+# Prepare sources directories for the 'DepthStatistic' shared library.
+LIST(APPEND DEPTH_STATISTIC_SOURCES_DIRS
+        "${DEPTH_SOURCE}/statistic"
+        "${DEPTH_SOURCE}/shared"
+        "${DEPTH_SOURCE}/system/sys-All/statistic"
+        "${DEPTH_SOURCE}/system/sys-All/shared"
+        "${DEPTH_SOURCE}/system/sys-Cygwin/statistic"
+        "${DEPTH_SOURCE}/system/sys-Cygwin/shared"
+        "${DEPTH_SOURCE}/system/sys-Dummy/statistic"
+        "${DEPTH_SOURCE}/system/sys-Dummy/shared"
+        "${DEPTH_SOURCE}/system/sys-Linux/statistic"
+        "${DEPTH_SOURCE}/system/sys-Linux/shared"
+        "${DEPTH_SOURCE}/system/sys-Unix/statistic"
+        "${DEPTH_SOURCE}/system/sys-Unix/shared"
+        "${DEPTH_SOURCE}/system/sys-Windows/statistic"
+        "${DEPTH_SOURCE}/system/sys-Windows/shared"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile/statistic"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile/shared")
+
+# Collect sources for the 'DepthStatistic' shared library.
+FOREACH(DEPTH_STATISTIC_SOURCES_DIR ${DEPTH_STATISTIC_SOURCES_DIRS})
+  FILE(GLOB DEPTH_STATISTIC_SOURCES_FILES RELATIVE "${CMAKE_SOURCE_DIR}" "${DEPTH_STATISTIC_SOURCES_DIR}/*.cpp")
+  LIST(APPEND DEPTH_STATISTIC_SOURCES ${DEPTH_STATISTIC_SOURCES_FILES})
+ENDFOREACH(DEPTH_STATISTIC_SOURCES_DIR)
+
+# Add the 'DepthStatistic' shared library.
+ADD_LIBRARY(${DEPTH_STATISTIC} SHARED ${DEPTH_STATISTIC_SOURCES})
+
+# Set shared library export symbol.
+SET_PROPERTY(TARGET ${DEPTH_STATISTIC} PROPERTY DEFINE_SYMBOL "__STATISTIC_EXPORT__")
+
+# Set compiler flags.
+SET_PROPERTY(TARGET ${DEPTH_STATISTIC} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_SHARED_LIB__" "DEPTH_STATISTIC_VERSION=${DEPTH_STATISTIC_VERSION}" "DEPTH_STATISTIC_SOVERSION=${DEPTH_STATISTIC_SOVERSION}")
+SET_PROPERTY(TARGET ${DEPTH_STATISTIC} APPEND PROPERTY COMPILE_FLAGS "${CMAKE_INCLUDE_PREFIX}${DEPTH_SOURCE}/system/sys-All/statistic")
+
+# Set version and soversion of the shared library.
+SET_TARGET_PROPERTIES(${DEPTH_STATISTIC} PROPERTIES VERSION "${DEPTH_STATISTIC_VERSION}" SOVERSION "${DEPTH_STATISTIC_SOVERSION}")
+
+# Add dependence from the 'DepthBase' shared library to the 'DepthStatistic' shared library.
+ADD_DEPENDENCIES(${DEPTH_STATISTIC} ${DEPTH_BASE})
+
+# Link the 'DepthStatistic' shared library with the system libraries.
+TARGET_LINK_LIBRARIES(${DEPTH_STATISTIC} ${CMAKE_SYSTEM_LIBRARIES})
+# Link the 'DepthStatistic' shared library with the 'DepthBase' shared library.
+TARGET_LINK_LIBRARIES(${DEPTH_STATISTIC} ${DEPTH_BASE})
+# Link the 'DepthStatistic' shared library with the 'DepthGeometry' shared library.
+TARGET_LINK_LIBRARIES(${DEPTH_STATISTIC} ${DEPTH_GEOMETRY})
+# Link the 'DepthStatistic' shared library with the 'DepthRandom' shared library.
+TARGET_LINK_LIBRARIES(${DEPTH_STATISTIC} ${DEPTH_RANDOM})
+
+# Install the 'DepthStatistic' shared library.
+INSTALL(TARGETS ${DEPTH_STATISTIC}
+        RUNTIME DESTINATION ${DEPTH_BIN}
+        LIBRARY DESTINATION ${DEPTH_LIB_SHARED}
+        ARCHIVE DESTINATION ${DEPTH_LIB_STATIC})
+
+# Add 'DepthStatistic' project to the 'Depth' dependencies.
+LIST(APPEND DEPTH_TARGETS ${DEPTH_STATISTIC})

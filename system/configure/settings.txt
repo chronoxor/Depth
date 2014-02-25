@@ -1,0 +1,75 @@
+# Define 'Cygwin' platform.
+IF(CMAKE_COMPILER_IS_CYGWIN)
+  SET(CYGWIN 1)
+  SET(UNIX 1)
+ENDIF(CMAKE_COMPILER_IS_CYGWIN)
+
+# Define compiler specific settings.
+IF(MSVC)
+
+  # Define include additional directory prefix for Visual Studio.
+  SET(CMAKE_INCLUDE_PREFIX "/I")
+
+  # Define warning string for Visual Studio.
+  SET(CMAKE_C_WARNINGS "/W4 /Wall /WX")
+  SET(CMAKE_CXX_WARNINGS "/W4 /Wall /WX")
+
+  IF(CMAKE_C_FLAGS MATCHES "/W[0-4]")
+    STRING(REGEX REPLACE "/W[0-4]" "${CMAKE_C_WARNINGS}" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+  ELSE(CMAKE_C_FLAGS MATCHES "/W[0-4]")
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CMAKE_C_WARNINGS}")
+  ENDIF(CMAKE_C_FLAGS MATCHES "/W[0-4]")
+
+  IF(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
+    STRING(REGEX REPLACE "/W[0-4]" "${CMAKE_CXX_WARNINGS}" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+  ELSE(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_WARNINGS}")
+  ENDIF(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
+
+  # Define structured exceptions (SEH) support for Visual Studio.
+  SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /EHa")
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHa")
+
+ELSEIF(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+
+  # Define include additional directory prefix for Visual Studio.
+  SET(CMAKE_INCLUDE_PREFIX "-I")
+
+  # Define warning string for GCC.
+  SET(CMAKE_C_WARNINGS "-pedantic -pedantic-errors -Wall -Wextra -Werror -Wno-empty-body -Wno-long-long")
+  SET(CMAKE_CXX_WARNINGS "-pedantic -pedantic-errors -Wall -Wextra -Werror -Wno-empty-body -Wno-long-long")
+
+  IF(NOT CMAKE_C_FLAGS MATCHES "${CMAKE_C_WARNINGS}")
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CMAKE_C_WARNINGS}")
+  ENDIF(NOT CMAKE_C_FLAGS MATCHES "${CMAKE_C_WARNINGS}")
+
+  IF(NOT CMAKE_CXX_FLAGS MATCHES "${CMAKE_CXX_WARNINGS}")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_WARNINGS}")
+  ENDIF(NOT CMAKE_CXX_FLAGS MATCHES "${CMAKE_CXX_WARNINGS}")
+
+  # Define '-enable-auto-import' flag.
+  IF(CYGWIN OR MSYS OR MINGW)
+    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -enable-auto-import")
+    SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -enable-auto-import")
+    SET(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -enable-auto-import")
+  ENDIF(CYGWIN OR MSYS OR MINGW)
+
+ENDIF(MSVC)
+
+# Define OS specific settings.
+IF(CMAKE_SYSTEM_NAME MATCHES "Windows")
+
+  # Define system libraries for Windows.
+  SET(CMAKE_SYSTEM_LIBRARIES "")
+
+ELSEIF(CMAKE_SYSTEM_NAME MATCHES "Linux")
+
+  # Define system libraries for Linux.
+  SET(CMAKE_SYSTEM_LIBRARIES "pthread")
+
+ENDIF(CMAKE_SYSTEM_NAME MATCHES "Windows")
+
+# Define a support for 'i386FPU' library.
+IF(CYGWIN OR MSYS OR MINGW OR UNIX)
+  SET(LIB_I386FPU_IS_SUPPORTED 1)
+ENDIF(CYGWIN OR MSYS OR MINGW OR UNIX)

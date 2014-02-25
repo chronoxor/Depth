@@ -1,0 +1,70 @@
+# Define the presents flag of the 'DepthGeometry' shared library.
+SET(DEPTH_GEOMETRY_PRESENT 1)
+
+# Define 'DepthGeometry' project name.
+SET(DEPTH_GEOMETRY "DepthGeometry")
+
+# Define 'DepthGeometry' project.
+PROJECT(${DEPTH_GEOMETRY} CXX)
+
+# Load versions.
+FILE(READ "${DEPTH_VERSIONS}/DepthGeometry.txt" DEPTH_GEOMETRY_VERSION)
+FILE(READ "${DEPTH_VERSIONS}/DepthGeometry-so.txt" DEPTH_GEOMETRY_SOVERSION)
+
+# Include directories definition for the 'DepthGeometry' shared library.
+INCLUDE_DIRECTORIES(${DEPTH})
+
+# Prepare sources directories for the 'DepthGeometry' shared library.
+LIST(APPEND DEPTH_GEOMETRY_SOURCES_DIRS
+        "${DEPTH_SOURCE}/geometry"
+        "${DEPTH_SOURCE}/shared"
+        "${DEPTH_SOURCE}/system/sys-All/geometry"
+        "${DEPTH_SOURCE}/system/sys-All/shared"
+        "${DEPTH_SOURCE}/system/sys-Cygwin/geometry"
+        "${DEPTH_SOURCE}/system/sys-Cygwin/shared"
+        "${DEPTH_SOURCE}/system/sys-Dummy/geometry"
+        "${DEPTH_SOURCE}/system/sys-Dummy/shared"
+        "${DEPTH_SOURCE}/system/sys-Linux/geometry"
+        "${DEPTH_SOURCE}/system/sys-Linux/shared"
+        "${DEPTH_SOURCE}/system/sys-Unix/geometry"
+        "${DEPTH_SOURCE}/system/sys-Unix/shared"
+        "${DEPTH_SOURCE}/system/sys-Windows/geometry"
+        "${DEPTH_SOURCE}/system/sys-Windows/shared"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile/geometry"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile/shared")
+
+# Collect sources for the 'DepthGeometry' shared library.
+FOREACH(DEPTH_GEOMETRY_SOURCES_DIR ${DEPTH_GEOMETRY_SOURCES_DIRS})
+  FILE(GLOB DEPTH_GEOMETRY_SOURCES_FILES RELATIVE "${CMAKE_SOURCE_DIR}" "${DEPTH_GEOMETRY_SOURCES_DIR}/*.cpp")
+  LIST(APPEND DEPTH_GEOMETRY_SOURCES ${DEPTH_GEOMETRY_SOURCES_FILES})
+ENDFOREACH(DEPTH_GEOMETRY_SOURCES_DIR)
+
+# Add the 'DepthGeometry' shared library.
+ADD_LIBRARY(${DEPTH_GEOMETRY} SHARED ${DEPTH_GEOMETRY_SOURCES})
+
+# Set shared library export symbol.
+SET_PROPERTY(TARGET ${DEPTH_GEOMETRY} PROPERTY DEFINE_SYMBOL "__GEOMETRY_EXPORT__")
+
+# Set compiler flags.
+SET_PROPERTY(TARGET ${DEPTH_GEOMETRY} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_SHARED_LIB__" "DEPTH_GEOMETRY_VERSION=${DEPTH_GEOMETRY_VERSION}" "DEPTH_GEOMETRY_SOVERSION=${DEPTH_GEOMETRY_SOVERSION}")
+SET_PROPERTY(TARGET ${DEPTH_GEOMETRY} APPEND PROPERTY COMPILE_FLAGS "${CMAKE_INCLUDE_PREFIX}${DEPTH_SOURCE}/system/sys-All/geometry")
+
+# Set version and soversion of the shared library.
+SET_TARGET_PROPERTIES(${DEPTH_GEOMETRY} PROPERTIES VERSION "${DEPTH_GEOMETRY_VERSION}" SOVERSION "${DEPTH_GEOMETRY_SOVERSION}")
+
+# Add dependence from the 'DepthBase' shared library to the 'DepthGeometry' shared library.
+ADD_DEPENDENCIES(${DEPTH_GEOMETRY} ${DEPTH_BASE})
+
+# Link the 'DepthGeometry' shared library with the system libraries.
+TARGET_LINK_LIBRARIES(${DEPTH_GEOMETRY} ${CMAKE_SYSTEM_LIBRARIES})
+# Link the 'DepthGeometry' shared library with the 'DepthBase' shared library.
+TARGET_LINK_LIBRARIES(${DEPTH_GEOMETRY} ${DEPTH_BASE})
+
+# Install the 'DepthGeometry' shared library.
+INSTALL(TARGETS ${DEPTH_GEOMETRY}
+        RUNTIME DESTINATION ${DEPTH_BIN}
+        LIBRARY DESTINATION ${DEPTH_LIB_SHARED}
+        ARCHIVE DESTINATION ${DEPTH_LIB_STATIC})
+
+# Add 'DepthGeometry' project to the 'Depth' dependencies.
+LIST(APPEND DEPTH_TARGETS ${DEPTH_GEOMETRY})

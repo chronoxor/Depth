@@ -1,0 +1,950 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>AGM::LibReflection: A reflection library for C++. - The Code Project - Libraries &amp; Projects</title>
+
+
+
+
+<!-- base -->
+<meta http-equiv="Reply-to" content="mailto:webmaster@codeproject.com">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="MS.LOCALE" content="en-US">
+<meta name="Description" content="Description of the library AGM::LibReflection.">
+<meta name="Search.TopicType" content="kbArticle">
+<meta name="Author" content="Achilleas Margaritis">
+<meta name="Search.PublishDate" content="01 Nov 2004 14:00:00 GMT">
+<meta name="Search.RevisedDate" content="01 Nov 2004 14:00:00 GMT">
+
+<meta name="keywords" content="Free source code, , Visual C++, MFC, Windows, reflection fields methods classes instances">
+<meta name="Copyright" content="Article content copyright Achilleas Margaritis, 2004, everthing else Copyright © CodeProject, 1999-2007, All Rights Reserved.">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Lounge Postings" href="http://www.codeproject.com/webservices/LoungeRSS.aspx">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - All topics" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=1">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - MFC / C++" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=2">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - C#" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=3">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - ASP.NET" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=4">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - .NET" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=5">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - VB.NET" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=6">
+<link rel="search" type="application/opensearchdescription+xml" title="The Code Project" href="http://www.codeproject.com/info/OpenSearch.xml">
+<link rel="icon" href="http://www.codeproject.com/favicon.ico" type="image/ico">
+<link rel="SHORTCUT ICON" href="http://www.codeproject.com/favicon.ico">
+<link rel="stylesheet" type="text/css" href="libreflection.asp_files/global.css">
+
+<link rel="stylesheet" type="text/css" href="libreflection.asp_files/netscape6.css">
+
+<script language="javascript" src="libreflection.asp_files/oncopy.js"></script>
+<script language="javascript">
+if (top != self) top.location.href = location.href;
+if (typeof(DemoUrl) != "undefined")
+	document.write('<me' + 'ta http' + '-equiv="re' + 'fresh" con' + 'tent="1;url=' + DemoUrl + '">');
+</script></head><body style="margin: 0pt; background-color: rgb(255, 255, 255);" oncopy="return copyCode();" alink="red" bgcolor="white" link="blue" text="black" vlink="navy">
+
+<!-- BEGIN I/PRO PAGE TAG - COPYRIGHT 2006 I/PRO Corporation ALL RIGHTS RESERVED. --> 
+<script language="JavaScript"> 
+var LSPT=""; 
+LSPT += "?durl=" + escape(document.URL); 
+LSPT += "&hostname=" + location.hostname; 
+LSPT += "&url=" + location.pathname; 
+LSPT += "&query=" + escape(location.search) + escape(location.hash); 
+LSPT += "&referrer=" + escape(document.referrer); 
+LSPT += "&browser=" + escape(navigator.appName); 
+LSPT += "&version=" + escape(navigator.appVersion); 
+LSPT += "&os=" + escape(navigator.platform); 
+LSPT += "&xdomain=codeproject.com"; 
+LSPT += "&custid=codeproject"; 
+</script> 
+<script language="Javascript"> 
+document.write('<img src=http://'+'content.ipro.com/images/pixel.gif'+LSPT+' height="1" width="1" style="position:absolute;top:0px;left:0px">'); 
+</script><img src="libreflection.asp_files/pixel.gif" style="position: absolute; top: 0px; left: 0px;" height="1" width="1"> 
+<noscript> <img
+src="http://content.ipro.com/images/pixel.gif?version=nonjava&xdomain=codeproject.com"
+height="1" width="1" style="position:absolute;top:0px;left:0px"> </noscript> 
+<!-- END I/PRO PAGE TAG -->
+
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+
+<tbody><tr>
+	<td class="HeaderLogo"><a href="http://www.codeproject.com/"><img alt="Home" src="libreflection.asp_files/codeproject225x90.gif" border="0" height="90"></a></td>
+	<td class="HeaderBanner"><span id="AdBanner4"><script language="javascript">document.write("<a href=\"/script/admentor/admentorredir.asp?id=3074&way=ban\" target=_blank><img src=\"/script/ann/ServeImg.aspx?File=%2Fscript%2Fadmentor%2Fimages%2Faspose%5F728x90%5FAni%5FTotal%5FStr%2Egif&C=False&id=3074&cb=3592206\" alt=\"\" border=0 width=728 height=90></a>");</script><a href="http://www.codeproject.com/script/admentor/admentorredir.asp?id=3074&amp;way=ban" target="_blank"><img src="libreflection.asp_files/ServeImg.htm" alt="" border="0" height="90" width="728"></a></span></td>
+</tr>
+<tr><td colspan="2">
+<table class="MemberNavBar" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody><tr valign="middle">
+
+<td class="smallText" style="font-weight: bold;">3,825,437 members and growing! &nbsp;
+8,735 now online.
+</td>
+
+
+<td class="userNavText" align="right">
+
+
+
+<a href="http://www.codeproject.com/script/profile/whos_who.asp?id=596564">
+Zop
+</a> |
+<a href="http://www.codeproject.com/script/profile/modify.asp?ct=/library/libreflection.asp"><b>My Settings</b></a> |
+<a href="http://www.codeproject.com/script/profile/bookmark_list.asp">My Bookmarks</a> |
+<a href="http://www.codeproject.com/script/articles/list_articles.asp?userid=596564">My Articles</a> |
+
+<a href="http://www.codeproject.com/script/profile/logoff.asp?ct=/library/libreflection.asp">Sign out</a>
+
+
+</td>
+</tr>
+</tbody></table></td></tr>
+<tr><td colspan="2">
+<table class="SiteNavBar" id="tblSiteToolbar" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td><a href="http://www.codeproject.com/">Home</a></td>
+<td nowrap="nowrap"><a href="http://www.codeproject.com/index.asp?cat=2">MFC/C++</a></td>
+<td><a href="http://www.codeproject.com/index.asp?cat=3">C#</a></td>
+<td nowrap="nowrap"><a href="http://www.codeproject.com/index.asp?cat=4">ASP.NET</a></td>
+<td nowrap="nowrap"><a href="http://www.codeproject.com/index.asp?cat=6">VB.NET</a></td>
+<td nowrap="nowrap"><a href="http://www.codeproject.com/index.asp?cat=8">Architect</a></td>
+<td nowrap="nowrap"><a href="http://www.codeproject.com/index.asp?cat=9">SQL</a></td>
+<td class="SelCat" nowrap="nowrap"><a href="http://www.codeproject.com/index.asp?cat=1">All Topics</a></td>
+<td width="100%">&nbsp;</td>
+<td>
+	<div id="MenuPos" style="position: relative; width: 300px; height: 22px; top: 1px;">
+	<table id="MPH" style="border-width: 0pt; height: 20px; display: none;" cellpadding="0" cellspacing="0" width="300">
+	<tbody><tr valign="middle">
+		<td style="border-width: 0pt;" nowrap="nowrap"><a href="http://www.codeproject.com/info/faq.asp">Help!</a></td>
+		<td style="border-width: 0pt;" nowrap="nowrap"><a href="http://www.codeproject.com/info/latest.asp">Articles</a></td>
+		<td style="border-width: 0pt;" nowrap="nowrap"><a href="http://www.codeproject.com/script/comments/forums.asp">Message Boards</a></td>
+		
+		<td style="border-width: 0pt;" nowrap="nowrap"><a href="http://www.codeproject.com/lounge.asp">Lounge</a></td>
+	</tr>
+	</tbody></table>
+	</div>
+</td>
+</tr>
+</tbody></table>
+<script type="text/javascript">function Go(){return}</script>
+<script type="text/javascript" src="libreflection.asp_files/cpmenu_var.js"></script>
+<script type="text/javascript" src="libreflection.asp_files/menu10_com.js"></script>
+<script type="text/javascript">
+var MPH = document.getElementById("MPH");
+if (MPH) MPH.style.display='none';
+</script>
+</td></tr>
+
+
+<tr><td colspan="2">
+
+	<table class="ArticleHeader" cellpadding="3" cellspacing="0" width="100%">
+	<tbody><tr valign="top">
+		<td class="smallText" style="padding-right: 10px;"><a href="http://www.codeproject.com/?cat=1">All Topics</a>, <a href="http://www.codeproject.com/?cat=2">MFC / C++</a> &gt;&gt; <a href="http://www.codeproject.com/library/">Libraries &amp; Projects</a> &gt;&gt; <a href="http://www.codeproject.com/library/#General">General</a><br>
+			
+			<br>
+			<div style="font-weight: bold; font-size: 16pt;">AGM::LibReflection: A reflection library for C++.</div>
+			<b>By <a href="http://www.codeproject.com/script/Articles/list_articles.asp?userid=1095289">Achilleas Margaritis</a></b>.
+			
+			<br><br><div style="font-size: 12px;">Description of the library AGM::LibReflection.</div>
+		</td>
+		<td class="smallText" style="width: 200px;">
+			C++ (VC6)<br> Windows (Win2K)<br> MFC, Win32, VS (VS6)<br> Dev<br>
+			<span style="padding-right: 2ex;">Posted</span>: <b>2 Nov 2004 </b><br>
+			<span style="padding-right: 3ex;">Views</span>: <b>29,847</b>
+		</td>
+	</tr>
+	
+	
+
+	
+
+
+</tbody></table>
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody><tr valign="top">
+
+	
+	<td rowspan="2" class="LHNavBar">
+	
+	<!-- Yes, there are IE hacks that will allow us to create a min-width DIV 
+	     (eg http://www.webreference.com/programming/min-width/) but I couldn't
+	     be arsed. Wait for it in v2.0 -->
+	
+	<div class="FeatureBlockHeader">Announcements</div>
+<div class="FeatureBlockContent RHFeatureBar">
+
+<div style="padding-top: 5px;"><img src="libreflection.asp_files/vista20.gif" alt="Vista" style="float: left; padding-right: 10px;" height="20" width="20">
+<a href="http://www.codeproject.com/redir.aspx?id=2666">Vista API competition<br>$10,000 in  prizes</a></div>
+
+<div style="padding-top: 5px;"><img src="libreflection.asp_files/gadgets20.gif" alt="Vista" style="float: left; padding-right: 10px;" height="20" width="20">
+<a href="http://www.codeproject.com/redir.aspx?id=2848">Vista Gadget comp: $2,000 in prizes</a></div>
+
+<div style="padding-top: 5px;"><img src="libreflection.asp_files/prize_winner_sm.gif" alt="Comp" style="float: left; padding-right: 10px; margin-left: 7px; margin-right: 10px;" height="20" width="10"><a href="http://www.codeproject.com/script/competitions/monthly/">Monthly Competition</a></div>
+
+</div>	<center>
+<script language="javascript">document.write("<a href=\"/script/admentor/admentorredir.asp?id=2780&way=ban\" target=_blank><img src=\"/script/ann/ServeImg.aspx?File=%2Fscript%2Fadmentor%2Fimages%2FMainsoft%5FGHQ3%5F160x600v2%2Egif&C=False&id=2780&cb=3592211\" alt=\"Code .NET / Build Java / Run Linux\" border=0 width=160 height=600></a>");</script><a href="http://www.codeproject.com/script/admentor/admentorredir.asp?id=2780&amp;way=ban" target="_blank"><img src="libreflection.asp_files/ServeImg_004.htm" alt="Code .NET / Build Java / Run Linux" border="0" height="600" width="160"></a>
+</center>
+<br><br>
+
+	
+	<img src="libreflection.asp_files/t.gif" height="1" width="160">
+	
+	</td>
+	
+
+	<td width="100%">
+
+		<table class="SearchHeaderBar" cellspacing="0" width="100%">
+<tbody><tr>
+<td align="right" nowrap="nowrap" valign="middle" width="60%">
+
+	<form method="post" action="/info/search.asp" name="Search" style="margin: 0pt;">
+	<b>Search &nbsp;</b><input class="smallText" name="target" style="width: 200px;">
+	<select style="font-weight: bold; font-size: 8pt;" name="st">
+		<option value="kw">Articles</option>
+		<option value="au">Authors</option>
+	</select>
+	<input style="font-weight: bold; font-size: 8pt;" value=" Go! " type="submit"> &nbsp;
+	</form>
+</td>
+
+<td class="tinyText" nowrap="nowrap">
+<a href="http://www.codeproject.com/info/search.asp">Advanced Search</a><br>
+<a href="http://www.codeproject.com/script/articles/sections.asp">Sitemap</a> 
+
+
+</td>
+</tr>
+</tbody></table>
+		
+		<table width="100%">
+		<tbody><tr valign="top">
+		<td class="SmallText" nowrap="nowrap"><table><tbody><tr><td class="smallText" nowrap="nowrap"><img src="libreflection.asp_files/print.gif" align="absmiddle"> <a href="http://www.codeproject.com/library/libreflection.asp?print=true" target="_print">Print</a></td><td class="smallText" nowrap="nowrap"><img src="libreflection.asp_files/sitebuild_icon.gif" align="absmiddle"><a href="http://www.codeproject.com/script/submit/ReportProblem.asp?GUID=libreflection%2Flibrary11%2F2%2F2004">Broken Article?</a></td><td class="smallText" nowrap="nowrap"><img src="libreflection.asp_files/link.gif" align="absmiddle"><a href="http://www.codeproject.com/script/profile/add_bookmark.asp?t=0&amp;ct=%2Flibrary%2Flibreflection%2Easp&amp;guid=libreflection%2Flibrary11%2F2%2F2004">Bookmark</a></td><td class="smallText" nowrap="nowrap"><img src="libreflection.asp_files/mail_small.gif" align="absmiddle"> <a href="#__comments">Discuss</a></td><td class="smallText" nowrap="nowrap"><img src="libreflection.asp_files/mail.gif" align="absmiddle"> <a href="http://www.codeproject.com/script/recommend/form.asp?guid=libreflection%2Flibrary11%2F2%2F2004">Send to a friend</a></td></tr></tbody></table>
+		</td>
+		<td align="right" nowrap="nowrap"><a name="__top"></a><table><tbody><tr><td class="smallText" align="right">12 votes  for this article.</td><td>
+<table border="2" cellpadding="0" cellspacing="0"><tbody><tr>
+<td><img src="libreflection.asp_files/red.gif" border="0" height="5" width="20"></td>
+<td><img src="libreflection.asp_files/red.gif" border="0" height="5" width="20"></td>
+<td><img src="libreflection.asp_files/red.gif" border="0" height="5" width="20"></td>
+<td><img src="libreflection.asp_files/red.gif" border="0" height="5" width="20"></td>
+<td><img src="libreflection.asp_files/red.gif" border="0" height="5" width="16"><img src="libreflection.asp_files/white.gif" border="0" height="5" width="4"></td>
+</tr></tbody></table>
+</td></tr><tr><td colspan="2" class="smallText" align="right"><a href="http://www.codeproject.com/script/articles/top_articles.asp?st=2" title="Calculated as rating x Log10(# votes)">Popularity: 5.16</a>. Rating: <b>4.78</b> out of 5.</td></tr></tbody></table></td></tr>
+		</tbody></table>
+		
+			
+	</td>
+</tr>
+
+<tr>
+	<td class="ArticlePane">
+<ul style="background-color: rgb(238, 238, 238); margin-right: 20px;"><li style="font-size: 8pt; list-style-image: url(/images/warning.gif);">You are signed up for one or more <a href="http://www.codeproject.com/script/profile/subscribe.asp">newsletters</a> but unfortunately we are unable to send you emails. Please click <a href="http://www.codeproject.com/script/profile/SendConfirmRequest.asp">here</a> to have an email sent that will allow us to confirm your email address.</li></ul>
+<span name="intelliTxt" id="intelliTXT">
+<div id="contentdiv">
+
+
+<!-- Article Starts -->
+
+
+<ul class="download">
+<li><a href="http://www.codeproject.com/library/libreflection/LibReflection_0_8.zip">Download source files - 50.3 Kb</a> </li></ul>
+<h2>Introduction</h2>
+<p nd="1">LibReflection is a little library (well, a header to be
+specific) that gives reflection capabilities to C++ classes. When we
+talk about reflection, we don't mean just RTTI, but a rich palette of
+capabilities useful in every day programming:</p>
+<ul>
+<li nd="2">specify and examine class inheritance 
+</li><li nd="3">declare and examine normal and static fields 
+</li><li nd="4">declare and examine normal, virtual, and static methods 
+</li><li nd="5">declare and use properties and events 
+</li><li nd="6">set and get field values 
+</li><li nd="7">call methods and get results 
+</li><li nd="8">create instances without having the headers at hand, by using a class registry </li></ul>
+<p nd="9">And all the above almost happen automatically, with very few
+macros that the programmer has to put in the application's
+classes...and you also get the added benefit of class properties and
+events, something that C++ does not provide by default.</p>
+<h2>Demo</h2>
+<p nd="10">Using LibReflection is very easy. The following piece of
+code shows a class with fields, properties and methods, all reflected
+in the class' <code nd="11">Class</code> object:</p><div class="smallText" id="premain0" style="width: 100%;"><img preid="0" src="libreflection.asp_files/minus.gif" id="preimg0" height="9" width="9"><span nd="12" preid="0" style="margin-bottom: 0pt;" id="precollapse0"> Collapse</span></div><pre nd="14" style="margin-top: 0pt;" id="pre0"><span class="cpp-comment">//what you need to include</span>
+<span nd="13" class="cpp-preprocessor">#include "reflection.hpp"</span>
+
+
+<span class="cpp-comment">//namespace usage</span>
+using <span class="cpp-keyword">namespace</span> agm::reflection;
+
+
+<span class="cpp-comment">//example base class</span>
+<span class="cpp-keyword">class</span> Base {
+<span class="cpp-keyword">public</span>:
+    <span class="cpp-comment">//needed so as that the class gets reflection capabilities</span>
+    CLASS(Base, NullClass);
+
+    <span class="cpp-comment">//a reflected property</span>
+    PROPERTY(<span class="cpp-keyword">int</span>, length);
+
+    <span class="cpp-comment">//a reflected method</span>
+    METHOD(<span class="cpp-keyword">public</span>, <span class="cpp-keyword">bool</span>, processLength, (<span class="cpp-keyword">int</span> l));
+
+<span class="cpp-keyword">private</span>:
+    <span class="cpp-comment">//a reflected field</span>
+    FIELD(<span class="cpp-keyword">private</span>, <span class="cpp-keyword">int</span>, m_length);
+
+    <span class="cpp-comment">//property getter</span>
+    <span class="cpp-keyword">int</span> get_length() <span class="cpp-keyword">const</span> {
+        <span class="cpp-keyword">return</span> m_length;
+    }
+
+    <span class="cpp-comment">//property setter</span>
+    <span class="cpp-keyword">void</span> set_length(<span class="cpp-keyword">int</span> l) {
+        m_length = l;
+    }
+};
+
+
+<span class="cpp-comment">//a reflected method implementation</span>
+<span class="cpp-keyword">bool</span> Base::processLength(<span class="cpp-keyword">int</span> l)
+{
+    <span class="cpp-keyword">return</span> l == m_length;
+}
+
+
+<span class="cpp-comment">//a derived class</span>
+<span class="cpp-keyword">class</span> Derived : <span class="cpp-keyword">public</span> Base {
+<span class="cpp-keyword">public</span>:
+    <span class="cpp-comment">//derived reflected class</span>
+    CLASS(Derived, Base);
+};
+
+
+<span class="cpp-comment">//for the demo</span>
+<span nd="15" class="cpp-preprocessor">#include &lt;iostream&gt;</span>
+using <span class="cpp-keyword">namespace</span> std;
+
+
+<span class="cpp-keyword">int</span> main()
+{
+    <span class="cpp-comment">//a class instance</span>
+    Derived derived;
+
+    <span class="cpp-comment">//get the class of the Derived class</span>
+    <span class="cpp-keyword">const</span> Class &amp;derived_class = derived.getClass();
+
+    <span class="cpp-comment">//print the class name</span>
+    cout &lt;&lt; derived_class.getName() &lt;&lt; endl;
+
+    <span class="cpp-comment">//print the the m_length field</span>
+    <span class="cpp-keyword">const</span> Field &amp;length_field = derived_class.getField(<span nd="16" class="cpp-string">"m_length"</span>);
+    cout &lt;&lt; length_field.getType() &lt;&lt; <span nd="17" class="cpp-string">" "</span> 
+         &lt;&lt; length_field.getName() &lt;&lt; endl;
+
+    <span class="cpp-comment">//print the the length property</span>
+    <span class="cpp-keyword">const</span> Property &amp;length_prop = derived_class.getProperty(<span nd="18" class="cpp-string">"length"</span>);
+    cout &lt;&lt; length_prop.getType() &lt;&lt; <span nd="19" class="cpp-string">" "</span> 
+         &lt;&lt; length_prop.getName() &lt;&lt; endl;
+
+    <span class="cpp-comment">//print the 'processLength()' method</span>
+    <span class="cpp-keyword">const</span> Method &amp;process_length_method = 
+                 derived_class.getMethod(<span nd="20" class="cpp-string">"processLength"</span>);
+    cout &lt;&lt; process_length_method.getType() &lt;&lt; <span nd="21" class="cpp-string">" "</span>
+         &lt;&lt; process_length_method.getName()
+         &lt;&lt; process_length_method.getArgs()
+         &lt;&lt; endl;
+
+    <span class="cpp-comment">//set the length property</span>
+    cout &lt;&lt; <span nd="22" class="cpp-string">"using length property"</span> &lt;&lt; endl;
+    length_prop.set(&amp;derived, <span class="cpp-literal">10</span>);
+    <span class="cpp-keyword">int</span> i;
+    length_prop.get(i, &amp;derived);
+    cout &lt;&lt; <span nd="23" class="cpp-string">"length = "</span> &lt;&lt; i &lt;&lt; endl;
+
+    <span class="cpp-comment">//calling the length method</span>
+    cout &lt;&lt; <span nd="24" class="cpp-string">"calling bool Base::processLength(int)"</span> &lt;&lt; endl;
+    <span class="cpp-keyword">bool</span> b;
+    process_length_method.invoke(b, (Base *)&amp;derived, <span class="cpp-literal">10</span>);
+    cout &lt;&lt; <span nd="25" class="cpp-string">"processLength="</span> &lt;&lt; b &lt;&lt; endl;
+
+    getchar();
+    <span class="cpp-keyword">return</span> <span class="cpp-literal">0</span>;
+}</pre>
+<h2>Documentation</h2>
+<p nd="26">For more information, you can check out my little site <a href="http://www.geocities.com/axilmar/" target="_blank">here</a>.</p>
+
+<!-- Article Ends -->
+
+
+
+</div>
+</span>
+
+<script type="text/javascript" src="libreflection.asp_files/togglePre.js"></script>
+
+<h2>Achilleas Margaritis</h2>
+<div style="overflow: hidden;"><table border="0"><tbody><tr valign="top"><td class="smallText" nowrap="nowrap"><br></td><td class="smallText"><p class="smallText">Click <a href="http://www.codeproject.com/script/profile/whos_who.asp?vt=arts&amp;id=1095289">here</a> to view Achilleas Margaritis's online profile.</p></td></tr></tbody></table></div><br>
+<table border="0" cellpadding="4" width="100%"><tbody><tr valign="top">
+<td width="100%"><h2>Other popular Libraries &amp; Projects articles:</h2><ul><li><a href="http://www.codeproject.com/library/guitoolkit.asp">GuiToolkit MFC Extension</a><div class="smallText">A set of MFC GUI classes which allow you to build applications with the new Microsoft interface style</div></li><li><a href="http://www.codeproject.com/library/wfc.asp">The Win32 Foundation Classes (WFC) - Version 45</a><div class="smallText">The
+Win32 Foundation Classes (WFC) are a library of C++ classes that extend
+Microsoft Foundation Classes (MFC) beyond mere GUI applications, and
+provide extensive support for system and NT specific applications</div></li><li><a href="http://www.codeproject.com/library/NeuralNetRecognition.asp">Neural Network for Recognition of Handwritten Digits</a><div class="smallText">A convolutional neural network achieves 99.26% accuracy on a modified NIST database of hand-written digits.</div></li><li><a href="http://www.codeproject.com/library/wxwidgets.asp">Introduction to wxWidgets</a><div class="smallText">A beginner's tutorial on wxWidgets for cross platform GUI development.</div></li></ul></td>
+<td width="360">
+<script language="javascript">document.write("<a href=\"/script/admentor/admentorredir.asp?id=2781&way=ban\" target=_blank><img src=\"/script/ann/ServeImg.aspx?File=%2Fscript%2Fadmentor%2Fimages%2FMainsoft%5FGHQ3%5F300x250v2%2Egif&C=False&id=2781&cb=3592216\" alt=\"Code .NET / Build Java / Run Linux\" border=0 width=300 height=250></a>");</script><a href="http://www.codeproject.com/script/admentor/admentorredir.asp?id=2781&amp;way=ban" target="_blank"><img src="libreflection.asp_files/ServeImg_003.htm" alt="Code .NET / Build Java / Run Linux" border="0" height="250" width="300"></a>
+</td>
+</tr></tbody></table>
+
+		<form action="/script/rating/code/app/insert_vote.asp" method="post">
+		<input name="vote_name" value="libreflection/library11/2/2004" type="hidden">
+		<input name="goal" value="/library/libreflection.asp" type="hidden">
+
+<table bgcolor="#ff9900" border="0" cellpadding="1" cellspacing="0" width="100%">
+<tbody><tr><td width="100%">
+<table bgcolor="#fbedbb" border="0" cellpadding="4" cellspacing="0" width="100%"><tbody><tr>
+<td class="smalltext" valign="middle">[<a href="#__top">Top</a>]</td>
+<td align="right" nowrap="nowrap" valign="middle">
+<i><b>Rate this Article for us!</b></i>&nbsp;&nbsp;&nbsp;&nbsp; <i>Poor</i><input value="1" name="rate" type="radio"><input value="2" name="rate" type="radio"><input value="3" name="rate" type="radio"><input value="4" name="rate" type="radio"><input value="5" name="rate" type="radio"><i>Excellent</i>&nbsp;&nbsp;<input value="Vote" class="FormButton" type="submit">
+</td></tr>
+</tbody></table></td></tr></tbody></table>
+</form>
+<center>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr>
+<td style="padding: 2px; background-color: rgb(238, 238, 238);" height="60" width="120"><div align="center">
+<script language="javascript">document.write("<IFRAME src=\"/script/ann/ServeHTML.aspx?C=False&id=2634&cb=3592222\" border=0 frameborder=0 scrolling=no width=120 height=60></IFRAME>");</script><iframe src="libreflection.asp_files/ServeHTML.htm" border="0" frameborder="0" height="60" scrolling="no" width="120"></iframe>
+</div></td>
+<td width="100">&nbsp;</td>
+<td height="60" width="468"><span id="AdBanner5"><script language="javascript">document.write("<a href=\"/script/admentor/admentorredir.asp?id=2782&way=ban\" target=_blank><img src=\"/script/ann/ServeImg.aspx?File=%2Fscript%2Fadmentor%2Fimages%2FMainsoft%5FGHQ3%5F468x60v2%2Egif&C=False&id=2782&cb=3592208\" alt=\"Code .NET / Build Java / Run Linux\" border=0 width=468 height=60></a>");</script><a href="http://www.codeproject.com/script/admentor/admentorredir.asp?id=2782&amp;way=ban" target="_blank"><img src="libreflection.asp_files/ServeImg_002.htm" alt="Code .NET / Build Java / Run Linux" border="0" height="60" width="468"></a></span></td>
+</tr></tbody></table></center>
+
+<a name="__comments"></a>
+
+<script language="JavaScript">
+
+function MsgVoteForm(MemberID, MsgID)
+{
+	document.write("<span id=\"MVF" + MsgID + "\">");
+	document.write("Rate this message: ");
+	for (var i=1; i<=5;i++)
+	{
+		document.write("<a href='#xx" + MsgID.toString() + "xx' title='give this message a vote of " + i.toString());
+		document.write("' onclick='return RateMsg(" + MemberID.toString() + ", " + MsgID.toString() + ", ");
+		document.write(i.toString() + ")'><b>" + i.toString() + "</b></a> ");
+	}
+	document.write(" (out of 5)");
+	document.writeln("</span>");
+	
+	document.write("<br />Report as <a href='#xx" + MsgID.toString() + "xx' title='Mark as Spam' onclick='return ReportMsg(" + MemberID.toString());
+	document.writeln(", " + MsgID.toString() + ",-1)'>Spam</a> or ");
+	document.write("<a href='#xx" + MsgID.toString() + "xx' title='Mark as Abuse' onclick='return ReportMsg(" + MemberID.toString());
+	document.writeln(", " + MsgID.toString() + ",-2)'>Abuse</a>");
+}
+
+function RetypeForm(MemberID, MsgID)
+{
+	var types = [
+				 {pic:'news_general.gif',  id: 1},
+	             {pic:'news_info.gif',     id: 2},
+	             {pic:'news_question.gif', id: 4},
+	             {pic:'news_answer.gif',   id: 8},
+	             {pic:'news_game.gif',     id: 16},
+	             {pic:'news_spam.gif',     id: 32}
+	            ];
+	
+	document.write("<span id=\"RTF" + MsgID + "\">");
+	for (var i=0;i<types.length;i++)
+	{
+		document.write("<a href='/script/comments/retype?msg=" + MsgID.toString());
+		document.write("&mid=" + MemberID.toString() + "&type=" + types[i].id + "'>");
+		document.write("<img border=0 src='/script/images/" + types[i].pic + "'></a><br />");
+	}
+	document.writeln("</span>");
+}
+
+function ReportMsg(userid, msgid, score)
+{
+	if (confirm("Are you sure you want to report this message?") == true)
+		return RateMsg(userid, msgid, score);
+	else return false;
+}
+
+
+function RateMsg(userid, msgid, score)
+{
+
+   var req = new XMLHttpRequest();
+
+   req.onreadystatechange = function()
+   {
+      if ( req.readyState == 4 )
+      {
+         if ( req.status == 200 )
+         {
+         	var respText = req.responseText;
+         	var re = new RegExp("\<div\>([^\<]*)\</div\>", "g");
+         	var match = re.exec(respText);
+         	status.innerHTML = "<b>" + (match)?match[1]:"An error occured" + "</b>";
+         }
+         else
+         {
+            status.innerHTML = "<b style='color:red'>Failed!" + req.statusText + "</b>";
+         }
+      }
+   }
+   
+   var status = document.getElementById("MVF" + msgid);
+   if (!status) return;  // should never happen...   
+   status.innerHTML = "<b style='color:green'>Voting...</b>";
+   
+   var strAction = "/script/comments/vote.asp?js=1&user="+userid+"&msg="+msgid+"&score="+score;
+   req.open("GET", strAction, true);
+   req.send(null);
+   return false;
+}
+
+</script>
+
+
+<script language="JavaScript">
+var Selected = "";
+
+var AdTime = new Date();
+
+
+// Ensures the expanded message appears reasonably close to where 
+// it should appear: on screen, and if possible, under the mouse cursor.
+function SwitchMessage(e)
+{
+   if ( !e ) e = window.event;
+   var target = e.target ? e.target : e.srcElement;
+
+   // is it a post?
+   while ( target && target.id != 'DynMessLink' )
+      target = target.parentNode;
+   if ( !target || target.id != 'DynMessLink' )
+      return;
+
+   if (Selected)
+   {
+      var body = document.getElementById(Selected + "_h1");
+      if (body)
+         body.style.display = 'none';
+      var head = document.getElementById(Selected + "_h0");
+      if (head)
+         head.bgColor = '#FEF9E7';
+   }
+
+   if (Selected == target.name) // just collapse
+      Selected="";
+   else
+   {
+      Selected = target.name;
+      var body = document.getElementById(Selected + "_h1");
+      if (body)
+      {
+         if (body.style.display=='none')
+            body.style.display='';
+         else
+            body.style.display = 'none';
+      }
+      var head = document.getElementById(Selected + "_h0");
+      if (head)
+         head.bgColor = '#99CCFF';
+
+      if ( body && head && body.style.display != 'none' )
+      {
+         // the bit that keeps the post on-screen and under the cursor
+         //var dif = (getRealPos(head, "Top") + head.offsetHeight/2) - (document.body.scrollTop+e.clientY);
+         //document.body.scrollTop += dif;
+         document.body.scrollTop = getRealPos(head, "Top") - document.body.clientHeight/10;
+         EnsureMessageVisible(target.name, true);
+      }
+   }
+
+   if ( e.preventDefault )
+      e.preventDefault();
+   else
+      e.returnValue = false;
+   return false;
+}
+
+// does its best to make a message visible on-screen (vs. scrolled off somewhere).
+function EnsureMessageVisible(msgID, bShowTop) {
+   var msgHeader = document.getElementById(msgID + "_h0");
+   var msgBody = document.getElementById(msgID + "_h1");
+
+   // determine scroll position of top and bottom
+   var scrollContainer = document.body;
+   var top = getRealPos(msgHeader, 'Top');
+   var bottom = getRealPos(msgBody, 'Top') + msgBody.offsetHeight;
+
+   // if not already visible, scroll to make it so
+   if ( scrollContainer.scrollTop > top && !bShowTop)
+      scrollContainer.scrollTop = top - document.body.clientHeight/10;
+   if ( scrollContainer.scrollTop+scrollContainer.clientHeight < bottom )
+      scrollContainer.scrollTop = bottom-scrollContainer.clientHeight;
+   if ( scrollContainer.scrollTop > top && bShowTop)
+      scrollContainer.scrollTop = top - document.body.clientHeight/10;
+}
+
+// utility
+function getRealPos(i,which)
+{
+   iPos = 0
+   while (i!=null)
+   {
+      iPos += i["offset" + which];
+      i = i.offsetParent;
+   }
+   return iPos
+}
+
+
+</script>
+<div id="_MessageBoard" onclick="SwitchMessage(event)"><table bgcolor="#ff9900" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="100%"><table id="ForumTable" bgcolor="#ff9900" border="0" cellpadding="0" cellspacing="1" width="100%"><form action="/script/comments/app/do_filtermessages.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135" method="post"></form><tbody><tr><td><table bgcolor="white" border="0" cellpadding="3" cellspacing="0" width="100%"><tbody><tr bgcolor="#fbedbb"><td class="smalltext" nowrap="nowrap"><a href="http://www.codeproject.com/script/comments/faq.asp"><img src="libreflection.asp_files/forum_faq.GIF" align="absmiddle" border="0" height="16" width="16"> <b>FAQ</b></a>&nbsp;</td><td class="smalltext" align="right" nowrap="nowrap" valign="top">Message score threshold <select size="1" name="noise" class="smalltext"><option value="1">1.0 </option>
+<option value="2">2.0</option>
+<option selected="selected" value="3">3.0</option>
+<option value="4">4.0</option>
+<option value="5">5.0</option>
+</select>&nbsp;&nbsp;</td><td class="smalltext" colspan="2" align="right" nowrap="nowrap" valign="middle"><a href="http://www.codeproject.com/script/comments/search_comments.asp?forumid=123135"><img src="libreflection.asp_files/forum_search.gif" border="0" height="15" width="16"> Search comments</a> &nbsp;</td><td align="right" valign="top"><input value="Set Options" name="submit" class="FormButton" type="submit"></td></tr><tr bgcolor="#ff9900"><td width="100%">&nbsp;</td><td class="smalltext" align="right" nowrap="nowrap" valign="top">View <select size="1" name="expand" class="smalltext"><option value="0">Normal (slow)</option>
+<option value="2">Preview (slow)</option>
+<option selected="selected" value="5">Message View</option>
+<option value="6">Topic View</option>
+<option value="1">Thread View</option>
+<option value="3">Expanded (Supporters only)</option>
+</select>&nbsp;&nbsp;</td><td class="smalltext" nowrap="nowrap" valign="top">Per page <select size="1" name="perpage" class="smalltext"><option value="10">10</option>
+<option selected="selected" value="25">25</option>
+<option value="50">50</option>
+</select></td><td colspan="2">&nbsp;</td></tr></tbody></table>
+</td></tr><tr bgcolor="#fbedbb"><td><a name="xx0xx"></a><table bgcolor="#fbedbb" border="0" cellpadding="2" width="100%"><tbody><tr><td class="messagetitle"><img src="libreflection.asp_files/forum_newmsg.gif" align="top" border="0" height="16" width="16"><a href="http://www.codeproject.com/script/comments/user_new.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135" class="HoverLink" target="_top" name="HoverNL" title="Add a new message to the discussions"><b>New Message</b></a></td><td class="messagetitle">Msgs 1 to 25 of 33 (Total: 33) (<a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135">Refresh</a>)</td><td align="right" nowrap="nowrap"><font class="messagetitle"><span class="HoverLink">First</span> <span class="HoverLink">Prev</span> <a class="HoverLink" name="HoverNL" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;fr=26">Next</a> <span class="HoverLink">&nbsp;&nbsp;&nbsp;&nbsp;</span> </font></td></tr></tbody></table>
+</td></tr><tr bgcolor="white"><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2" bgcolor="#fbedbb" width="70%"><table border="0" cellpadding="2" cellspacing="0" width="100%"><tbody><tr><td class="messagetitle">Subject&nbsp;</td></tr></tbody></table></td><td bgcolor="#fbedbb" width="140"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/t.gif" border="0" height="1" width="1"></td></tr><tr><td class="messagetitle">Author&nbsp;</td></tr><tr><td><img src="libreflection.asp_files/t.gif" border="0" height="1" width="1"></td></tr></tbody></table></td><td bgcolor="#fbedbb" width="12%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/t.gif" border="0" height="1" width="1"></td></tr><tr><td class="messagetitle" align="right">Date&nbsp;</td></tr><tr><td><img src="libreflection.asp_files/t.gif" border="0" height="1" width="1"></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr id="1886951_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1886951xx"></a><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1886951" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=1886951#xx1886951xx"><b>Windows CE compilation</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=3814022"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>DuvidaCruel</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>15:11 9 Feb '07</b>&nbsp;</font></td></tr>
+<tr id="1886951_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Hi,<br><br>I'm trying to compile this library int Windows CE, almost everything works, except constructors stuff.<br>I know that problem is in ARM compiler from EVC because the library compiles fine in Visual Studio.<br>the part that doesn't work is the following:<br><br>template <class c=""> <br>static C *__new_instance_ptr__(void* ptr) <br>{ <br>    return new (ptr) T(); <br>} <br>	<br>template <class c=""> <br>static C *(* __create_new_instance_ptr__(C *(*)()))(void *)<br>{ <br>    return &amp; __new_instance_ptr__<c>; &lt;-- ERROR C2275<br>}<br><br>The error is:<br>error C2275: 'C' : illegal use of this type as an expression<br><br>So, i am looking for some workaround for this <br><br>thanks in advance <br>&nbsp;</c></class></class></font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1886951" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1886951" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=1886951&amp;forumid=123135&amp;select=1886951#xx1886951xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=1886951#xx1886951xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(3814022,1886951);</script><span id="MVF1886951">Rate this message: <a href="#xx1886951xx" title="give this message a vote of 1" onclick="return RateMsg(3814022, 1886951, 1)"><b>1</b></a> <a href="#xx1886951xx" title="give this message a vote of 2" onclick="return RateMsg(3814022, 1886951, 2)"><b>2</b></a> <a href="#xx1886951xx" title="give this message a vote of 3" onclick="return RateMsg(3814022, 1886951, 3)"><b>3</b></a> <a href="#xx1886951xx" title="give this message a vote of 4" onclick="return RateMsg(3814022, 1886951, 4)"><b>4</b></a> <a href="#xx1886951xx" title="give this message a vote of 5" onclick="return RateMsg(3814022, 1886951, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1886951xx" title="Mark as Spam" onclick="return ReportMsg(3814022, 1886951,-1)">Spam</a> or 
+<a href="#xx1886951xx" title="Mark as Abuse" onclick="return ReportMsg(3814022, 1886951,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="libreflection.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1098016_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1098016xx"></a><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1098016" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=1098016#xx1098016xx"><b>LibReflection for gcc</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><img src="libreflection.asp_files/usersuss.gif" alt="Unconfirmed/Anonymous posting" height="13" width="15">&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>Anonymous</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>10:51 3 May '05</b>&nbsp;</font></td></tr>
+<tr id="1098016_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Hi,<br>Seems really cool to me.<br><br>Can someone please post LibReflection h file converted to gcc ?<br>I am having many problems porting it.<br><br>Thanks in advance! <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1098016" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=1098016&amp;forumid=123135&amp;select=1098016#xx1098016xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=1098016#xx1098016xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right">[<a href="http://www.codeproject.com/script/comments/owner_modify_pw.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1098016">Modify</a> | <a href="http://www.codeproject.com/script/comments/owner_delete_pw.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1098016">Delete</a>]<br> <script language="Javascript">MsgVoteForm(0,1098016);</script><span id="MVF1098016">Rate this message: <a href="#xx1098016xx" title="give this message a vote of 1" onclick="return RateMsg(0, 1098016, 1)"><b>1</b></a> <a href="#xx1098016xx" title="give this message a vote of 2" onclick="return RateMsg(0, 1098016, 2)"><b>2</b></a> <a href="#xx1098016xx" title="give this message a vote of 3" onclick="return RateMsg(0, 1098016, 3)"><b>3</b></a> <a href="#xx1098016xx" title="give this message a vote of 4" onclick="return RateMsg(0, 1098016, 4)"><b>4</b></a> <a href="#xx1098016xx" title="give this message a vote of 5" onclick="return RateMsg(0, 1098016, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1098016xx" title="Mark as Spam" onclick="return ReportMsg(0, 1098016,-1)">Spam</a> or 
+<a href="#xx1098016xx" title="Mark as Abuse" onclick="return ReportMsg(0, 1098016,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="libreflection.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1076709_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1076709xx"></a><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1076709" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=1076709#xx1076709xx"><b>Arrays?</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=469056"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>neo2600777</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>15:30 6 Apr '05</b>&nbsp;</font></td></tr>
+<tr id="1076709_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Have you thought about how field definitions for Arrays would work? <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1076709" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1076709" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=1076709&amp;forumid=123135&amp;select=1076709#xx1076709xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=1076709#xx1076709xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(469056,1076709);</script><span id="MVF1076709">Rate this message: <a href="#xx1076709xx" title="give this message a vote of 1" onclick="return RateMsg(469056, 1076709, 1)"><b>1</b></a> <a href="#xx1076709xx" title="give this message a vote of 2" onclick="return RateMsg(469056, 1076709, 2)"><b>2</b></a> <a href="#xx1076709xx" title="give this message a vote of 3" onclick="return RateMsg(469056, 1076709, 3)"><b>3</b></a> <a href="#xx1076709xx" title="give this message a vote of 4" onclick="return RateMsg(469056, 1076709, 4)"><b>4</b></a> <a href="#xx1076709xx" title="give this message a vote of 5" onclick="return RateMsg(469056, 1076709, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1076709xx" title="Mark as Spam" onclick="return ReportMsg(469056, 1076709,-1)">Spam</a> or 
+<a href="#xx1076709xx" title="Mark as Abuse" onclick="return ReportMsg(469056, 1076709,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="libreflection.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1070331_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1070331xx"></a><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1070331" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=1070331#xx1070331xx"><b>An Update Version Posted</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=1802888"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>my2038</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>13:52 29 Mar '05</b>&nbsp;</font></td></tr>
+<tr id="1070331_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent"><a href="http://www.codeproject.com/useritems/libreflection2.asp" rel="nofollow">http://www.codeproject.com/useritems/libreflection2.asp</a>[<a href="http://www.codeproject.com/useritems/libreflection2.asp" target="_blank" rel="nofollow" title="New Window">^</a>]<br><br>Here
+is my articles of the changes that I have made to the library. It is
+currently in the "unedited" stage, please vote if you find it useful so
+that it can get to "edited" stage sooner.<br> <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1070331" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1070331" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=1070331&amp;forumid=123135&amp;select=1070331#xx1070331xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=1070331#xx1070331xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(1802888,1070331);</script><span id="MVF1070331">Rate this message: <a href="#xx1070331xx" title="give this message a vote of 1" onclick="return RateMsg(1802888, 1070331, 1)"><b>1</b></a> <a href="#xx1070331xx" title="give this message a vote of 2" onclick="return RateMsg(1802888, 1070331, 2)"><b>2</b></a> <a href="#xx1070331xx" title="give this message a vote of 3" onclick="return RateMsg(1802888, 1070331, 3)"><b>3</b></a> <a href="#xx1070331xx" title="give this message a vote of 4" onclick="return RateMsg(1802888, 1070331, 4)"><b>4</b></a> <a href="#xx1070331xx" title="give this message a vote of 5" onclick="return RateMsg(1802888, 1070331, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1070331xx" title="Mark as Spam" onclick="return ReportMsg(1802888, 1070331,-1)">Spam</a> or 
+<a href="#xx1070331xx" title="Mark as Abuse" onclick="return ReportMsg(1802888, 1070331,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="libreflection.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1066446_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1066446xx"></a><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1066446" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=1066446#xx1066446xx"><b>New Changes Made to LibReflection</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=1802888"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>my2038</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>16:22 23 Mar '05</b>&nbsp;</font></td></tr>
+<tr id="1066446_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Okay, here are the things that I added to your LibReflection library:<br><br>(1)
+Constructor information is now captured. You can actually invoke a
+constructor -- it will automatic create an object using the new
+operator. And the newInstance() method on the class will automatically
+called default constructor if one is defined.<br><br>(2) Method args
+type and list. Method, Static method and Constructor parameter and
+return type (std::type_info) can be retrieved.<br><br>(3) Class Method, Static Method, Constructor can be overloaded.  But the MACRO to defined them wasn't as nice.<br><br>(4) port to gcc.  Well, I only use gcc, so that is the only choice.<br><br>(5) added class registary to lookup or listing of all known classes<br><br>(6)
+When invoking a method object with type mismatched, the exception threw
+will include detailed information about which parameter/ret/object ref
+are mismatched. This should greater improve the ability to fix it.<br><br>(7) Full class name (including namespace) are now captured and returned.<br><br>(8)
+NEW! NEW! Automatic casting of object class are now working. If your
+method like a Base * but you pass in a Dervied *, it will automatic
+cast to the Base *. Also you can cast any class * cast to void *. This
+will allow alot of code to work in a generic way. Requirement is that
+both Base &amp; Dervied must be defined in the reflection. This works
+in reference as well (i.e. Derviced &amp; to Base &amp;) . For example,
+if your method is defined in class Dervied as<br><br>Dervied * createThis(Base * b);<br><br>You can invoke it using:<br><br>Base *result_ptr;<br>Dervied d;<br><br>d.getClass().getMethod("createThis").invoke(result_ptr, &amp;d, &amp;d);<br><br><br>(9)
+NEW! NEW! NEW! Dynamic pointer casting are now working. The known
+object pointer will automatic test for dynamic castable to its dervied
+type. This allow you to invoke method using Base class pointer. For the
+sample above, we can invoke it as:<br><br>Base *p = &amp;d;<br>d.getClass().getMethod("createThis").invoke(result_ptr, p, &amp;d);<br><br>(10) Work in template class as well.<br><br>Limitation (same as original) :<br>An instance of the class must be created before the class is "known".<br><br>Single inhertiance only.  no virtual base class.<br><br>Some
+of the implicit conversion originally done by the compiler will not be
+performed. e.g. long -&gt; int, const char * -&gt; string, etc<br><br>Let me know if there is a way I can send you back the changes...<br> <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1066446" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1066446" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=1066446&amp;forumid=123135&amp;select=1066446#xx1066446xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=1066446#xx1066446xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right">Score: 4.3 (3 votes).  <script language="Javascript">MsgVoteForm(1802888,1066446);</script><span id="MVF1066446">Rate this message: <a href="#xx1066446xx" title="give this message a vote of 1" onclick="return RateMsg(1802888, 1066446, 1)"><b>1</b></a> <a href="#xx1066446xx" title="give this message a vote of 2" onclick="return RateMsg(1802888, 1066446, 2)"><b>2</b></a> <a href="#xx1066446xx" title="give this message a vote of 3" onclick="return RateMsg(1802888, 1066446, 3)"><b>3</b></a> <a href="#xx1066446xx" title="give this message a vote of 4" onclick="return RateMsg(1802888, 1066446, 4)"><b>4</b></a> <a href="#xx1066446xx" title="give this message a vote of 5" onclick="return RateMsg(1802888, 1066446, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1066446xx" title="Mark as Spam" onclick="return ReportMsg(1802888, 1066446,-1)">Spam</a> or 
+<a href="#xx1066446xx" title="Mark as Abuse" onclick="return ReportMsg(1802888, 1066446,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1069122_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1069122xx"></a><img src="libreflection.asp_files/ind.gif" height="1" width="18"><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1069122" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=1069122#xx1069122xx">Re: New Changes Made to LibReflection</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=4650"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">WREY&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">6:14 28 Mar '05&nbsp;</font></td></tr>
+<tr id="1069122_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/ind.gif" height="1" width="18"><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Your changes sound very interesting!<br><br>Why
+don't you write an article about it and make reference that it's an
+extension (in a sort of way) to AGM::LibReflection. That way, you can
+show your changes as well as the other author's code.<br><br>I am currently doing something like this, and would very much like to see the changes to which you are referring.<br><br><img src="libreflection.asp_files/smiley_biggrin.gif" align="absmiddle"> <br><br>William<br><br>Fortes in fide et opere!<br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1069122" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1069122" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=1066446&amp;forumid=123135&amp;select=1069122#xx1069122xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=1069122#xx1069122xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(4650,1069122);</script><span id="MVF1069122">Rate this message: <a href="#xx1069122xx" title="give this message a vote of 1" onclick="return RateMsg(4650, 1069122, 1)"><b>1</b></a> <a href="#xx1069122xx" title="give this message a vote of 2" onclick="return RateMsg(4650, 1069122, 2)"><b>2</b></a> <a href="#xx1069122xx" title="give this message a vote of 3" onclick="return RateMsg(4650, 1069122, 3)"><b>3</b></a> <a href="#xx1069122xx" title="give this message a vote of 4" onclick="return RateMsg(4650, 1069122, 4)"><b>4</b></a> <a href="#xx1069122xx" title="give this message a vote of 5" onclick="return RateMsg(4650, 1069122, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1069122xx" title="Mark as Spam" onclick="return ReportMsg(4650, 1069122,-1)">Spam</a> or 
+<a href="#xx1069122xx" title="Mark as Abuse" onclick="return ReportMsg(4650, 1069122,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1069358_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1069358xx"></a><img src="libreflection.asp_files/ind.gif" height="1" width="36"><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1069358" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=1069358#xx1069358xx">Re: New Changes Made to LibReflection</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=1802888"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">my2038&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">12:40 28 Mar '05&nbsp;</font></td></tr>
+<tr id="1069358_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/ind.gif" height="1" width="36"><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">I could but ...<br><br>(1)
+The changes is based on axilmar's work. I don't want look as if I am
+looking for ways to claim credit for his work. But on the other hand, I
+don't think he is reading this site anymore as someone else is also
+looking for his help.<br><br>(2) The code works in gcc. But I have not
+tested them in VC and I notice this is a MSVC/.net site, so it would
+probably made sense for someone to compile the code in MSVC first.<br><br> <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1069358" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1069358" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=1066446&amp;forumid=123135&amp;select=1069358#xx1069358xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=1069358#xx1069358xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(1802888,1069358);</script><span id="MVF1069358">Rate this message: <a href="#xx1069358xx" title="give this message a vote of 1" onclick="return RateMsg(1802888, 1069358, 1)"><b>1</b></a> <a href="#xx1069358xx" title="give this message a vote of 2" onclick="return RateMsg(1802888, 1069358, 2)"><b>2</b></a> <a href="#xx1069358xx" title="give this message a vote of 3" onclick="return RateMsg(1802888, 1069358, 3)"><b>3</b></a> <a href="#xx1069358xx" title="give this message a vote of 4" onclick="return RateMsg(1802888, 1069358, 4)"><b>4</b></a> <a href="#xx1069358xx" title="give this message a vote of 5" onclick="return RateMsg(1802888, 1069358, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1069358xx" title="Mark as Spam" onclick="return ReportMsg(1802888, 1069358,-1)">Spam</a> or 
+<a href="#xx1069358xx" title="Mark as Abuse" onclick="return ReportMsg(1802888, 1069358,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1069420_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1069420xx"></a><img src="libreflection.asp_files/ind.gif" height="1" width="54"><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1069420" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=1069420#xx1069420xx">Not totally true.</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=4650"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">WREY&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">14:23 28 Mar '05&nbsp;</font></td></tr>
+<tr id="1069420_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/ind.gif" height="1" width="54"><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Some
+of the things you say make sense, but if you were to write an article
+it would be YOUR article and you wouldn't be infringing on anybody
+else's work especially if in your article you make it clear that your
+work is to be considered an extension of the other author's previous
+submission. Your article will essentially be containing NEW work. So
+where is the infringement?<br><br>Besides, in your article (if it'd
+make you feel more comfortable), you can clearly give the other author
+credit for planting the seeds of ideas in your head for what you have
+submitted.<br><br>I personally don't see any conflict of anything.<br><br>With
+regards to this being a ".net" site, you must be fairly new, because
+there are (literally) thousands upon thousands of non-".net" materials
+here.<br><br>It simply boils down to this, "Where there's a will, there's a way!!"<br><br><img src="libreflection.asp_files/smiley_suss.gif" align="absmiddle"> <br><br>William<br><br>Fortes in fide et opere!<br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1069420" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1069420" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=1066446&amp;forumid=123135&amp;select=1069420#xx1069420xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=1069420#xx1069420xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(4650,1069420);</script><span id="MVF1069420">Rate this message: <a href="#xx1069420xx" title="give this message a vote of 1" onclick="return RateMsg(4650, 1069420, 1)"><b>1</b></a> <a href="#xx1069420xx" title="give this message a vote of 2" onclick="return RateMsg(4650, 1069420, 2)"><b>2</b></a> <a href="#xx1069420xx" title="give this message a vote of 3" onclick="return RateMsg(4650, 1069420, 3)"><b>3</b></a> <a href="#xx1069420xx" title="give this message a vote of 4" onclick="return RateMsg(4650, 1069420, 4)"><b>4</b></a> <a href="#xx1069420xx" title="give this message a vote of 5" onclick="return RateMsg(4650, 1069420, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1069420xx" title="Mark as Spam" onclick="return ReportMsg(4650, 1069420,-1)">Spam</a> or 
+<a href="#xx1069420xx" title="Mark as Abuse" onclick="return ReportMsg(4650, 1069420,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1070334_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1070334xx"></a><img src="libreflection.asp_files/ind.gif" height="1" width="72"><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1070334" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=1070334#xx1070334xx">Re: Not totally true.</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=1802888"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">my2038&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">13:53 29 Mar '05&nbsp;</font></td></tr>
+<tr id="1070334_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/ind.gif" height="1" width="72"><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Okay, here we go:  <a href="http://www.codeproject.com/useritems/libreflection2.asp" rel="nofollow">http://www.codeproject.com/useritems/libreflection2.asp</a>[<a href="http://www.codeproject.com/useritems/libreflection2.asp" target="_blank" rel="nofollow" title="New Window">^</a>] <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1070334" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1070334" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=1066446&amp;forumid=123135&amp;select=1070334#xx1070334xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=1070334#xx1070334xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(1802888,1070334);</script><span id="MVF1070334">Rate this message: <a href="#xx1070334xx" title="give this message a vote of 1" onclick="return RateMsg(1802888, 1070334, 1)"><b>1</b></a> <a href="#xx1070334xx" title="give this message a vote of 2" onclick="return RateMsg(1802888, 1070334, 2)"><b>2</b></a> <a href="#xx1070334xx" title="give this message a vote of 3" onclick="return RateMsg(1802888, 1070334, 3)"><b>3</b></a> <a href="#xx1070334xx" title="give this message a vote of 4" onclick="return RateMsg(1802888, 1070334, 4)"><b>4</b></a> <a href="#xx1070334xx" title="give this message a vote of 5" onclick="return RateMsg(1802888, 1070334, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1070334xx" title="Mark as Spam" onclick="return ReportMsg(1802888, 1070334,-1)">Spam</a> or 
+<a href="#xx1070334xx" title="Mark as Abuse" onclick="return ReportMsg(1802888, 1070334,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="libreflection.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1065237_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1065237xx"></a><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" style="color: rgb(170, 0, 0);" width="100%"><a class="messagetitle" style="color: rgb(170, 0, 0);" id="DynMessLink" name="1065237" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=1065237#xx1065237xx"><b>Compile Error in VS.NET 1.1</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=1814311"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle" style="color: rgb(170, 0, 0);"><b>colormegjian</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle" style="color: rgb(170, 0, 0);"><b>9:26 22 Mar '05</b>&nbsp;</font></td></tr>
+<tr id="1065237_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">I just compiled the source code posted on the page in VS.NET 1.1,but found<br><br>error C2039: &#8220;Base&#8221; : is not member of &#8220;Base::__method_processLength__&#8221; <br>which refers to "METHOD(public, bool, processLength, (int l));"<br><br>who could help me? thanks in advance! <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1065237" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1065237" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=1065237&amp;forumid=123135&amp;select=1065237#xx1065237xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=1065237#xx1065237xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right">Score: 5.0 (1 vote).  <script language="Javascript">MsgVoteForm(1814311,1065237);</script><span id="MVF1065237">Rate this message: <a href="#xx1065237xx" title="give this message a vote of 1" onclick="return RateMsg(1814311, 1065237, 1)"><b>1</b></a> <a href="#xx1065237xx" title="give this message a vote of 2" onclick="return RateMsg(1814311, 1065237, 2)"><b>2</b></a> <a href="#xx1065237xx" title="give this message a vote of 3" onclick="return RateMsg(1814311, 1065237, 3)"><b>3</b></a> <a href="#xx1065237xx" title="give this message a vote of 4" onclick="return RateMsg(1814311, 1065237, 4)"><b>4</b></a> <a href="#xx1065237xx" title="give this message a vote of 5" onclick="return RateMsg(1814311, 1065237, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1065237xx" title="Mark as Spam" onclick="return ReportMsg(1814311, 1065237,-1)">Spam</a> or 
+<a href="#xx1065237xx" title="Mark as Abuse" onclick="return ReportMsg(1814311, 1065237,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1073720_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1073720xx"></a><img src="libreflection.asp_files/ind.gif" height="1" width="18"><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1073720" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=1073720#xx1073720xx">Re: Compile Error in VS.NET 1.1</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=1849674"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">tomthorne2&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">13:23 2 Apr '05&nbsp;</font></td></tr>
+<tr id="1073720_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/ind.gif" height="1" width="18"><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">I'm getting the same errors... any clues anyone? <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1073720" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1073720" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=1065237&amp;forumid=123135&amp;select=1073720#xx1073720xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=1073720#xx1073720xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(1849674,1073720);</script><span id="MVF1073720">Rate this message: <a href="#xx1073720xx" title="give this message a vote of 1" onclick="return RateMsg(1849674, 1073720, 1)"><b>1</b></a> <a href="#xx1073720xx" title="give this message a vote of 2" onclick="return RateMsg(1849674, 1073720, 2)"><b>2</b></a> <a href="#xx1073720xx" title="give this message a vote of 3" onclick="return RateMsg(1849674, 1073720, 3)"><b>3</b></a> <a href="#xx1073720xx" title="give this message a vote of 4" onclick="return RateMsg(1849674, 1073720, 4)"><b>4</b></a> <a href="#xx1073720xx" title="give this message a vote of 5" onclick="return RateMsg(1849674, 1073720, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1073720xx" title="Mark as Spam" onclick="return ReportMsg(1849674, 1073720,-1)">Spam</a> or 
+<a href="#xx1073720xx" title="Mark as Abuse" onclick="return ReportMsg(1849674, 1073720,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1246413_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1246413xx"></a><img src="libreflection.asp_files/ind.gif" height="1" width="36"><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1246413" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=1246413#xx1246413xx">Re: Compile Error in VS.NET 1.1</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=1191951"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">derchoff&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">6:15 6 Oct '05&nbsp;</font></td></tr>
+<tr id="1246413_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/ind.gif" height="1" width="36"><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Same problem for me. But it works with VS.NET 2005 !<br><br><a href="http://www.codeproject.com/library/libreflection2.asp?msg=1246303#xx1246303xx%3Cbr%3E" rel="nofollow">http://www.codeproject.com/library/libreflection2.asp?msg=1246303#xx1246303xx<br></a>[<a href="http://www.codeproject.com/library/libreflection2.asp?msg=1246303#xx1246303xx%3Cbr%3E" target="_blank" rel="nofollow">^</a>]<br> -- modified at 6:15 Thursday 6th October, 2005<br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1246413" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1246413" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=1065237&amp;forumid=123135&amp;select=1246413#xx1246413xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=1246413#xx1246413xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(1191951,1246413);</script><span id="MVF1246413">Rate this message: <a href="#xx1246413xx" title="give this message a vote of 1" onclick="return RateMsg(1191951, 1246413, 1)"><b>1</b></a> <a href="#xx1246413xx" title="give this message a vote of 2" onclick="return RateMsg(1191951, 1246413, 2)"><b>2</b></a> <a href="#xx1246413xx" title="give this message a vote of 3" onclick="return RateMsg(1191951, 1246413, 3)"><b>3</b></a> <a href="#xx1246413xx" title="give this message a vote of 4" onclick="return RateMsg(1191951, 1246413, 4)"><b>4</b></a> <a href="#xx1246413xx" title="give this message a vote of 5" onclick="return RateMsg(1191951, 1246413, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1246413xx" title="Mark as Spam" onclick="return ReportMsg(1191951, 1246413,-1)">Spam</a> or 
+<a href="#xx1246413xx" title="Mark as Abuse" onclick="return ReportMsg(1191951, 1246413,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="libreflection.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1041254_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1041254xx"></a><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1041254" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=1041254#xx1041254xx"><b>Can i use it in BCB?</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=1739605"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>FlameBlade</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>8:41 17 Feb '05</b>&nbsp;</font></td></tr>
+<tr id="1041254_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">i just wanna use this in bcb.But there is something wronge with it.how can i?thanks! <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1041254" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1041254" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=1041254&amp;forumid=123135&amp;select=1041254#xx1041254xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=1041254#xx1041254xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(1739605,1041254);</script><span id="MVF1041254">Rate this message: <a href="#xx1041254xx" title="give this message a vote of 1" onclick="return RateMsg(1739605, 1041254, 1)"><b>1</b></a> <a href="#xx1041254xx" title="give this message a vote of 2" onclick="return RateMsg(1739605, 1041254, 2)"><b>2</b></a> <a href="#xx1041254xx" title="give this message a vote of 3" onclick="return RateMsg(1739605, 1041254, 3)"><b>3</b></a> <a href="#xx1041254xx" title="give this message a vote of 4" onclick="return RateMsg(1739605, 1041254, 4)"><b>4</b></a> <a href="#xx1041254xx" title="give this message a vote of 5" onclick="return RateMsg(1739605, 1041254, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1041254xx" title="Mark as Spam" onclick="return ReportMsg(1739605, 1041254,-1)">Spam</a> or 
+<a href="#xx1041254xx" title="Mark as Abuse" onclick="return ReportMsg(1739605, 1041254,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="libreflection.asp_files/t.gif" height="1" width="1"></td></tr><tr id="978686_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx978686xx"></a><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="978686" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=978686#xx978686xx"><b>Contact</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><img src="libreflection.asp_files/usersuss.gif" alt="Unconfirmed/Anonymous posting" height="13" width="15">&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>psyclonist (Stephan K.)</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>7:41 22 Nov '04</b>&nbsp;</font></td></tr>
+<tr id="978686_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Very interesting library. We are working on a reflection library for a few months (includes more than one rewrite <img src="libreflection.asp_files/smiley_wink.gif" align="absmiddle">
+). We've given your library a try and added quite a few things. We'd
+like to contact you in order to talk with you about possible uses,
+modifications, addons etc if you're interested. We sent you e-mails to
+at least two different e-mail adresses but they probably didn't reach
+you.<br><br>How can we contact you?<br><br>Cheers! <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=978686" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=978686" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=978686&amp;forumid=123135&amp;select=978686#xx978686xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=978686#xx978686xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right">[<a href="http://www.codeproject.com/script/comments/owner_modify_pw.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=978686">Modify</a> | <a href="http://www.codeproject.com/script/comments/owner_delete_pw.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=978686">Delete</a>]<br> <script language="Javascript">MsgVoteForm(0,978686);</script><span id="MVF978686">Rate this message: <a href="#xx978686xx" title="give this message a vote of 1" onclick="return RateMsg(0, 978686, 1)"><b>1</b></a> <a href="#xx978686xx" title="give this message a vote of 2" onclick="return RateMsg(0, 978686, 2)"><b>2</b></a> <a href="#xx978686xx" title="give this message a vote of 3" onclick="return RateMsg(0, 978686, 3)"><b>3</b></a> <a href="#xx978686xx" title="give this message a vote of 4" onclick="return RateMsg(0, 978686, 4)"><b>4</b></a> <a href="#xx978686xx" title="give this message a vote of 5" onclick="return RateMsg(0, 978686, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx978686xx" title="Mark as Spam" onclick="return ReportMsg(0, 978686,-1)">Spam</a> or 
+<a href="#xx978686xx" title="Mark as Abuse" onclick="return ReportMsg(0, 978686,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="libreflection.asp_files/t.gif" height="1" width="1"></td></tr><tr id="978162_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx978162xx"></a><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" style="color: rgb(170, 0, 0);" width="100%"><a class="messagetitle" style="color: rgb(170, 0, 0);" id="DynMessLink" name="978162" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=978162#xx978162xx"><b>Can  Instance be Created Dynamicly?</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=695195"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle" style="color: rgb(170, 0, 0);"><b>Laisser</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle" style="color: rgb(170, 0, 0);"><b>12:21 21 Nov '04</b>&nbsp;</font></td></tr>
+<tr id="978162_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Can instance of the class be Created dynamicly?<br>Like the the CreateObject() function of CRuntimeClass in MFC Or the Activator.CreateInstance Method in .NET <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=978162" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=978162" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=978162&amp;forumid=123135&amp;select=978162#xx978162xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=978162#xx978162xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right">Score: 5.0 (1 vote).  <script language="Javascript">MsgVoteForm(695195,978162);</script><span id="MVF978162">Rate this message: <a href="#xx978162xx" title="give this message a vote of 1" onclick="return RateMsg(695195, 978162, 1)"><b>1</b></a> <a href="#xx978162xx" title="give this message a vote of 2" onclick="return RateMsg(695195, 978162, 2)"><b>2</b></a> <a href="#xx978162xx" title="give this message a vote of 3" onclick="return RateMsg(695195, 978162, 3)"><b>3</b></a> <a href="#xx978162xx" title="give this message a vote of 4" onclick="return RateMsg(695195, 978162, 4)"><b>4</b></a> <a href="#xx978162xx" title="give this message a vote of 5" onclick="return RateMsg(695195, 978162, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx978162xx" title="Mark as Spam" onclick="return ReportMsg(695195, 978162,-1)">Spam</a> or 
+<a href="#xx978162xx" title="Mark as Abuse" onclick="return ReportMsg(695195, 978162,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="libreflection.asp_files/t.gif" height="1" width="1"></td></tr><tr id="969893_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx969893xx"></a><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="969893" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=969893#xx969893xx"><b>Very Interesting!</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=19261"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>ggerules</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>11:19 10 Nov '04</b>&nbsp;</font></td></tr>
+<tr id="969893_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Good work.  Thanks! <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=969893" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=969893" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=969893&amp;forumid=123135&amp;select=969893#xx969893xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=969893#xx969893xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(19261,969893);</script><span id="MVF969893">Rate this message: <a href="#xx969893xx" title="give this message a vote of 1" onclick="return RateMsg(19261, 969893, 1)"><b>1</b></a> <a href="#xx969893xx" title="give this message a vote of 2" onclick="return RateMsg(19261, 969893, 2)"><b>2</b></a> <a href="#xx969893xx" title="give this message a vote of 3" onclick="return RateMsg(19261, 969893, 3)"><b>3</b></a> <a href="#xx969893xx" title="give this message a vote of 4" onclick="return RateMsg(19261, 969893, 4)"><b>4</b></a> <a href="#xx969893xx" title="give this message a vote of 5" onclick="return RateMsg(19261, 969893, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx969893xx" title="Mark as Spam" onclick="return ReportMsg(19261, 969893,-1)">Spam</a> or 
+<a href="#xx969893xx" title="Mark as Abuse" onclick="return ReportMsg(19261, 969893,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="libreflection.asp_files/t.gif" height="1" width="1"></td></tr><tr id="963422_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx963422xx"></a><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="963422" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=963422#xx963422xx"><b>Cool!</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=12433"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>Jim Crafton</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>20:15 2 Nov '04</b>&nbsp;</font></td></tr>
+<tr id="963422_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Nice job - I came up with a similar approach to your, check it out here: <a href="http://vcf.sourceforge.net/">http://vcf.sourceforge.net</a>[<a href="http://vcf.sourceforge.net/" target="_blank">^</a>].<br><a href="http://vcf.sourceforge.net/docs/src_manual/classVCF_1_1Class.html">VCF::Class</a>[<a href="http://vcf.sourceforge.net/docs/src_manual/classVCF_1_1Class.html" target="_blank">^</a>] will give you taste of what it does.<br><br>Any success with other compilers? GCC, Borland, or DigitalMars?<br><br>Again, congrats on the nice work!<br> <br><br><i>¡El diablo está en mis pantalones! ¡Mire, mire!</i><br><br><i>Real Mentats use only 100% pure, unfooled around with Sapho Juice(tm)!</i><br><br><font color="black" size="1">SELECT * FROM <b>User</b> WHERE <b>Clue</b> &gt; 0<br><b>0 rows returned</b><br></font><br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=963422" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=963422" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=963422&amp;forumid=123135&amp;select=963422#xx963422xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=963422#xx963422xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(12433,963422);</script><span id="MVF963422">Rate this message: <a href="#xx963422xx" title="give this message a vote of 1" onclick="return RateMsg(12433, 963422, 1)"><b>1</b></a> <a href="#xx963422xx" title="give this message a vote of 2" onclick="return RateMsg(12433, 963422, 2)"><b>2</b></a> <a href="#xx963422xx" title="give this message a vote of 3" onclick="return RateMsg(12433, 963422, 3)"><b>3</b></a> <a href="#xx963422xx" title="give this message a vote of 4" onclick="return RateMsg(12433, 963422, 4)"><b>4</b></a> <a href="#xx963422xx" title="give this message a vote of 5" onclick="return RateMsg(12433, 963422, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx963422xx" title="Mark as Spam" onclick="return ReportMsg(12433, 963422,-1)">Spam</a> or 
+<a href="#xx963422xx" title="Mark as Abuse" onclick="return ReportMsg(12433, 963422,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="963808_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx963808xx"></a><img src="libreflection.asp_files/ind.gif" height="1" width="18"><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="963808" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=963808#xx963808xx">Re: Cool!</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=1095289"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">axilmar&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">8:37 3 Nov '04&nbsp;</font></td></tr>
+<tr id="963808_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/ind.gif" height="1" width="18"><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">You did a nice job too. Generally, our thinking is on the same line, but we have differences in the implementation.<br><br>I've
+solved an issue with some macros and now my code works for GCC also.
+But I haven't finished yet, there are lots of features still pending.<br><br>Watch this space for further developements! <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=963808" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=963808" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=963422&amp;forumid=123135&amp;select=963808#xx963808xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=963808#xx963808xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(1095289,963808);</script><span id="MVF963808">Rate this message: <a href="#xx963808xx" title="give this message a vote of 1" onclick="return RateMsg(1095289, 963808, 1)"><b>1</b></a> <a href="#xx963808xx" title="give this message a vote of 2" onclick="return RateMsg(1095289, 963808, 2)"><b>2</b></a> <a href="#xx963808xx" title="give this message a vote of 3" onclick="return RateMsg(1095289, 963808, 3)"><b>3</b></a> <a href="#xx963808xx" title="give this message a vote of 4" onclick="return RateMsg(1095289, 963808, 4)"><b>4</b></a> <a href="#xx963808xx" title="give this message a vote of 5" onclick="return RateMsg(1095289, 963808, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx963808xx" title="Mark as Spam" onclick="return ReportMsg(1095289, 963808,-1)">Spam</a> or 
+<a href="#xx963808xx" title="Mark as Abuse" onclick="return ReportMsg(1095289, 963808,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1060439_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1060439xx"></a><img src="libreflection.asp_files/ind.gif" height="1" width="36"><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1060439" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=1060439#xx1060439xx">Re: Cool!</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=1802888"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">my2038&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">16:27 15 Mar '05&nbsp;</font></td></tr>
+<tr id="1060439_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/ind.gif" height="1" width="36"><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">mmm, If you have ported it to gcc, why don't you post it...  I spend the last few hours doing that and were just done. <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1060439" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1060439" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=963422&amp;forumid=123135&amp;select=1060439#xx1060439xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=1060439#xx1060439xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(1802888,1060439);</script><span id="MVF1060439">Rate this message: <a href="#xx1060439xx" title="give this message a vote of 1" onclick="return RateMsg(1802888, 1060439, 1)"><b>1</b></a> <a href="#xx1060439xx" title="give this message a vote of 2" onclick="return RateMsg(1802888, 1060439, 2)"><b>2</b></a> <a href="#xx1060439xx" title="give this message a vote of 3" onclick="return RateMsg(1802888, 1060439, 3)"><b>3</b></a> <a href="#xx1060439xx" title="give this message a vote of 4" onclick="return RateMsg(1802888, 1060439, 4)"><b>4</b></a> <a href="#xx1060439xx" title="give this message a vote of 5" onclick="return RateMsg(1802888, 1060439, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1060439xx" title="Mark as Spam" onclick="return ReportMsg(1802888, 1060439,-1)">Spam</a> or 
+<a href="#xx1060439xx" title="Mark as Abuse" onclick="return ReportMsg(1802888, 1060439,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="libreflection.asp_files/t.gif" height="1" width="1"></td></tr><tr id="963244_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx963244xx"></a><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" style="color: rgb(170, 0, 0);" width="100%"><a class="messagetitle" style="color: rgb(170, 0, 0);" id="DynMessLink" name="963244" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=963244#xx963244xx"><b>Dude</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=46934"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle" style="color: rgb(170, 0, 0);"><b>armentage</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle" style="color: rgb(170, 0, 0);"><b>15:23 2 Nov '04</b>&nbsp;</font></td></tr>
+<tr id="963244_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">If you plan on writing C++ that looks like this, you seriously need to discover C++/CLR, C#, and Java, and stick with them.<br> <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=963244" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=963244" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=963244&amp;forumid=123135&amp;select=963244#xx963244xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=963244#xx963244xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right">Score: 5.0 (2 votes).  <script language="Javascript">MsgVoteForm(46934,963244);</script><span id="MVF963244">Rate this message: <a href="#xx963244xx" title="give this message a vote of 1" onclick="return RateMsg(46934, 963244, 1)"><b>1</b></a> <a href="#xx963244xx" title="give this message a vote of 2" onclick="return RateMsg(46934, 963244, 2)"><b>2</b></a> <a href="#xx963244xx" title="give this message a vote of 3" onclick="return RateMsg(46934, 963244, 3)"><b>3</b></a> <a href="#xx963244xx" title="give this message a vote of 4" onclick="return RateMsg(46934, 963244, 4)"><b>4</b></a> <a href="#xx963244xx" title="give this message a vote of 5" onclick="return RateMsg(46934, 963244, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx963244xx" title="Mark as Spam" onclick="return ReportMsg(46934, 963244,-1)">Spam</a> or 
+<a href="#xx963244xx" title="Mark as Abuse" onclick="return ReportMsg(46934, 963244,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="963253_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx963253xx"></a><img src="libreflection.asp_files/ind.gif" height="1" width="18"><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="963253" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=963253#xx963253xx">Re: Dude</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=1095289"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">axilmar&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">15:42 2 Nov '04&nbsp;</font></td></tr>
+<tr id="963253_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/ind.gif" height="1" width="18"><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Ehm...why do you say that?<br> <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=963253" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=963253" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=963244&amp;forumid=123135&amp;select=963253#xx963253xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=963253#xx963253xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(1095289,963253);</script><span id="MVF963253">Rate this message: <a href="#xx963253xx" title="give this message a vote of 1" onclick="return RateMsg(1095289, 963253, 1)"><b>1</b></a> <a href="#xx963253xx" title="give this message a vote of 2" onclick="return RateMsg(1095289, 963253, 2)"><b>2</b></a> <a href="#xx963253xx" title="give this message a vote of 3" onclick="return RateMsg(1095289, 963253, 3)"><b>3</b></a> <a href="#xx963253xx" title="give this message a vote of 4" onclick="return RateMsg(1095289, 963253, 4)"><b>4</b></a> <a href="#xx963253xx" title="give this message a vote of 5" onclick="return RateMsg(1095289, 963253, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx963253xx" title="Mark as Spam" onclick="return ReportMsg(1095289, 963253,-1)">Spam</a> or 
+<a href="#xx963253xx" title="Mark as Abuse" onclick="return ReportMsg(1095289, 963253,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="964048_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx964048xx"></a><img src="libreflection.asp_files/ind.gif" height="1" width="18"><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" style="color: rgb(170, 0, 0);" width="100%"><a class="messagetitle" style="color: rgb(170, 0, 0);" id="DynMessLink" name="964048" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=964048#xx964048xx">Re: Dude</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=1284906"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle" style="color: rgb(170, 0, 0);">Dave Handley&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle" style="color: rgb(170, 0, 0);">12:10 3 Nov '04&nbsp;</font></td></tr>
+<tr id="964048_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/ind.gif" height="1" width="18"><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Unfortunately,
+there are lots of reasons for NOT using the CLR, be it with Managed C++
+or C# (and also for not using Java) - but in those cases Reflection can
+still be very useful.<br><br>Some of the reasons why I haven't been able to use Managed C++ or C# (despite incentive to try) include:<br><br>1)
+Immature libraries. Because the languages haven't been around very
+long, the libraries have a huge number of weaknesses - the last time I
+tried to use C# I found that I couldn't create a directory browser from
+the file dialog since the file dialog didn't include that feature and
+it was a final class. In C++ I would simply inherit off CFileDialog.<br><br>2)
+The syntax is impenetrable. Managed C++ has improved slightly with the
+newer work Microsoft has done, but it is still nowhere near as clear as
+well written C++.<br><br>3) The syntax is non-standard. Except in the
+rare cases where the CLR exists for other platforms and compilers, you
+are stuck with VC++ and Windows.<br><br>4) The CLR is incredibly slow
+compared to raw C++. Because you are working through an intermediate
+language, and you have the overhead of garbage collection and smart
+pointers, for time critical applications Managed C++ just doesn't hold
+up. I write CAD applications for a living and Managed C++ just wouldn't
+cut it.<br><br>5) It is very difficult to use Managed and Unmanaged
+code side by side. Again, last time I checked, ALL your code had to be
+recompiled with the compiler switch for CLR included. That scares me
+because calls from unmanaged code into managed code are going to have
+loads on non-deterministic wrappers around them.<br><br>I'll get off my
+soapbox now - but suffice it to say that I haven't been impressed with
+the CLR - and it certainly doesn't remove the need to provide decent
+reflection libraries under certain circumstances in C++.<br><br>Good work on AGM::LibReflection. <br><br>Dave<br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=964048" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=964048" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=963244&amp;forumid=123135&amp;select=964048#xx964048xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=964048#xx964048xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right">Score: 5.0 (3 votes).  <script language="Javascript">MsgVoteForm(1284906,964048);</script><span id="MVF964048">Rate this message: <a href="#xx964048xx" title="give this message a vote of 1" onclick="return RateMsg(1284906, 964048, 1)"><b>1</b></a> <a href="#xx964048xx" title="give this message a vote of 2" onclick="return RateMsg(1284906, 964048, 2)"><b>2</b></a> <a href="#xx964048xx" title="give this message a vote of 3" onclick="return RateMsg(1284906, 964048, 3)"><b>3</b></a> <a href="#xx964048xx" title="give this message a vote of 4" onclick="return RateMsg(1284906, 964048, 4)"><b>4</b></a> <a href="#xx964048xx" title="give this message a vote of 5" onclick="return RateMsg(1284906, 964048, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx964048xx" title="Mark as Spam" onclick="return ReportMsg(1284906, 964048,-1)">Spam</a> or 
+<a href="#xx964048xx" title="Mark as Abuse" onclick="return ReportMsg(1284906, 964048,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="972260_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx972260xx"></a><img src="libreflection.asp_files/ind.gif" height="1" width="36"><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="972260" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=972260#xx972260xx">Re: Dude</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=8749"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">Anders Dalvander&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">8:03 13 Nov '04&nbsp;</font></td></tr>
+<tr id="972260_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/ind.gif" height="1" width="36"><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent"><small><b>Dave Handley wrote:</b></small><br><i>1)
+Immature libraries. Because the languages haven't been around very
+long, the libraries have a huge number of weaknesses - the last time I
+tried to use C# I found that I couldn't create a directory browser from
+the file dialog since the file dialog didn't include that feature and
+it was a final class. In C++ I would simply inherit off CFileDialog.</i><br><br>CFileDialog
+isn't really standard C++, it is a MFC class, and thus will only work
+in Microsoft Windows. But should't you use the Win32 function
+SHBrowseForFolder, and not derive from CFileDialog anyway?<br><br><small><b>Dave Handley wrote:</b></small><br><i>2)
+The syntax is impenetrable. Managed C++ has improved slightly with the
+newer work Microsoft has done, but it is still nowhere near as clear as
+well written C++.</i><br><br>True, Managed C++ wasn't very neat to use, and that is why <a href="http://msdn.microsoft.com/visualc/homepageheadlines/ecma/default.aspx">C++/CLI</a>[<a href="http://msdn.microsoft.com/visualc/homepageheadlines/ecma/default.aspx" target="_blank" title="New Window">^</a>]
+was developed. C++/CLI is as penetrable as standard C++, atleast when
+you are doing the same thing. I wouldn't state that standard C++ is
+clear, either.<br><br><small><b>Dave Handley wrote:</b></small><br><i>3)
+The syntax is non-standard. Except in the rare cases where the CLR
+exists for other platforms and compilers, you are stuck with VC++ and
+Windows.</i><br><br>The CLR, CLI, C# and C++/CLI are standards, but
+you're stuck in .NET, that is true. But .NET is ported to other systems
+than Windows. See <a href="http://www.dotgnu.org/">DotGnu</a>[<a href="http://www.dotgnu.org/" target="_blank" title="New Window">^</a>] and <a href="http://www.go-mono.com/">Mono</a>[<a href="http://www.go-mono.com/" target="_blank" title="New Window">^</a>].<br><br><small><b>Dave Handley wrote:</b></small><br><i>4)
+The CLR is incredibly slow compared to raw C++. Because you are working
+through an intermediate language, and you have the overhead of garbage
+collection and smart pointers, for time critical applications Managed
+C++ just doesn't hold up. I write CAD applications for a living and
+Managed C++ just wouldn't cut it.</i><br><br>You are not working
+through an intermediate language, the JIT-compiler will create machine
+code. In C++/CLI you don't have to use garbage collection, you can use
+deterministic destruction instead.<br>Vertigo Software ported <a href="http://www.vertigosoftware.com/Quake2.htm">Quake 2</a>[<a href="http://www.vertigosoftware.com/Quake2.htm" target="_blank" title="New Window">^</a>]
+to .NET with a performance decrease of only 15%. And that was done in 5
+days: 4 days for porting from C to C++ and one day to port to Managed
+C++. <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=972260" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=972260" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=963244&amp;forumid=123135&amp;select=972260#xx972260xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=972260#xx972260xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(8749,972260);</script><span id="MVF972260">Rate this message: <a href="#xx972260xx" title="give this message a vote of 1" onclick="return RateMsg(8749, 972260, 1)"><b>1</b></a> <a href="#xx972260xx" title="give this message a vote of 2" onclick="return RateMsg(8749, 972260, 2)"><b>2</b></a> <a href="#xx972260xx" title="give this message a vote of 3" onclick="return RateMsg(8749, 972260, 3)"><b>3</b></a> <a href="#xx972260xx" title="give this message a vote of 4" onclick="return RateMsg(8749, 972260, 4)"><b>4</b></a> <a href="#xx972260xx" title="give this message a vote of 5" onclick="return RateMsg(8749, 972260, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx972260xx" title="Mark as Spam" onclick="return ReportMsg(8749, 972260,-1)">Spam</a> or 
+<a href="#xx972260xx" title="Mark as Abuse" onclick="return ReportMsg(8749, 972260,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="972268_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx972268xx"></a><img src="libreflection.asp_files/ind.gif" height="1" width="54"><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="972268" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=972268#xx972268xx">Re: Dude</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=1284906"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">Dave Handley&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">9:08 13 Nov '04&nbsp;</font></td></tr>
+<tr id="972268_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/ind.gif" height="1" width="54"><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">"CFileDialog
+isn't really standard C++, it is a MFC class, and thus will only work
+in Microsoft Windows. But should't you use the Win32 function
+SHBrowseForFolder, and not derive from CFileDialog anyway?"<br><br>Unfortunately,
+even using SHBrowseForFolder isn't trivial in the .Net Framework - see
+http://www.netomatix.com/FolderBrowser.aspx<br><br>"I wouldn't state that standard C++ is clear, either."<br><br>ANSI
+Standard C++ is very clear in my opinion - much more so than many other
+languages. Especially given the amount of explicit control you have
+over data management.<br><br>"The CLR, CLI, C# and C++/CLI are
+standards, but you're stuck in .NET, that is true. But .NET is ported
+to other systems than Windows. See DotGnu and Mono."<br><br>C++/CLI is
+a standard but it still is NOT ANSI Standard C++ which makes it much
+less portable. .Net may be ported to a few other platforms, but it
+still isn't properly cross-platform.<br><br>"You are not working
+through an intermediate language, the JIT-compiler will create machine
+code. In C++/CLI you don't have to use garbage collection, you can use
+deterministic destruction instead."<br><br>As far as I know the only
+way to do deterministic destruction is with the IDisposable interface,
+and even then the Garbage Collector does some of the work so it isn't
+strictly fully deterministic. Also any form of Just in Time Compiler
+directly implies the existence of intermediate code - of course the IL
+is converted to machine code before it is used, but it is still
+converted and that takes time.<br><br>"Vertigo Software ported Quake 2
+to .NET with a performance decrease of only 15%. And that was done in 5
+days: 4 days for porting from C to C++ and one day to port to Managed
+C++."<br><br>Unfortunately, something like Quake 2 isn't really a good
+example of a performance intensive application. From what I remember
+Quake 2 was written to run on a Pentium 133, and as with many games
+most of the really performance intensive stuff is done inside the
+OpenGL library down on the Graphics Card. That will still be the same
+in a managed port. When someone gets a ray-tracer working in managed
+code with similar performance to native C++ I'll be impressed, but I
+can't see it happening. Given that most of the really intensive stuff
+in Quake 2 is happening down on the graphics card, a 15% performance
+drop is huge. <br><br>Dave<br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=972268" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=972268" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=963244&amp;forumid=123135&amp;select=972268#xx972268xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=972268#xx972268xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right">Score: 4.0 (1 vote).  <script language="Javascript">MsgVoteForm(1284906,972268);</script><span id="MVF972268">Rate this message: <a href="#xx972268xx" title="give this message a vote of 1" onclick="return RateMsg(1284906, 972268, 1)"><b>1</b></a> <a href="#xx972268xx" title="give this message a vote of 2" onclick="return RateMsg(1284906, 972268, 2)"><b>2</b></a> <a href="#xx972268xx" title="give this message a vote of 3" onclick="return RateMsg(1284906, 972268, 3)"><b>3</b></a> <a href="#xx972268xx" title="give this message a vote of 4" onclick="return RateMsg(1284906, 972268, 4)"><b>4</b></a> <a href="#xx972268xx" title="give this message a vote of 5" onclick="return RateMsg(1284906, 972268, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx972268xx" title="Mark as Spam" onclick="return ReportMsg(1284906, 972268,-1)">Spam</a> or 
+<a href="#xx972268xx" title="Mark as Abuse" onclick="return ReportMsg(1284906, 972268,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1013636_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1013636xx"></a><img src="libreflection.asp_files/ind.gif" height="1" width="72"><img src="libreflection.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1013636" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;select=1013636#xx1013636xx">Re: Dude</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=47851"><img src="libreflection.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">kim-ryo&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">19:30 11 Jan '05&nbsp;</font></td></tr>
+<tr id="1013636_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="libreflection.asp_files/ind.gif" height="1" width="72"><img src="libreflection.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">"many games most of the really performance intensive stuff is done inside the OpenGL library down on the Graphics Card"<br><br>Actully,90% of PC Games is CPU limited.<img src="libreflection.asp_files/smiley_smile.gif" align="absmiddle"> <br><br>Say hello to my little friend.<br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1013636" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/library/libreflection.asp&amp;df=100&amp;forumid=123135&amp;select=1013636" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;tid=963244&amp;forumid=123135&amp;select=1013636#xx1013636xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/library/libreflection.asp?msg=1013636#xx1013636xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right">Score: 1.0 (1 vote).  <script language="Javascript">MsgVoteForm(47851,1013636);</script><span id="MVF1013636">Rate this message: <a href="#xx1013636xx" title="give this message a vote of 1" onclick="return RateMsg(47851, 1013636, 1)"><b>1</b></a> <a href="#xx1013636xx" title="give this message a vote of 2" onclick="return RateMsg(47851, 1013636, 2)"><b>2</b></a> <a href="#xx1013636xx" title="give this message a vote of 3" onclick="return RateMsg(47851, 1013636, 3)"><b>3</b></a> <a href="#xx1013636xx" title="give this message a vote of 4" onclick="return RateMsg(47851, 1013636, 4)"><b>4</b></a> <a href="#xx1013636xx" title="give this message a vote of 5" onclick="return RateMsg(47851, 1013636, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1013636xx" title="Mark as Spam" onclick="return ReportMsg(47851, 1013636,-1)">Spam</a> or 
+<a href="#xx1013636xx" title="Mark as Abuse" onclick="return ReportMsg(47851, 1013636,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="libreflection.asp_files/t.gif" border="0" height="5" width="1"></td></tr></tbody></table></td></tr><tr bgcolor="#fbedbb"><td><table cellpadding="2" width="100%"><tbody><tr><td class="messagetitle">Last Visit: 8:09 Sunday 18th February, 2007</td><td align="right" nowrap="nowrap"><font class="messagetitle"><span class="HoverLink">First</span> <span class="HoverLink">Prev</span> <a class="HoverLink" name="HoverNL" href="http://www.codeproject.com/library/libreflection.asp?df=100&amp;forumid=123135&amp;fr=26">Next</a> <span class="HoverLink">&nbsp;&nbsp;&nbsp;&nbsp;</span> </font></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table>
+</div><p class="smallText"><img src="libreflection.asp_files/news_general.gif" align="absmiddle"> General comment &nbsp;&nbsp; <img src="libreflection.asp_files/news_info.gif" align="absmiddle"> News / Info &nbsp;&nbsp; <img src="libreflection.asp_files/news_question.gif" align="absmiddle"> Question &nbsp;&nbsp; <img src="libreflection.asp_files/news_answer.gif" align="absmiddle"> Answer &nbsp;&nbsp; <img src="libreflection.asp_files/news_game.gif" align="absmiddle"> Joke / Game &nbsp;&nbsp; <img src="libreflection.asp_files/news_sticky.gif" align="absmiddle"> Admin message</p>
+<br>
+
+
+<table cellspacing="5" width="100%">
+<tbody><tr valign="top"><td class="smallText">
+
+Updated: 2 Nov 2004 
+</td><td class="SmallText" align="right">
+Article content copyright Achilleas Margaritis, 2004<br>
+everything else Copyright © <a href="mailto:webmaster@codeproject.com">CodeProject</a>, 1999-2007.
+
+<br>
+Web17 |
+<a href="http://www.codeproject.com/info/MediaKit">Advertise on The Code Project</a> | <a href="http://www.codeproject.com/info/privacy.asp">Privacy</a>
+
+</td></tr>
+</tbody></table>
+
+</td></tr></tbody></table>
+
+
+<script type="text/javascript" src="libreflection.asp_files/front.js"></script><script language="javascript" src="libreflection.asp_files/door.js"></script>
+<br>
+<center>
+<table border="0" cellpadding="0" cellspacing="0" width="95%">
+<tbody><tr><td bgcolor="#ff9900" height="1"><img src="libreflection.asp_files/space.gif" height="1"></td></tr>
+<tr>
+<td align="center"><font size="1">
+
+<a href="http://www.theultimatetoolbox.com/">The Ultimate Toolbox</a> &#8226;
+<a href="http://www.aspalliance.com/">ASP Alliance</a> &#8226;
+<a href="http://www.developerfusion.co.uk/">Developer Fusion</a> &#8226;
+<a href="http://www.developersdex.com/">Developersdex</a> &#8226;
+<a href="http://www.devguru.com/">DevGuru</a> &#8226;
+<a href="http://www.programmersheaven.com/">Programmers Heaven</a> &#8226;
+<a href="http://www.planet-source-code.com/">Planet Source Code</a> &#8226;
+<a href="http://www.tek-tips.com/">Tek-Tips Forums</a> &#8226;
+
+</font>	
+</td>
+</tr>
+</tbody></table>
+</center>
+</td></tr></tbody></table><div style="position: absolute; visibility: visible; background-color: rgb(72, 142, 0); z-index: 101; width: 298px; height: 22px; top: 115px; left: 1357px;"><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 40px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 2px;">Help!</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 55px; height: 16px; padding-left: 5px; padding-top: 2px; left: 50px; top: 2px;">Articles</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 115px; height: 16px; padding-left: 5px; padding-top: 2px; left: 113px; top: 2px;">Message Boards</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 55px; height: 16px; padding-left: 5px; padding-top: 2px; left: 236px; top: 2px;">Lounge</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(72, 142, 0); z-index: 102; width: 194px; height: 98px; top: 0pt; left: 0pt;"><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 185px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 2px;">What is 'The Code Project'?</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 185px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 21px;">General FAQ</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 185px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 40px;">Post a Question</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 185px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 59px;">Site Directory</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 185px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 78px;">About Us</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(72, 142, 0); z-index: 102; width: 154px; height: 136px; top: 0pt; left: 0pt;"><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 145px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 2px;">Latest</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 145px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 21px;">Most Popular</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 145px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 40px;">Search</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 145px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 59px;">Site Directory</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 145px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 78px;">Submit an Article</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 145px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 97px;">Update an Article</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 145px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 116px;">Article Competition</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(72, 142, 0); z-index: 102; width: 174px; height: 459px; top: 0pt; left: 0pt;"><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 2px;">Windows Vista</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 21px;">Visual C++</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 40px;">ATL / WTL / STL</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 59px;">COM</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 78px;">C++/CLI</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 97px;">C#</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 116px;">ASP.NET</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 135px;">VB.NET</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 154px;">Web Development</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 173px;">.NET Framework</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 192px;">Mobile Development</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 211px;">SQL / ADO / ADO.NET</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 230px;">XML / XSL</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 249px;">OS / SysAdmin</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 268px;">Work Issues</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 287px;">Article Requests</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 306px;">Collaboration</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 325px;">General Discussions</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 344px;">Hardware</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 363px;">Algorithms / Math</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 382px;">Design and Architecture</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 401px;">Subtle Bugs</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 420px;">Suggestions</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 439px;">The Soapbox</div></div><script type="text/javascript" src="libreflection.asp_files/func_033.js"></script><script type="text/javascript" src="libreflection.asp_files/chunks_005.js"></script><script type="text/javascript" src="libreflection.asp_files/chunks_004.js"></script><script type="text/javascript" src="libreflection.asp_files/chunks_003.js"></script><script type="text/javascript" src="libreflection.asp_files/chunks_002.js"></script><script type="text/javascript" src="libreflection.asp_files/chunks.js"></script><script type="text/javascript" src="libreflection.asp_files/spit.js"></script><script type="text/javascript" src="libreflection.asp_files/al.htm"></script></body></html>

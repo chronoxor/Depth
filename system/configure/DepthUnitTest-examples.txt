@@ -1,0 +1,54 @@
+# Define the presents flag of the 'DepthUnitTest' shared library examples.
+SET(DEPTH_UNITTEST_EXAMPLES_PRESENT 1)
+
+# Define 'DepthUnitTest' examples project name.
+SET(DEPTH_UNITTEST_EXAMPLES "DepthUnitTest-examples")
+
+# Define 'DepthUnitTest' examples project.
+PROJECT(${DEPTH_UNITTEST_EXAMPLES})
+
+# Define source path of the 'DepthUnitTest' shared library examples.
+SET(DEPTH_UNITTEST_EXAMPLES_SRC_PATH "${DEPTH_EXAMPLES}/unit")
+
+# Define sources of the 'DepthUnitTest' shared library examples.
+FILE(GLOB DEPTH_UNITTEST_EXAMPLES_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/${DEPTH_UNITTEST_EXAMPLES_SRC_PATH} "${DEPTH_UNITTEST_EXAMPLES_SRC_PATH}/*.cpp")
+
+# Define example targets of the 'DepthUnitTest' shared library.
+SET(DEPTH_UNITTEST_EXAMPLES_TARGETS)
+
+# Compile the 'DepthUnitTest' shared library examples.
+FOREACH(DEPTH_UNITTEST_EXAMPLES_SOURCE ${DEPTH_UNITTEST_EXAMPLES_SOURCES})
+
+  # Get example name.
+  STRING(REGEX REPLACE "(.*)\\.cpp" "\\1" DEPTH_UNITTEST_EXAMPLE ${DEPTH_UNITTEST_EXAMPLES_SOURCE})
+
+  # Add new local example target.
+  LIST(APPEND DEPTH_UNITTEST_EXAMPLES_TARGETS ${DEPTH_UNITTEST_EXAMPLE})
+  # Add new global example target.
+  LIST(APPEND DEPTH_EXAMPLES_TARGETS ${DEPTH_UNITTEST_EXAMPLE})
+
+  # Build new example.
+  ADD_EXECUTABLE(${DEPTH_UNITTEST_EXAMPLE} ${DEPTH_UNITTEST_EXAMPLES_SRC_PATH}/${DEPTH_UNITTEST_EXAMPLES_SOURCE})
+
+  # Set compiler flags.
+  SET_PROPERTY(TARGET ${DEPTH_UNITTEST_EXAMPLE} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_APP__" "__CONSOLE__")
+  SET_PROPERTY(TARGET ${DEPTH_UNITTEST_EXAMPLE} APPEND PROPERTY COMPILE_FLAGS "${CMAKE_INCLUDE_PREFIX}${DEPTH_SOURCE}/system/sys-All/unit")
+
+  # Link the example with the 'DepthBase' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_UNITTEST_EXAMPLE} ${DEPTH_BASE})
+  # Link the example with the 'DepthUnitTest' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_UNITTEST_EXAMPLE} ${DEPTH_UNITTEST})
+  # Link the example with the 'DepthUnitTestCMake' static library.
+  TARGET_LINK_LIBRARIES(${DEPTH_UNITTEST_EXAMPLE} ${DEPTH_UNITTEST_CMAKE})
+  # Link the example with the 'DepthUnitTestMobile' static library.
+  TARGET_LINK_LIBRARIES(${DEPTH_UNITTEST_EXAMPLE} ${DEPTH_UNITTEST_MOBILE})
+
+  # Install the 'DepthUnitTest' example.
+  INSTALL(TARGETS ${DEPTH_UNITTEST_EXAMPLE}
+          RUNTIME DESTINATION ${DEPTH_BIN}
+          OPTIONAL)
+
+ENDFOREACH(DEPTH_UNITTEST_EXAMPLES_SOURCE)
+
+# Add 'DepthUnitTest' example set.
+ADD_CUSTOM_TARGET(${DEPTH_UNITTEST_EXAMPLES} DEPENDS ${DEPTH_UNITTEST_EXAMPLES_TARGETS})

@@ -1,0 +1,202 @@
+v2.00
+=====
+
+Build 130
+---------
+
+- fixed a disappearing selection while scrolling bug
+
+- fixed a scrolling upwards while selecting text bug
+
+- Console handles wallpaper changes now
+
+- fixed a small background color problem
+
+- added support for environment variables in config file name, shell command
+  line, startup directory, icons and background images
+
+- [internal] wallpaper changes, non-relative background image resizing and tab
+  switching should be thread safe now
+  
+- mouse cursor is changed to 'text select' cursor while selecting
+
+- added drop down menu to 'new tab' toolbar button
+
+- [internal] an attempt to fix freezing when copying/pasting while a command
+  is running
+
+
+Build 129
+---------
+
+- fixed small bugs with mouse event forwarding (mouse move, some mouse clicks)
+
+- fixed a bug with scrolling hotkeys
+
+- (finally) window resizing works reliably
+
+- fixed a newline problem (I hope :-)
+
+- settings can be saved to user's APPDATA directory
+
+
+Build 128
+---------
+
+- added 'Clear' button to hotkeys dialog
+
+- added 'Use Scroll Lock for scrolling' option to hotkeys dialog; if on, arrow
+  keys and page up/down keys are used for scrolling when Scroll Lock is on
+
+- improved cursor rendering a bit
+
+- improved selection handling:
+   - selection now selects entire buffer row, not just the visible part
+   - scrolling with active selection works as expected
+   - you can now scroll Console window while selecting text
+   
+- improved copy operation, entire buffer row is now copied (not just the 
+  visible part)
+  
+- added hotkeys for scrolling
+
+- added basic mouse events support
+
+- fixed a small bug with tab and window name updating
+
+- fixed a bug with pasting large text
+
+- added support for configurable mouse commands
+
+
+Build 127
+---------
+
+- added "Exit Console" command
+
+- added .bat and .cmd file types to "open shell" dialog
+
+- fixed a small background tinting problem
+
+- fixed a problem with non-black solid backgrounds
+
+- fixed a problem with client area mouse-dragging with cursor near left or top 
+  edge
+
+- File->Tabs menu is updated properly after closing the settings dialog
+
+- [internal] implemented a fallback mechanism for allocating bitmaps
+
+- fixed broken buffer position after window resize
+
+- [internal] implemented proper rendering of double-width characters (Chinese,
+  Japanese)
+
+
+Build 126
+---------
+
+- implemented window size saving
+
+- implemented window position saving
+
+- [internal] custom handling for WM_SYSKEYDOWN and WM_SYSKEYUP messages (they 
+  are not translated); this should pass all keystrokes to console (WM_KEYDOWN 
+  and WM_KEYUP are already handled this way)
+  
+- added ClearType support; it works for 32bit color settings only
+
+- fixed a little bug with tray icon
+
+- ALT+ENTER doesn't switch real console to full screen
+
+
+Build 125
+---------
+
+- fixed rows/columns display updating in the statusbar
+
+- added support for multiple startup tabs, dirs and commands (-t, -d and 
+  -ts cmd-line options)
+  
+- added command line option for startup command (-r)
+
+- added help support
+
+- added Help command
+
+- fixed 'dead' characters input
+
+- [internal] improved hotkey handling
+
+- [internal] implemented directory existance check on new tab startup
+
+
+Build 124
+---------
+
+- [internal] '100% hang bug' fix is back. Test in Build 123 didn't work :-)
+
+- XTerm cursor now inverts characters underneath it
+
+
+Build 123
+---------
+
+- SCROLL LOCK can now be used for scrolling: when on, you can scroll Console
+  window using PageUp/Down and arrow keys (thanks to jachymko for submitting
+  the patch)
+  
+- drag 'n' dropped filenames are always enclosed in quotes
+
+- middle click closes tab
+
+- added tooltips to toolbar buttons
+
+- About box shows Console version info (major, minor and build numbers)
+
+- rows and columns info is shown in the statusbar
+
+- disabled the maximize box until I implement proper maximize support
+
+
+Build 122
+---------
+
+- [internal] reduced buffer size in ReadConsoleOutput call in ConsoleHook; 
+  caused errors with large windows
+  
+- [internal] attempted fix for '100% hang bug'
+
+- [internal] a small mem_fn fix in SharedMemoryLock class, thanks jachymko :-)
+
+
+Build 121
+---------
+
+- added 'pin to desktop' setting for Z-order (Windows Explorer only)
+
+- number of page scroll rows is configurable (either entire page or N rows)
+
+- toolbar improvements (nicer icons, more buttons)
+
+- Console has setup now!
+
+- menu, toolbar, tabs and status bar visibility persistent (from View menu)
+
+- trim tab titles option
+
+- drag'n'drop files support
+
+- added 'hide single tab' option
+
+- improved settings dialog (tab titles, etc)
+
+
+Build 120 (initial beta build)
+------------------------------
+
+Changes since last demo version:
+
+- improved settings dialog
+

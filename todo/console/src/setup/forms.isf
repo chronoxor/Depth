@@ -1,0 +1,27 @@
+object WizardForm: TISCustomForm
+  Left = 0
+  Top = 0
+  Width = 413
+  Height = 237
+  DesignPanel = frmISWizardPage_1.elDesignPanel
+  object chkInstallFonts: TCheckBox
+    Left = 16
+    Top = 32
+    Width = 137
+    Height = 17
+    Caption = 'Install additional fonts'
+    Checked = True
+    State = cbChecked
+    TabOrder = 0
+  end
+  object chkConsoleHere: TCheckBox
+    Left = 16
+    Top = 56
+    Width = 177
+    Height = 17
+    Caption = 'Add '#39'Console Here'#39' to Explorer'
+    Checked = True
+    State = cbChecked
+    TabOrder = 1
+  end
+end

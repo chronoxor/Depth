@@ -1,0 +1,940 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>Generic C++ Properties - The Code Project - C++ / MFC</title>
+
+
+
+
+<!-- base -->
+<meta http-equiv="Reply-to" content="mailto:webmaster@codeproject.com">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="MS.LOCALE" content="en-US">
+<meta name="Description" content="A system for defining properties that  is not compiler specific">
+<meta name="Search.TopicType" content="kbArticle">
+<meta name="Author" content="Jason King">
+<meta name="Search.PublishDate" content="30 May 2002 14:00:00 GMT">
+<meta name="Search.RevisedDate" content="09 Jun 2002 14:00:00 GMT">
+
+<meta name="keywords" content="Free source code, , Visual C++, MFC, Windows, __declspec property">
+<meta name="Copyright" content="Article content copyright Jason King, 2002, everthing else Copyright © CodeProject, 1999-2007, All Rights Reserved.">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Lounge Postings" href="http://www.codeproject.com/webservices/LoungeRSS.aspx">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - All topics" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=1">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - MFC / C++" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=2">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - C#" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=3">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - ASP.NET" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=4">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - .NET" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=5">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - VB.NET" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=6">
+<link rel="search" type="application/opensearchdescription+xml" title="The Code Project" href="http://www.codeproject.com/info/OpenSearch.xml">
+<link rel="icon" href="http://www.codeproject.com/favicon.ico" type="image/ico">
+<link rel="SHORTCUT ICON" href="http://www.codeproject.com/favicon.ico">
+<link rel="stylesheet" type="text/css" href="genericproperty.asp_files/global.css">
+
+<link rel="stylesheet" type="text/css" href="genericproperty.asp_files/netscape6.css">
+
+<script language="javascript" src="genericproperty.asp_files/oncopy.js"></script>
+<script language="javascript">
+if (top != self) top.location.href = location.href;
+if (typeof(DemoUrl) != "undefined")
+	document.write('<me' + 'ta http' + '-equiv="re' + 'fresh" con' + 'tent="1;url=' + DemoUrl + '">');
+</script></head><body style="margin: 0pt; background-color: rgb(255, 255, 255);" oncopy="return copyCode();" alink="red" bgcolor="white" link="blue" text="black" vlink="navy">
+
+<!-- BEGIN I/PRO PAGE TAG - COPYRIGHT 2006 I/PRO Corporation ALL RIGHTS RESERVED. --> 
+<script language="JavaScript"> 
+var LSPT=""; 
+LSPT += "?durl=" + escape(document.URL); 
+LSPT += "&hostname=" + location.hostname; 
+LSPT += "&url=" + location.pathname; 
+LSPT += "&query=" + escape(location.search) + escape(location.hash); 
+LSPT += "&referrer=" + escape(document.referrer); 
+LSPT += "&browser=" + escape(navigator.appName); 
+LSPT += "&version=" + escape(navigator.appVersion); 
+LSPT += "&os=" + escape(navigator.platform); 
+LSPT += "&xdomain=codeproject.com"; 
+LSPT += "&custid=codeproject"; 
+</script> 
+<script language="Javascript"> 
+document.write('<img src=http://'+'content.ipro.com/images/pixel.gif'+LSPT+' height="1" width="1" style="position:absolute;top:0px;left:0px">'); 
+</script><img src="genericproperty.asp_files/pixel.gif" style="position: absolute; top: 0px; left: 0px;" height="1" width="1"> 
+<noscript> <img
+src="http://content.ipro.com/images/pixel.gif?version=nonjava&xdomain=codeproject.com"
+height="1" width="1" style="position:absolute;top:0px;left:0px"> </noscript> 
+<!-- END I/PRO PAGE TAG -->
+
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+
+<tbody><tr>
+	<td class="HeaderLogo"><a href="http://www.codeproject.com/"><img alt="Home" src="genericproperty.asp_files/codeproject225x90.gif" border="0" height="90"></a></td>
+	<td class="HeaderBanner"><span id="AdBanner4"><script language="javascript">document.write("<IFRAME src=\"/script/ann/ServeHTML.aspx?C=False&id=2392&cb=3081478\" border=0 frameborder=0 scrolling=no width=728 height=90></IFRAME>");</script><iframe src="genericproperty.asp_files/ServeHTML.htm" border="0" frameborder="0" height="90" scrolling="no" width="728"></iframe></span></td>
+</tr>
+<tr><td colspan="2">
+<table class="MemberNavBar" border="0" cellpadding="5" cellspacing="0" width="100%">
+<tbody><tr valign="middle">
+
+<td class="smallText" style="font-weight: bold;">3,825,313 members and growing! &nbsp;
+5,643 now online.
+</td>
+
+
+<td class="userNavText" align="right">
+
+
+
+<a href="http://www.codeproject.com/script/profile/whos_who.asp?id=596564">
+Zop
+</a> |
+<a href="http://www.codeproject.com/script/profile/modify.asp?ct=/cpp/genericproperty.asp"><b>My Settings</b></a> |
+<a href="http://www.codeproject.com/script/profile/bookmark_list.asp">My Bookmarks</a> |
+<a href="http://www.codeproject.com/script/articles/list_articles.asp?userid=596564">My Articles</a> |
+
+<a href="http://www.codeproject.com/script/profile/logoff.asp?ct=/cpp/genericproperty.asp">Sign out</a>
+
+
+</td>
+</tr>
+</tbody></table></td></tr>
+<tr><td colspan="2">
+<table class="SiteNavBar" id="tblSiteToolbar" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td><a href="http://www.codeproject.com/">Home</a></td>
+<td nowrap="nowrap"><a href="http://www.codeproject.com/index.asp?cat=2">MFC/C++</a></td>
+<td><a href="http://www.codeproject.com/index.asp?cat=3">C#</a></td>
+<td nowrap="nowrap"><a href="http://www.codeproject.com/index.asp?cat=4">ASP.NET</a></td>
+<td nowrap="nowrap"><a href="http://www.codeproject.com/index.asp?cat=6">VB.NET</a></td>
+<td nowrap="nowrap"><a href="http://www.codeproject.com/index.asp?cat=8">Architect</a></td>
+<td nowrap="nowrap"><a href="http://www.codeproject.com/index.asp?cat=9">SQL</a></td>
+<td class="SelCat" nowrap="nowrap"><a href="http://www.codeproject.com/index.asp?cat=1">All Topics</a></td>
+<td width="100%">&nbsp;</td>
+<td>
+	<div id="MenuPos" style="position: relative; width: 300px; height: 22px; top: 1px;">
+	<table id="MPH" style="border-width: 0pt; height: 20px; display: none;" cellpadding="0" cellspacing="0" width="300">
+	<tbody><tr valign="middle">
+		<td style="border-width: 0pt;" nowrap="nowrap"><a href="http://www.codeproject.com/info/faq.asp">Help!</a></td>
+		<td style="border-width: 0pt;" nowrap="nowrap"><a href="http://www.codeproject.com/info/latest.asp">Articles</a></td>
+		<td style="border-width: 0pt;" nowrap="nowrap"><a href="http://www.codeproject.com/script/comments/forums.asp">Message Boards</a></td>
+		
+		<td style="border-width: 0pt;" nowrap="nowrap"><a href="http://www.codeproject.com/lounge.asp">Lounge</a></td>
+	</tr>
+	</tbody></table>
+	</div>
+</td>
+</tr>
+</tbody></table>
+<script type="text/javascript">function Go(){return}</script>
+<script type="text/javascript" src="genericproperty.asp_files/cpmenu_var.js"></script>
+<script type="text/javascript" src="genericproperty.asp_files/menu10_com.js"></script>
+<script type="text/javascript">
+var MPH = document.getElementById("MPH");
+if (MPH) MPH.style.display='none';
+</script>
+</td></tr>
+
+
+<tr><td colspan="2">
+
+	<table class="ArticleHeader" cellpadding="3" cellspacing="0" width="100%">
+	<tbody><tr valign="top">
+		<td class="smallText" style="padding-right: 10px;"><a href="http://www.codeproject.com/?cat=1">All Topics</a>, <a href="http://www.codeproject.com/?cat=2">MFC / C++</a> &gt;&gt; <a href="http://www.codeproject.com/cpp/">C++ / MFC</a> &gt;&gt; <a href="http://www.codeproject.com/cpp/#General">General</a><br>
+			
+			<br>
+			<div style="font-weight: bold; font-size: 16pt;">Generic C++ Properties</div>
+			<b>By <a href="http://www.codeproject.com/script/Articles/list_articles.asp?userid=13886">Jason King</a></b>.
+			
+			<br><br><div style="font-size: 12px;">A system for defining properties that  is not compiler specific</div>
+		</td>
+		<td class="smallText" style="width: 200px;">
+			C++ (VC7, VC6)<br> Windows (WinXP, Win2K, Win95, Win98, WinME)<br> MFC, Win32, VS<br> Dev<br>
+			<span style="padding-right: 2ex;">Posted</span>: <b>31 May 2002</b><br>
+			
+			<span style="padding-right: 0.3ex;">Updated</span>: <b>10 Jun 2002</b><br>
+			<span style="padding-right: 3ex;">Views</span>: <b>64,838</b>
+		</td>
+	</tr>
+	
+	
+
+	
+
+
+</tbody></table>
+<table border="0" cellpadding="0" cellspacing="0">
+<tbody><tr valign="top">
+
+	
+	<td rowspan="2" class="LHNavBar">
+	
+	<!-- Yes, there are IE hacks that will allow us to create a min-width DIV 
+	     (eg http://www.webreference.com/programming/min-width/) but I couldn't
+	     be arsed. Wait for it in v2.0 -->
+	
+	<div class="FeatureBlockHeader">Announcements</div>
+<div class="FeatureBlockContent RHFeatureBar">
+
+<div style="padding-top: 5px;"><img src="genericproperty.asp_files/vista20.gif" alt="Vista" style="float: left; padding-right: 10px;" height="20" width="20">
+<a href="http://www.codeproject.com/redir.aspx?id=2666">Vista API competition<br>$10,000 in  prizes</a></div>
+
+<div style="padding-top: 5px;"><img src="genericproperty.asp_files/gadgets20.gif" alt="Vista" style="float: left; padding-right: 10px;" height="20" width="20">
+<a href="http://www.codeproject.com/redir.aspx?id=2848">Vista Gadget comp: $2,000 in prizes</a></div>
+
+<div style="padding-top: 5px;"><img src="genericproperty.asp_files/prize_winner_sm.gif" alt="Comp" style="float: left; padding-right: 10px; margin-left: 7px; margin-right: 10px;" height="20" width="10"><a href="http://www.codeproject.com/script/competitions/monthly/">Monthly Competition</a></div>
+
+</div>	<center>
+<script language="javascript">document.write("<IFRAME src=\"/script/ann/ServeHTML.aspx?C=False&id=2635&cb=3081482\" border=0 frameborder=0 scrolling=no width=160 height=600></IFRAME>");</script><iframe src="genericproperty.asp_files/ServeHTML_002.htm" border="0" frameborder="0" height="600" scrolling="no" width="160"></iframe>
+</center>
+<br><br>
+
+	
+	<img src="genericproperty.asp_files/t.gif" height="1" width="160">
+	
+	</td>
+	
+
+	<td width="100%">
+
+		<table class="SearchHeaderBar" cellspacing="0" width="100%">
+<tbody><tr>
+<td align="right" nowrap="nowrap" valign="middle" width="60%">
+
+	<form method="post" action="/info/search.asp" name="Search" style="margin: 0pt;">
+	<b>Search &nbsp;</b><input class="smallText" name="target" style="width: 200px;">
+	<select style="font-weight: bold; font-size: 8pt;" name="st">
+		<option value="kw">Articles</option>
+		<option value="au">Authors</option>
+	</select>
+	<input style="font-weight: bold; font-size: 8pt;" value=" Go! " type="submit"> &nbsp;
+	</form>
+</td>
+
+<td class="tinyText" nowrap="nowrap">
+<a href="http://www.codeproject.com/info/search.asp">Advanced Search</a><br>
+<a href="http://www.codeproject.com/script/articles/sections.asp">Sitemap</a> 
+
+
+</td>
+</tr>
+</tbody></table>
+		
+		<table width="100%">
+		<tbody><tr valign="top">
+		<td class="SmallText" nowrap="nowrap"><table><tbody><tr><td class="smallText" nowrap="nowrap"><img src="genericproperty.asp_files/print.gif" align="absmiddle"> <a href="http://www.codeproject.com/cpp/genericproperty.asp?print=true" target="_print">Print</a></td><td class="smallText" nowrap="nowrap"><img src="genericproperty.asp_files/sitebuild_icon.gif" align="absmiddle"><a href="http://www.codeproject.com/script/submit/ReportProblem.asp?GUID=genericproperty%2Fcpp5%2F31%2F2002">Broken Article?</a></td><td class="smallText" nowrap="nowrap"><img src="genericproperty.asp_files/link.gif" align="absmiddle"><a href="http://www.codeproject.com/script/profile/add_bookmark.asp?t=0&amp;ct=%2Fcpp%2Fgenericproperty%2Easp&amp;guid=genericproperty%2Fcpp5%2F31%2F2002">Bookmark</a></td><td class="smallText" nowrap="nowrap"><img src="genericproperty.asp_files/mail_small.gif" align="absmiddle"> <a href="#__comments">Discuss</a></td><td class="smallText" nowrap="nowrap"><img src="genericproperty.asp_files/mail.gif" align="absmiddle"> <a href="http://www.codeproject.com/script/recommend/form.asp?guid=genericproperty%2Fcpp5%2F31%2F2002">Send to a friend</a></td></tr></tbody></table>
+		</td>
+		<td align="right" nowrap="nowrap"><a name="__top"></a><table><tbody><tr><td class="smallText" align="right">15 votes  for this article.</td><td>
+<table border="2" cellpadding="0" cellspacing="0"><tbody><tr>
+<td><img src="genericproperty.asp_files/red.gif" border="0" height="5" width="20"></td>
+<td><img src="genericproperty.asp_files/red.gif" border="0" height="5" width="20"></td>
+<td><img src="genericproperty.asp_files/red.gif" border="0" height="5" width="20"></td>
+<td><img src="genericproperty.asp_files/red.gif" border="0" height="5" width="20"></td>
+<td><img src="genericproperty.asp_files/red.gif" border="0" height="5" width="5"><img src="genericproperty.asp_files/white.gif" border="0" height="5" width="15"></td>
+</tr></tbody></table>
+</td></tr><tr><td colspan="2" class="smallText" align="right"><a href="http://www.codeproject.com/script/articles/top_articles.asp?st=2" title="Calculated as rating x Log10(# votes)">Popularity: 5</a>. Rating: <b>4.25</b> out of 5.</td></tr></tbody></table></td></tr>
+		</tbody></table>
+		
+			
+	</td>
+</tr>
+
+<tr>
+	<td class="ArticlePane">
+<ul style="background-color: rgb(238, 238, 238); margin-right: 20px;"><li style="font-size: 8pt; list-style-image: url(/images/warning.gif);">You are signed up for one or more <a href="http://www.codeproject.com/script/profile/subscribe.asp">newsletters</a> but unfortunately we are unable to send you emails. Please click <a href="http://www.codeproject.com/script/profile/SendConfirmRequest.asp">here</a> to have an email sent that will allow us to confirm your email address.</li></ul>
+<span name="intelliTxt" id="intelliTXT">
+<div id="contentdiv">
+
+
+<!-- Article Starts -->
+
+
+<h2>Introduction</h2>
+<p nd="1">Recently one of the new programmers (with a Borland C++ Builder background) here at <a href="http://www.collectivestudios.com/">The Collective</a> (where I work) asked if there was any way to add properties to a class. I mentioned that Visual C++ uses <code nd="2">__declspec(property)</code>
+and that it is not cross compiler compatible. But it seemed to me that
+there should be a way to create generic properties. So I scanned
+various web pages including codeproject and found some references to
+using a struct as a replacement. But what I wanted was a way to
+seamlessly switch between <code nd="3">__declspec(property)</code> and a generic solution. I created some structs that I liked and then I converted them to a macro based implementation: </p><div class="smallText" id="premain0" style="width: 100%;"><img preid="0" src="genericproperty.asp_files/minus.gif" id="preimg0" height="9" width="9"><span nd="4" preid="0" style="margin-bottom: 0pt;" id="precollapse0"> Collapse</span></div><pre nd="8" style="margin-top: 0pt;" id="pre0" lang="c++"><span nd="5" class="cpp-preprocessor">#define USE_DECLSPEC_PROPERTY 0</span>
+<span nd="6" class="cpp-preprocessor">#if USE_DECLSPEC_PROPERTY</span>
+
+<span nd="7" class="cpp-preprocessor">#define DECLARE_PROPERTY_GET( type, getfunc, base, var )      \</span>
+        __declspec( property( get=getfunc ) ) type var
+<span nd="9" class="cpp-preprocessor">#define DECLARE_PROPERTY_PUT( type, putfunc, base, var )      \</span>
+        __declspec( property( put=putfunc ) ) type var
+<span nd="10" class="cpp-preprocessor">#define DECLARE_PROPERTY( type, getfunc, putfunc, base, var ) \</span>
+        __declspec( property( get=getfunc, put=putfunc ) ) type var
+
+<span nd="11" class="cpp-preprocessor">#else</span>
+
+<span nd="12" class="cpp-preprocessor">#define DECLARE_PROPERTY_GET( type, getfunc, base, var )                             \</span>
+<span class="cpp-keyword">struct</span> _dp_##getfunc                                                                 \
+{                                                                                    \
+    <span class="cpp-keyword">inline</span> <span class="cpp-keyword">operator</span> type()                                                           \
+    {                                                                                \
+        <span class="cpp-keyword">return</span> ((base *) ((<span class="cpp-keyword">char</span> *) <span class="cpp-keyword">this</span> - offsetof( base, var )))-&gt;getfunc();        \
+    }                                                                                \
+};                                                                                   \
+friend <span class="cpp-keyword">struct</span> _dp_##getfunc;                                                         \
+_dp_##getfunc var
+
+<span nd="13" class="cpp-preprocessor">#define DECLARE_PROPERTY_PUT( type, putfunc, base, var )                             \</span>
+<span class="cpp-keyword">struct</span> _dp_##putfunc                                                                 \
+{                                                                                    \
+    <span class="cpp-keyword">inline</span> type <span class="cpp-keyword">operator</span>=(<span class="cpp-keyword">const</span> type &amp; value)                                        \
+    {                                                                                \
+        <span class="cpp-keyword">return</span> ((base *) ((<span class="cpp-keyword">char</span> *) <span class="cpp-keyword">this</span> - offsetof( base, var )))-&gt;putfunc( value ); \
+    }                                                                                \
+};                                                                                   \
+friend <span class="cpp-keyword">struct</span> _dp_##putfunc;                                                         \
+_dp_##putfunc var
+
+<span nd="14" class="cpp-preprocessor">#define DECLARE_PROPERTY( type, getfunc, putfunc, base, var )                        \</span>
+<span class="cpp-keyword">struct</span> _dp_##getfunc_##putfunc                                                       \
+{                                                                                    \
+    <span class="cpp-keyword">inline</span> <span class="cpp-keyword">operator</span> type()                                                           \
+    {                                                                                \
+        <span class="cpp-keyword">return</span> ((base *) ((<span class="cpp-keyword">char</span> *) <span class="cpp-keyword">this</span> - offsetof( base, var )))-&gt;getfunc();        \
+    }                                                                                \
+    <span class="cpp-keyword">inline</span> type <span class="cpp-keyword">operator</span>=(<span class="cpp-keyword">const</span> type &amp; value)                                        \
+    {                                                                                \
+        <span class="cpp-keyword">return</span> ((base *) ((<span class="cpp-keyword">char</span> *) <span class="cpp-keyword">this</span> - offsetof( base, var )))-&gt;putfunc( value ); \
+    }                                                                                \
+};                                                                                   \
+friend <span class="cpp-keyword">struct</span> _dp_##getfunc_##putfunc;                                               \
+_dp_##getfunc_##putfunc var
+<span nd="15" class="cpp-preprocessor">#endif</span>
+</pre>
+<p nd="16">At this point I figured I would create a template that any <code nd="17">CWnd</code> derived class could use to add a bunch of properties: </p><pre nd="18" lang="c++"><span class="cpp-keyword">template</span> &lt;<span class="cpp-keyword">class</span> T&gt; <span class="cpp-keyword">class</span> CWndProperties : <span class="cpp-keyword">public</span> T, <span class="cpp-keyword">public</span> CWndPropertiesImpl  {
+<span class="cpp-keyword">public</span>:        
+    CWndProperties() : CWndPropertiesImpl( <span class="cpp-keyword">this</span> ) 
+    {       
+    }
+          
+    DECLARE_PROPERTY( <span class="cpp-keyword">bool</span>, Wnd_GetShow, Wnd_PutShow, 
+                               CWndProperties&lt;T&gt;, wShow );
+    DECLARE_PROPERTY( CRect, Wnd_GetRect, Wnd_PutRect, 
+                               CWndProperties&lt;T&gt;, wRect ); 
+    DECLARE_PROPERTY( DWORD, Wnd_GetStyle, Wnd_PutStyle, 
+                               CWndProperties&lt;T&gt;, wStyle ); 
+    DECLARE_PROPERTY( DWORD, Wnd_GetStyleEx, Wnd_PutStyleEx,
+                               CWndProperties&lt;T&gt;, wStyleEx );
+};</pre>
+<p nd="19">To reduce compile times and potential code bloat <code nd="20">CWndPropertiesImpl</code> was created: <br>.h file </p><pre nd="21" lang="c++"><span class="cpp-keyword">class</span> CWndPropertiesImpl          
+{                                                 
+<span class="cpp-keyword">public</span>:                                           
+    CWndPropertiesImpl(CWnd * pWnd = NULL);       
+    <span class="cpp-keyword">void</span> Wnd_SetWnd(CWnd * pWnd);                 
+                                                  
+    <span class="cpp-keyword">bool</span> Wnd_GetShow();                           
+    <span class="cpp-keyword">bool</span> Wnd_PutShow(<span class="cpp-keyword">const</span> <span class="cpp-keyword">bool</span> &amp; bShow);         
+                                                  
+    CRect Wnd_GetRect();                          
+    CRect Wnd_PutRect(<span class="cpp-keyword">const</span> CRect &amp; rc);          
+                                                  
+    DWORD Wnd_GetStyle();                         
+    DWORD Wnd_PutStyle(<span class="cpp-keyword">const</span> DWORD &amp; dwStyle);    
+                                                  
+    DWORD Wnd_GetStyleEx();                       
+    DWORD Wnd_PutStyleEx(<span class="cpp-keyword">const</span> DWORD &amp; dwStyleEx);
+                                                  
+<span class="cpp-keyword">private</span>:                                          
+    CWnd * m_pWnd;                                
+};                                                
+</pre>
+<p nd="22">.cpp file </p><div class="smallText" id="premain3" style="width: 100%;"><img preid="3" src="genericproperty.asp_files/minus.gif" id="preimg3" height="9" width="9"><span nd="23" preid="3" style="margin-bottom: 0pt;" id="precollapse3"> Collapse</span></div><pre nd="24" style="margin-top: 0pt;" id="pre3" lang="c++">CWndPropertiesImpl::CWndPropertiesImpl(CWnd * pWnd)
+{
+    m_pWnd = pWnd;
+}
+
+<span class="cpp-keyword">void</span> CWndPropertiesImpl::Wnd_SetWnd(CWnd * pWnd)
+{
+    m_pWnd = pWnd;
+}
+
+<span class="cpp-keyword">bool</span> CWndPropertiesImpl::Wnd_GetShow()
+{
+    <span class="cpp-keyword">return</span> m_pWnd-&gt;IsWindowVisible() ? <span class="cpp-keyword">true</span> : <span class="cpp-keyword">false</span>;
+}
+
+<span class="cpp-keyword">bool</span> CWndPropertiesImpl::Wnd_PutShow(<span class="cpp-keyword">const</span> <span class="cpp-keyword">bool</span> &amp; bShow)
+{
+    <span class="cpp-keyword">bool</span> bReturn = Wnd_GetShow();
+    m_pWnd-&gt;ShowWindow( bShow ? SW_SHOW : SW_HIDE );
+    <span class="cpp-keyword">return</span> bReturn;
+}
+
+CRect CWndPropertiesImpl::Wnd_GetRect()
+{
+    CRect rcReturn;
+    m_pWnd-&gt;GetWindowRect( &amp;rcReturn );
+    <span class="cpp-keyword">return</span> rcReturn;
+}
+
+CRect CWndPropertiesImpl::Wnd_PutRect(<span class="cpp-keyword">const</span> CRect &amp; rc)
+{
+    CRect rcReturn = Wnd_GetRect();
+    m_pWnd-&gt;SetWindowPos( NULL, rc.left, rc.top, 
+                             rc.Width(), rc.Height(), 
+                             SWP_NOZORDER | SWP_NOACTIVATE );
+    <span class="cpp-keyword">return</span> rcReturn;
+}
+
+DWORD CWndPropertiesImpl::Wnd_GetStyle()
+{
+    <span class="cpp-keyword">return</span> m_pWnd-&gt;GetStyle();
+}
+
+DWORD CWndPropertiesImpl::Wnd_PutStyle(<span class="cpp-keyword">const</span> DWORD &amp; dwStyle)
+{
+    DWORD dwReturn = Wnd_GetStyle();
+    m_pWnd-&gt;ModifyStyle( <span class="cpp-literal">0xFFFFFFFF</span>, dwStyle );
+    <span class="cpp-keyword">return</span> dwReturn;
+}
+
+DWORD CWndPropertiesImpl::Wnd_GetStyleEx()
+{
+    <span class="cpp-keyword">return</span> m_pWnd-&gt;GetExStyle();
+}
+
+DWORD CWndPropertiesImpl::Wnd_PutStyleEx(<span class="cpp-keyword">const</span> DWORD &amp; dwStyleEx)
+{
+    DWORD dwReturn = Wnd_GetStyleEx();
+    m_pWnd-&gt;ModifyStyleEx( <span class="cpp-literal">0xFFFFFFFF</span>, dwStyleEx );
+    <span class="cpp-keyword">return</span> dwReturn;
+}
+</pre>
+<p nd="25">Now all I needed to do was derive my window class from the <code nd="26">CWndProperties</code> template - passing in the class that I originally derived my class from and that was it: </p><pre nd="27" lang="c++"><span class="cpp-keyword">class</span> CNewTreeCtrl : <span class="cpp-keyword">public</span> CWndProperties&lt;CTreeCtrl&gt;
+...
+CNewTreeCtrl wndTree;
+...
+wndTree.wShow = <span class="cpp-keyword">false</span>; <span class="cpp-comment">// this hides the window</span>
+wndTree.wShow = <span class="cpp-keyword">true</span>;  <span class="cpp-comment">// this shows the window</span>
+wndTree.wShow = !wndTree.wShow <span class="cpp-comment">// this toggles the windows visibility</span>
+</pre>
+<h2>Benefits</h2>
+<p>
+</p><p nd="28">As a generic solution, this will work on different
+machines with different compilers. It can also reduce the API/framework
+that someone new to (let's say) MFC might need to learn. It is
+backwards compatible with classes already defined. And, in my opinion,
+once established the code will look cleaner and easier to read. </p><h2>Problems</h2>
+<p nd="29">OK, so there are a few problems. First, the generic solution
+still uses at least 1 byte per property; and on Visual C++ it rounds up
+to the next 4 byte boundry. Second, the generic solution is not able to
+do property arrays. </p><h2>Conclusion</h2>
+<p nd="30"><a href="http://www.collectivestudios.com/">The Collective</a>
+is a company that makes video games that run on multiple platforms. The
+use of generic properties is appealing, but will likely have limited
+use within areas that need to be optimized. I know that I'll use them
+in the Tools department, but it's adoption in other departments will
+need to be limited to classes where every ounce of speed or memory is
+not an issue. </p><h2>Revision history</h2>
+<p nd="31">June 1st 2002 - Initial revision. <br>June 4th 2002 -
+Removed dependency on the (4 byte) pThis variable for every property;
+it now only requires 1 byte per property. Thanks to Matthias Mann who
+made this suggestion in his comments. </p>
+
+<!-- Article Ends -->
+
+
+
+</div>
+</span>
+
+<script type="text/javascript" src="genericproperty.asp_files/togglePre.js"></script>
+
+<h2>Jason King</h2>
+<div style="overflow: hidden;"><table border="0"><tbody><tr valign="top"><td class="smallText" nowrap="nowrap"><br></td><td class="smallText"><p class="smallText">Click <a href="http://www.codeproject.com/script/profile/whos_who.asp?vt=arts&amp;id=13886">here</a> to view Jason King's online profile.</p></td></tr></tbody></table></div><br>
+<table border="0" cellpadding="4" width="100%"><tbody><tr valign="top">
+<td width="100%"><h2>Other popular C++ / MFC articles:</h2><ul><li><a href="http://www.codeproject.com/cpp/FastDelegate.asp">Member Function Pointers and the Fastest Possible C++ Delegates</a><div class="smallText">A comprehensive tutorial on member function pointers, and an implementation of delegates that generates only two ASM opcodes!</div></li><li><a href="http://www.codeproject.com/cpp/exceptionhandler.asp">How a C++ compiler implements exception handling</a><div class="smallText">An indepth discussion of how VC++ implements exception handling. Source code includes exception handling library for VC++.</div></li><li><a href="http://www.codeproject.com/cpp/Differentiation.asp">Symbolic Differentiation</a><div class="smallText">This article demonstrates differentiating expressions using a stack and displaying the input expression and its derivative.</div></li><li><a href="http://www.codeproject.com/cpp/pointers.asp">A Beginner's Guide to Pointers</a><div class="smallText">An article showing the use of pointers in C and C++</div></li></ul></td>
+<td width="360">
+<script language="javascript">document.write("<IFRAME src=\"/script/ann/ServeHTML.aspx?C=False&id=2957&cb=3081492\" border=0 frameborder=0 scrolling=no width=300 height=250></IFRAME>");</script><iframe src="genericproperty.asp_files/ServeHTML_003.htm" border="0" frameborder="0" height="250" scrolling="no" width="300"></iframe>
+</td>
+</tr></tbody></table>
+
+		<form action="/script/rating/code/app/insert_vote.asp" method="post">
+		<input name="vote_name" value="genericproperty/cpp5/31/2002" type="hidden">
+		<input name="goal" value="/cpp/genericproperty.asp" type="hidden">
+
+<table bgcolor="#ff9900" border="0" cellpadding="1" cellspacing="0" width="100%">
+<tbody><tr><td width="100%">
+<table bgcolor="#fbedbb" border="0" cellpadding="4" cellspacing="0" width="100%"><tbody><tr>
+<td class="smalltext" valign="middle">[<a href="#__top">Top</a>]</td>
+<td align="right" nowrap="nowrap" valign="middle">
+<i><b>Rate this Article for us!</b></i>&nbsp;&nbsp;&nbsp;&nbsp; <i>Poor</i><input value="1" name="rate" type="radio"><input value="2" name="rate" type="radio"><input value="3" name="rate" type="radio"><input value="4" name="rate" type="radio"><input value="5" name="rate" type="radio"><i>Excellent</i>&nbsp;&nbsp;<input value="Vote" class="FormButton" type="submit">
+</td></tr>
+</tbody></table></td></tr></tbody></table>
+</form>
+<center>
+<table border="0" cellpadding="0" cellspacing="0"><tbody><tr>
+<td style="padding: 2px; background-color: rgb(238, 238, 238);" height="60" width="120"><div align="center">
+<script language="javascript">document.write("<IFRAME src=\"/script/ann/ServeHTML.aspx?C=False&id=2634&cb=3081495\" border=0 frameborder=0 scrolling=no width=120 height=60></IFRAME>");</script><iframe src="genericproperty.asp_files/ServeHTML_004.htm" border="0" frameborder="0" height="60" scrolling="no" width="120"></iframe>
+</div></td>
+<td width="100">&nbsp;</td>
+<td height="60" width="468"><span id="AdBanner5"><script language="javascript">document.write("<a href=\"/script/admentor/admentorredir.asp?id=2691&way=ban\" target=_blank><img src=\"/script/ann/ServeImg.aspx?File=%2Fscript%2Fadmentor%2Fimages%2FWholeTomato%5FAutoSuggest%5F468x60%2Egif&C=False&id=2691&cb=3081479\" alt=\"The intellisense upgrade for Visual Studio .NET - make your IDE as smart as you.\" border=0 width=468 height=60></a>");</script><a href="http://www.codeproject.com/script/admentor/admentorredir.asp?id=2691&amp;way=ban" target="_blank"><img src="genericproperty.asp_files/ServeImg.htm" alt="The intellisense upgrade for Visual Studio .NET - make your IDE as smart as you." border="0" height="60" width="468"></a></span></td>
+</tr></tbody></table></center>
+
+<a name="__comments"></a>
+
+<script language="JavaScript">
+
+function MsgVoteForm(MemberID, MsgID)
+{
+	document.write("<span id=\"MVF" + MsgID + "\">");
+	document.write("Rate this message: ");
+	for (var i=1; i<=5;i++)
+	{
+		document.write("<a href='#xx" + MsgID.toString() + "xx' title='give this message a vote of " + i.toString());
+		document.write("' onclick='return RateMsg(" + MemberID.toString() + ", " + MsgID.toString() + ", ");
+		document.write(i.toString() + ")'><b>" + i.toString() + "</b></a> ");
+	}
+	document.write(" (out of 5)");
+	document.writeln("</span>");
+	
+	document.write("<br />Report as <a href='#xx" + MsgID.toString() + "xx' title='Mark as Spam' onclick='return ReportMsg(" + MemberID.toString());
+	document.writeln(", " + MsgID.toString() + ",-1)'>Spam</a> or ");
+	document.write("<a href='#xx" + MsgID.toString() + "xx' title='Mark as Abuse' onclick='return ReportMsg(" + MemberID.toString());
+	document.writeln(", " + MsgID.toString() + ",-2)'>Abuse</a>");
+}
+
+function RetypeForm(MemberID, MsgID)
+{
+	var types = [
+				 {pic:'news_general.gif',  id: 1},
+	             {pic:'news_info.gif',     id: 2},
+	             {pic:'news_question.gif', id: 4},
+	             {pic:'news_answer.gif',   id: 8},
+	             {pic:'news_game.gif',     id: 16},
+	             {pic:'news_spam.gif',     id: 32}
+	            ];
+	
+	document.write("<span id=\"RTF" + MsgID + "\">");
+	for (var i=0;i<types.length;i++)
+	{
+		document.write("<a href='/script/comments/retype?msg=" + MsgID.toString());
+		document.write("&mid=" + MemberID.toString() + "&type=" + types[i].id + "'>");
+		document.write("<img border=0 src='/script/images/" + types[i].pic + "'></a><br />");
+	}
+	document.writeln("</span>");
+}
+
+function ReportMsg(userid, msgid, score)
+{
+	if (confirm("Are you sure you want to report this message?") == true)
+		return RateMsg(userid, msgid, score);
+	else return false;
+}
+
+
+function RateMsg(userid, msgid, score)
+{
+
+   var req = new XMLHttpRequest();
+
+   req.onreadystatechange = function()
+   {
+      if ( req.readyState == 4 )
+      {
+         if ( req.status == 200 )
+         {
+         	var respText = req.responseText;
+         	var re = new RegExp("\<div\>([^\<]*)\</div\>", "g");
+         	var match = re.exec(respText);
+         	status.innerHTML = "<b>" + (match)?match[1]:"An error occured" + "</b>";
+         }
+         else
+         {
+            status.innerHTML = "<b style='color:red'>Failed!" + req.statusText + "</b>";
+         }
+      }
+   }
+   
+   var status = document.getElementById("MVF" + msgid);
+   if (!status) return;  // should never happen...   
+   status.innerHTML = "<b style='color:green'>Voting...</b>";
+   
+   var strAction = "/script/comments/vote.asp?js=1&user="+userid+"&msg="+msgid+"&score="+score;
+   req.open("GET", strAction, true);
+   req.send(null);
+   return false;
+}
+
+</script>
+
+
+<script language="JavaScript">
+var Selected = "";
+
+var AdTime = new Date();
+
+
+// Ensures the expanded message appears reasonably close to where 
+// it should appear: on screen, and if possible, under the mouse cursor.
+function SwitchMessage(e)
+{
+   if ( !e ) e = window.event;
+   var target = e.target ? e.target : e.srcElement;
+
+   // is it a post?
+   while ( target && target.id != 'DynMessLink' )
+      target = target.parentNode;
+   if ( !target || target.id != 'DynMessLink' )
+      return;
+
+   if (Selected)
+   {
+      var body = document.getElementById(Selected + "_h1");
+      if (body)
+         body.style.display = 'none';
+      var head = document.getElementById(Selected + "_h0");
+      if (head)
+         head.bgColor = '#FEF9E7';
+   }
+
+   if (Selected == target.name) // just collapse
+      Selected="";
+   else
+   {
+      Selected = target.name;
+      var body = document.getElementById(Selected + "_h1");
+      if (body)
+      {
+         if (body.style.display=='none')
+            body.style.display='';
+         else
+            body.style.display = 'none';
+      }
+      var head = document.getElementById(Selected + "_h0");
+      if (head)
+         head.bgColor = '#99CCFF';
+
+      if ( body && head && body.style.display != 'none' )
+      {
+         // the bit that keeps the post on-screen and under the cursor
+         //var dif = (getRealPos(head, "Top") + head.offsetHeight/2) - (document.body.scrollTop+e.clientY);
+         //document.body.scrollTop += dif;
+         document.body.scrollTop = getRealPos(head, "Top") - document.body.clientHeight/10;
+         EnsureMessageVisible(target.name, true);
+      }
+   }
+
+   if ( e.preventDefault )
+      e.preventDefault();
+   else
+      e.returnValue = false;
+   return false;
+}
+
+// does its best to make a message visible on-screen (vs. scrolled off somewhere).
+function EnsureMessageVisible(msgID, bShowTop) {
+   var msgHeader = document.getElementById(msgID + "_h0");
+   var msgBody = document.getElementById(msgID + "_h1");
+
+   // determine scroll position of top and bottom
+   var scrollContainer = document.body;
+   var top = getRealPos(msgHeader, 'Top');
+   var bottom = getRealPos(msgBody, 'Top') + msgBody.offsetHeight;
+
+   // if not already visible, scroll to make it so
+   if ( scrollContainer.scrollTop > top && !bShowTop)
+      scrollContainer.scrollTop = top - document.body.clientHeight/10;
+   if ( scrollContainer.scrollTop+scrollContainer.clientHeight < bottom )
+      scrollContainer.scrollTop = bottom-scrollContainer.clientHeight;
+   if ( scrollContainer.scrollTop > top && bShowTop)
+      scrollContainer.scrollTop = top - document.body.clientHeight/10;
+}
+
+// utility
+function getRealPos(i,which)
+{
+   iPos = 0
+   while (i!=null)
+   {
+      iPos += i["offset" + which];
+      i = i.offsetParent;
+   }
+   return iPos
+}
+
+
+</script>
+<div id="_MessageBoard" onclick="SwitchMessage(event)"><table bgcolor="#ff9900" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="100%"><table id="ForumTable" bgcolor="#ff9900" border="0" cellpadding="0" cellspacing="1" width="100%"><form action="/script/comments/app/do_filtermessages.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010" method="post"></form><tbody><tr><td><table bgcolor="white" border="0" cellpadding="3" cellspacing="0" width="100%"><tbody><tr bgcolor="#fbedbb"><td class="smalltext" nowrap="nowrap"><a href="http://www.codeproject.com/script/comments/faq.asp"><img src="genericproperty.asp_files/forum_faq.GIF" align="absmiddle" border="0" height="16" width="16"> <b>FAQ</b></a>&nbsp;</td><td class="smalltext" align="right" nowrap="nowrap" valign="top">Message score threshold <select size="1" name="noise" class="smalltext"><option value="1">1.0 </option>
+<option value="2">2.0</option>
+<option selected="selected" value="3">3.0</option>
+<option value="4">4.0</option>
+<option value="5">5.0</option>
+</select>&nbsp;&nbsp;</td><td class="smalltext" colspan="2" align="right" nowrap="nowrap" valign="middle"><a href="http://www.codeproject.com/script/comments/search_comments.asp?forumid=4010"><img src="genericproperty.asp_files/forum_search.gif" border="0" height="15" width="16"> Search comments</a> &nbsp;</td><td align="right" valign="top"><input value="Set Options" name="submit" class="FormButton" type="submit"></td></tr><tr bgcolor="#ff9900"><td width="100%">&nbsp;</td><td class="smalltext" align="right" nowrap="nowrap" valign="top">View <select size="1" name="expand" class="smalltext"><option value="0">Normal (slow)</option>
+<option value="2">Preview (slow)</option>
+<option selected="selected" value="5">Message View</option>
+<option value="6">Topic View</option>
+<option value="1">Thread View</option>
+<option value="3">Expanded (Supporters only)</option>
+</select>&nbsp;&nbsp;</td><td class="smalltext" nowrap="nowrap" valign="top">Per page <select size="1" name="perpage" class="smalltext"><option value="10">10</option>
+<option selected="selected" value="25">25</option>
+<option value="50">50</option>
+</select></td><td colspan="2">&nbsp;</td></tr></tbody></table>
+</td></tr><tr bgcolor="#fbedbb"><td><a name="xx0xx"></a><table bgcolor="#fbedbb" border="0" cellpadding="2" width="100%"><tbody><tr><td class="messagetitle"><img src="genericproperty.asp_files/forum_newmsg.gif" align="top" border="0" height="16" width="16"><a href="http://www.codeproject.com/script/comments/user_new.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010" class="HoverLink" target="_top" name="HoverNL" title="Add a new message to the discussions"><b>New Message</b></a></td><td class="messagetitle">Msgs 1 to 25 of 30 (Total: 30) (<a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010">Refresh</a>)</td><td align="right" nowrap="nowrap"><font class="messagetitle"><span class="HoverLink">First</span> <span class="HoverLink">Prev</span> <a class="HoverLink" name="HoverNL" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;fr=26">Next</a> <span class="HoverLink">&nbsp;&nbsp;&nbsp;&nbsp;</span> </font></td></tr></tbody></table>
+</td></tr><tr bgcolor="white"><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2" bgcolor="#fbedbb" width="70%"><table border="0" cellpadding="2" cellspacing="0" width="100%"><tbody><tr><td class="messagetitle">Subject&nbsp;</td></tr></tbody></table></td><td bgcolor="#fbedbb" width="140"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/t.gif" border="0" height="1" width="1"></td></tr><tr><td class="messagetitle">Author&nbsp;</td></tr><tr><td><img src="genericproperty.asp_files/t.gif" border="0" height="1" width="1"></td></tr></tbody></table></td><td bgcolor="#fbedbb" width="12%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/t.gif" border="0" height="1" width="1"></td></tr><tr><td class="messagetitle" align="right">Date&nbsp;</td></tr><tr><td><img src="genericproperty.asp_files/t.gif" border="0" height="1" width="1"></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr id="1839879_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1839879xx"></a><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1839879" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=1839879#xx1839879xx"><b>Put functions for assignment not correct ?</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=2023611"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>DaMagic</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>11:33 11 Jan '07</b>&nbsp;</font></td></tr>
+<tr id="1839879_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Explicitly for one put function.<br><br>The following (as depicted in the article) returns the old (previously) set value and not the new one.<br><br>bool CWndPropertiesImpl::Wnd_PutShow(const bool &amp; bShow)<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;bool bReturn = Wnd_GetShow();<br>&nbsp;&nbsp;&nbsp;&nbsp;m_pWnd-&gt;ShowWindow( bShow ? SW_SHOW : SW_HIDE );<br>&nbsp;&nbsp;&nbsp;&nbsp;return bReturn;<br>}<br><br>Should be implemented as:<br><br>bool CWndPropertiesImpl::Wnd_PutShow(const bool &amp; bShow)<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;m_pWnd-&gt;ShowWindow( bShow ? SW_SHOW : SW_HIDE );<br>&nbsp;&nbsp;&nbsp;&nbsp;return Wnd_GetShow();<br>}<br><br>(No reason to duplicate all other puts in a same manner.)<br><br>In
+addition it's better that the callee returns the reference to the
+property (the nested class) back to the caller and not a copy of field
+of the wrapper class. (Does not work with types which have no
+copy-constructor).<br><br>Additionally the nested class' should be
+implemented each as a proxy class which always behave like the
+appropriate type. (See design pattern for proxy class). <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=1839879" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=1839879" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=1839879&amp;forumid=4010&amp;select=1839879#xx1839879xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=1839879#xx1839879xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(2023611,1839879);</script><span id="MVF1839879">Rate this message: <a href="#xx1839879xx" title="give this message a vote of 1" onclick="return RateMsg(2023611, 1839879, 1)"><b>1</b></a> <a href="#xx1839879xx" title="give this message a vote of 2" onclick="return RateMsg(2023611, 1839879, 2)"><b>2</b></a> <a href="#xx1839879xx" title="give this message a vote of 3" onclick="return RateMsg(2023611, 1839879, 3)"><b>3</b></a> <a href="#xx1839879xx" title="give this message a vote of 4" onclick="return RateMsg(2023611, 1839879, 4)"><b>4</b></a> <a href="#xx1839879xx" title="give this message a vote of 5" onclick="return RateMsg(2023611, 1839879, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1839879xx" title="Mark as Spam" onclick="return ReportMsg(2023611, 1839879,-1)">Spam</a> or 
+<a href="#xx1839879xx" title="Mark as Abuse" onclick="return ReportMsg(2023611, 1839879,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1840084_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1840084xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="18"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1840084" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=1840084#xx1840084xx">Re: Put functions for assignment not correct ?</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=13886"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">Jason King&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">13:27 11 Jan '07&nbsp;</font></td></tr>
+<tr id="1840084_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="18"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">More appropriately:<br><pre><br>bool CWndPropertiesImpl::Wnd_PutShow(const bool &amp; bShow)<br>{<br>    return m_pWnd-&gt;ShowWindow( bShow ? SW_SHOW : SW_HIDE );<br>}<br></pre><br>Which
+is actually more similar to my original function. The intent was to
+replicate the functionality of ShowWindow which returns whether the
+window was previously visible. <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=1840084" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=1840084" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=1839879&amp;forumid=4010&amp;select=1840084#xx1840084xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=1840084#xx1840084xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(13886,1840084);</script><span id="MVF1840084">Rate this message: <a href="#xx1840084xx" title="give this message a vote of 1" onclick="return RateMsg(13886, 1840084, 1)"><b>1</b></a> <a href="#xx1840084xx" title="give this message a vote of 2" onclick="return RateMsg(13886, 1840084, 2)"><b>2</b></a> <a href="#xx1840084xx" title="give this message a vote of 3" onclick="return RateMsg(13886, 1840084, 3)"><b>3</b></a> <a href="#xx1840084xx" title="give this message a vote of 4" onclick="return RateMsg(13886, 1840084, 4)"><b>4</b></a> <a href="#xx1840084xx" title="give this message a vote of 5" onclick="return RateMsg(13886, 1840084, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1840084xx" title="Mark as Spam" onclick="return ReportMsg(13886, 1840084,-1)">Spam</a> or 
+<a href="#xx1840084xx" title="Mark as Abuse" onclick="return ReportMsg(13886, 1840084,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1840195_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1840195xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="36"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1840195" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=1840195#xx1840195xx">Re: Put functions for assignment not correct ?</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=2023611"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">DaMagic&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">14:41 11 Jan '07&nbsp;</font></td></tr>
+<tr id="1840195_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="36"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Hello again,<br><br>okay, I only want to note some annotations. Nevertheless very nice article and more elegant than the one I found here:<br><br><a href="http://www.codeguru.com/cpp/cpp/algorithms/general/article.php/c13039/">http://www.codeguru.com/cpp/cpp/algorithms/general/article.php/c13039/</a>[<a href="http://www.codeguru.com/cpp/cpp/algorithms/general/article.php/c13039/" target="_blank" title="New Window">^</a>]<br><br>Bye<br><br> <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=1840195" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=1840195" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=1839879&amp;forumid=4010&amp;select=1840195#xx1840195xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=1840195#xx1840195xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(2023611,1840195);</script><span id="MVF1840195">Rate this message: <a href="#xx1840195xx" title="give this message a vote of 1" onclick="return RateMsg(2023611, 1840195, 1)"><b>1</b></a> <a href="#xx1840195xx" title="give this message a vote of 2" onclick="return RateMsg(2023611, 1840195, 2)"><b>2</b></a> <a href="#xx1840195xx" title="give this message a vote of 3" onclick="return RateMsg(2023611, 1840195, 3)"><b>3</b></a> <a href="#xx1840195xx" title="give this message a vote of 4" onclick="return RateMsg(2023611, 1840195, 4)"><b>4</b></a> <a href="#xx1840195xx" title="give this message a vote of 5" onclick="return RateMsg(2023611, 1840195, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1840195xx" title="Mark as Spam" onclick="return ReportMsg(2023611, 1840195,-1)">Spam</a> or 
+<a href="#xx1840195xx" title="Mark as Abuse" onclick="return ReportMsg(2023611, 1840195,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="genericproperty.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1814060_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1814060xx"></a><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1814060" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=1814060#xx1814060xx"><b>Excellent article...YET A simple way to implement properties....</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=3459491"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>AnandChavali</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>6:15 21 Dec '06</b>&nbsp;</font></td></tr>
+<tr id="1814060_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent"><br>#include &lt;tchar.h&gt;<br>#include &lt;conio.h&gt;<br>#include &lt;iostream&gt;<br>#include &lt;string&gt;<br>#include &lt;vector&gt;<br>using namespace std;<br><br>template&lt;typename T, char PropertyType&gt; class Property {<br>private:<br>&nbsp;&nbsp;&nbsp;&nbsp;T myVar;&nbsp;&nbsp;&nbsp;&nbsp;<br>public:&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Property() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if
+( PropertyType != 'r' &amp;&amp; PropertyType != 'w' &amp;&amp;
+PropertyType != 'b' )
+{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw
+"Invalid PropertyType. PropertyTypes allowed are :: \n\tr -&gt;Read , w
+-&gt; Write , b -&gt; Both Read and Write.";<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;operator T() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return GetValue();<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;void operator = ( T theVar ) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SetValue(theVar);<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;virtual T GetValue() {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ( PropertyType == 'w' ) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throw "Cannot read from a write-only property";<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return myVar;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;virtual void SetValue(T theVar) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ( PropertyType == 'r' ) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+throw "Cannot write to a read-only
+property";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;myVar = theVar;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>};<br>int _tmain(int argc, _TCHAR* argv[]) {<br>&nbsp;&nbsp;&nbsp;&nbsp;try<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property&lt;string ,'e'&gt; aStringProperty;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aStringProperty = "Anand";<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string aStrProp = aStringProperty;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout
+&lt;&lt; "Previosly assigned :: " &lt;&lt; "Anand&nbsp;&nbsp;" &lt;&lt;
+"Retrived from property :: " &lt;&lt; aStrProp;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property&lt;vector&lt;int&gt; , 'b'&gt; aVectorProperty;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector&lt;int&gt; aVector;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aVector.push_back(1);aVector.push_back(2);aVector.push_back(3);aVector.push_back(4);aVector.push_back(5);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aVectorProperty = aVector;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector&lt;int&gt; aNewVector = aVectorProperty;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout
+&lt;&lt; "\n\nInitialised vector with values
+1,2,3,4,5.&nbsp;&nbsp;Retrieving from vector property ::\n";<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for ( int i = 0 ; i &lt; 5 ; i++ ) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; aNewVector [ i ] &lt;&lt; endl;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;} catch( char* theException ) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout
+&lt;&lt;&nbsp;&nbsp;"\n\nException Occured :
+\n--------------------\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Message
+: " &lt;&lt; theException ;<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;_getch();<br>&nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>}<br><br> <br><br>Thanks and Regards,<br>Anand.<br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=1814060" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=1814060" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=1814060&amp;forumid=4010&amp;select=1814060#xx1814060xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=1814060#xx1814060xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(3459491,1814060);</script><span id="MVF1814060">Rate this message: <a href="#xx1814060xx" title="give this message a vote of 1" onclick="return RateMsg(3459491, 1814060, 1)"><b>1</b></a> <a href="#xx1814060xx" title="give this message a vote of 2" onclick="return RateMsg(3459491, 1814060, 2)"><b>2</b></a> <a href="#xx1814060xx" title="give this message a vote of 3" onclick="return RateMsg(3459491, 1814060, 3)"><b>3</b></a> <a href="#xx1814060xx" title="give this message a vote of 4" onclick="return RateMsg(3459491, 1814060, 4)"><b>4</b></a> <a href="#xx1814060xx" title="give this message a vote of 5" onclick="return RateMsg(3459491, 1814060, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1814060xx" title="Mark as Spam" onclick="return ReportMsg(3459491, 1814060,-1)">Spam</a> or 
+<a href="#xx1814060xx" title="Mark as Abuse" onclick="return ReportMsg(3459491, 1814060,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1814061_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1814061xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="18"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1814061" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=1814061#xx1814061xx">Re: Excellent article...YET A simple way to implement properties....</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=3459491"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">AnandChavali&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">6:17 21 Dec '06&nbsp;</font></td></tr>
+<tr id="1814061_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="18"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Actual class declaration is "template<typename t="" char="" propertytype=""> class Property " <br><br></typename><div class="ForumSig">Thanks and Regards,<br>Anand.</div><br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=1814061" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=1814061" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=1814060&amp;forumid=4010&amp;select=1814061#xx1814061xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=1814061#xx1814061xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(3459491,1814061);</script><span id="MVF1814061">Rate this message: <a href="#xx1814061xx" title="give this message a vote of 1" onclick="return RateMsg(3459491, 1814061, 1)"><b>1</b></a> <a href="#xx1814061xx" title="give this message a vote of 2" onclick="return RateMsg(3459491, 1814061, 2)"><b>2</b></a> <a href="#xx1814061xx" title="give this message a vote of 3" onclick="return RateMsg(3459491, 1814061, 3)"><b>3</b></a> <a href="#xx1814061xx" title="give this message a vote of 4" onclick="return RateMsg(3459491, 1814061, 4)"><b>4</b></a> <a href="#xx1814061xx" title="give this message a vote of 5" onclick="return RateMsg(3459491, 1814061, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1814061xx" title="Mark as Spam" onclick="return ReportMsg(3459491, 1814061,-1)">Spam</a> or 
+<a href="#xx1814061xx" title="Mark as Abuse" onclick="return ReportMsg(3459491, 1814061,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1814065_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1814065xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="36"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1814065" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=1814065#xx1814065xx">Re: Excellent article...YET A simple way to implement properties....</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=3459491"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">AnandChavali&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">6:18 21 Dec '06&nbsp;</font></td></tr>
+<tr id="1814065_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="36"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Actual class definition is like template(typename T, char PropertyType) class Property <br><br>I dont know why the "less than symbol and greator than symbol" are dissappearing here ...so i used "(" for them.... <br><br><div class="ForumSig">Thanks and Regards,<br>Anand.</div><br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=1814065" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=1814065" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=1814060&amp;forumid=4010&amp;select=1814065#xx1814065xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=1814065#xx1814065xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(3459491,1814065);</script><span id="MVF1814065">Rate this message: <a href="#xx1814065xx" title="give this message a vote of 1" onclick="return RateMsg(3459491, 1814065, 1)"><b>1</b></a> <a href="#xx1814065xx" title="give this message a vote of 2" onclick="return RateMsg(3459491, 1814065, 2)"><b>2</b></a> <a href="#xx1814065xx" title="give this message a vote of 3" onclick="return RateMsg(3459491, 1814065, 3)"><b>3</b></a> <a href="#xx1814065xx" title="give this message a vote of 4" onclick="return RateMsg(3459491, 1814065, 4)"><b>4</b></a> <a href="#xx1814065xx" title="give this message a vote of 5" onclick="return RateMsg(3459491, 1814065, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1814065xx" title="Mark as Spam" onclick="return ReportMsg(3459491, 1814065,-1)">Spam</a> or 
+<a href="#xx1814065xx" title="Mark as Abuse" onclick="return ReportMsg(3459491, 1814065,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1840098_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1840098xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="18"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1840098" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=1840098#xx1840098xx">Re: Excellent article...YET A simple way to implement properties....</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=13886"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">Jason King&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">13:36 11 Jan '07&nbsp;</font></td></tr>
+<tr id="1840098_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="18"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Thank you for your encouragement.<br><br>Regarding
+your implementation, it is valid if all you want to do is wrap a
+variable to limit read or write. Your system would require more
+implementation to resolve wrapping random functions which is what my
+article dealt with. <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=1840098" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=1840098" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=1814060&amp;forumid=4010&amp;select=1840098#xx1840098xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=1840098#xx1840098xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(13886,1840098);</script><span id="MVF1840098">Rate this message: <a href="#xx1840098xx" title="give this message a vote of 1" onclick="return RateMsg(13886, 1840098, 1)"><b>1</b></a> <a href="#xx1840098xx" title="give this message a vote of 2" onclick="return RateMsg(13886, 1840098, 2)"><b>2</b></a> <a href="#xx1840098xx" title="give this message a vote of 3" onclick="return RateMsg(13886, 1840098, 3)"><b>3</b></a> <a href="#xx1840098xx" title="give this message a vote of 4" onclick="return RateMsg(13886, 1840098, 4)"><b>4</b></a> <a href="#xx1840098xx" title="give this message a vote of 5" onclick="return RateMsg(13886, 1840098, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx1840098xx" title="Mark as Spam" onclick="return ReportMsg(13886, 1840098,-1)">Spam</a> or 
+<a href="#xx1840098xx" title="Mark as Abuse" onclick="return ReportMsg(13886, 1840098,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="genericproperty.asp_files/t.gif" height="1" width="1"></td></tr><tr id="552147_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx552147xx"></a><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="552147" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=552147#xx552147xx"><b>Properties by preprocessing</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=471013"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>Boraski</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>4:42 15 Jul '03</b>&nbsp;</font></td></tr>
+<tr id="552147_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">I
+suggest a different way to implement properties in C++. Why not develop
+a simple preprocessor program that parses C++ source and substitutes
+property read accesses by calls to the get function, and write accesses
+to the set function? There would be a property declaration syntax that
+can be Microsoft's, Borland's or a new one.<br><br>It would produce a new source on the fly that can go to any compiler. And there would be no runtime overhead at all.<br><br>Anyway I would like that extension to be standard, but standard C++ defenders don't like the idea :(<br> <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=552147" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=552147" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=552147&amp;forumid=4010&amp;select=552147#xx552147xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=552147#xx552147xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(471013,552147);</script><span id="MVF552147">Rate this message: <a href="#xx552147xx" title="give this message a vote of 1" onclick="return RateMsg(471013, 552147, 1)"><b>1</b></a> <a href="#xx552147xx" title="give this message a vote of 2" onclick="return RateMsg(471013, 552147, 2)"><b>2</b></a> <a href="#xx552147xx" title="give this message a vote of 3" onclick="return RateMsg(471013, 552147, 3)"><b>3</b></a> <a href="#xx552147xx" title="give this message a vote of 4" onclick="return RateMsg(471013, 552147, 4)"><b>4</b></a> <a href="#xx552147xx" title="give this message a vote of 5" onclick="return RateMsg(471013, 552147, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx552147xx" title="Mark as Spam" onclick="return ReportMsg(471013, 552147,-1)">Spam</a> or 
+<a href="#xx552147xx" title="Mark as Abuse" onclick="return ReportMsg(471013, 552147,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="562482_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx562482xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="18"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" style="color: rgb(170, 0, 0);" width="100%"><a class="messagetitle" style="color: rgb(170, 0, 0);" id="DynMessLink" name="562482" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=562482#xx562482xx">Re: Properties by preprocessing</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=71990"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle" style="color: rgb(170, 0, 0);">Dragon Lord&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle" style="color: rgb(170, 0, 0);">22:33 24 Jul '03&nbsp;</font></td></tr>
+<tr id="562482_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="18"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">The only real problem with this that I see is that which plagues any solution built on a pre-processor.<br><br>1. Parsing C++ is non-trivial at best, making a "simple preprocessor" something of an oxymoron.<br><br>2. Pre-Processing, while flexible is also often frowned upon, primarily, I think because of <br>&nbsp;&nbsp;&nbsp;&nbsp;* It's impact on the build cycle (another tool which must be inserted into the compile / link chain)<br>&nbsp;&nbsp;&nbsp;&nbsp;* The possibility of introducing errors in the pre-process step<br>&nbsp;&nbsp;&nbsp;&nbsp;*
+That the resulting code is arguably no longer C++ (since adding
+non-standard extensions is the purpose of pre-processing), which can
+confuse developers not familiar with the pre-processor (the old "don't
+change the language syntax" rule)).<br><br>Of course, I don't
+necessarily agree that pre-processing is "bad".&nbsp;&nbsp;Both the
+built in pre-processor, and templates (which can be viewed as a type of
+pre-processing done by the compiler) are some of C++'s more powerful
+assets.<br><br>I know that the QT library from Trolltech uses a custom
+pre-processor (MOC) to add features that are not normally associated
+with C++ (including event handling and some introspection, I believe),
+but it seems that often pre-processing based solutions are criticized
+within the development community.<br><br>I've run into features I'd
+like to add to the language that pretty much seem to require
+pre-processing to solve in an elegant fashion (effective Design By
+Contract Support for one), but the effort of making sense of C++ syntax
+has always stopped me from pursuing these efforts very far.<br><br>Ultimately,
+unless you are a compiler writer, parsing C++ in anything but a stupid
+"replace this pattern with that pattern" fashion is generally more
+trouble then it's worth.&nbsp;&nbsp;It's one of the disadvantages of
+the C++ language that it is non-trivial to write "little helper tools".<br><br>There
+are some packages starting to crop up online now (don't feel like
+digging up links) which look promising for the future in this
+area.&nbsp;&nbsp;By acting as parsing front-ends and allowing you to
+manipulate the resulting internal code structure, they could make the
+parsing problem moot, but I have yet to spend much actual time checking
+them out. <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=562482" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=562482" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=552147&amp;forumid=4010&amp;select=562482#xx562482xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=562482#xx562482xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right">Score: 5.0 (1 vote).  <script language="Javascript">MsgVoteForm(71990,562482);</script><span id="MVF562482">Rate this message: <a href="#xx562482xx" title="give this message a vote of 1" onclick="return RateMsg(71990, 562482, 1)"><b>1</b></a> <a href="#xx562482xx" title="give this message a vote of 2" onclick="return RateMsg(71990, 562482, 2)"><b>2</b></a> <a href="#xx562482xx" title="give this message a vote of 3" onclick="return RateMsg(71990, 562482, 3)"><b>3</b></a> <a href="#xx562482xx" title="give this message a vote of 4" onclick="return RateMsg(71990, 562482, 4)"><b>4</b></a> <a href="#xx562482xx" title="give this message a vote of 5" onclick="return RateMsg(71990, 562482, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx562482xx" title="Mark as Spam" onclick="return ReportMsg(71990, 562482,-1)">Spam</a> or 
+<a href="#xx562482xx" title="Mark as Abuse" onclick="return ReportMsg(71990, 562482,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="564835_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx564835xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="36"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="564835" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=564835#xx564835xx">Re: Properties by preprocessing</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=471013"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">Boraski&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">2:35 28 Jul '03&nbsp;</font></td></tr>
+<tr id="564835_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="36"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">I
+agree pretty much with your reply. I was just presenting an idea to see
+whether it made sense. I thought this way the property mechanism would
+affect the build process and not the runtime behavior.<br><br>And yes, a C++ parser is definitely not a simple thing to make.<br> <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=564835" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=564835" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=552147&amp;forumid=4010&amp;select=564835#xx564835xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=564835#xx564835xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(471013,564835);</script><span id="MVF564835">Rate this message: <a href="#xx564835xx" title="give this message a vote of 1" onclick="return RateMsg(471013, 564835, 1)"><b>1</b></a> <a href="#xx564835xx" title="give this message a vote of 2" onclick="return RateMsg(471013, 564835, 2)"><b>2</b></a> <a href="#xx564835xx" title="give this message a vote of 3" onclick="return RateMsg(471013, 564835, 3)"><b>3</b></a> <a href="#xx564835xx" title="give this message a vote of 4" onclick="return RateMsg(471013, 564835, 4)"><b>4</b></a> <a href="#xx564835xx" title="give this message a vote of 5" onclick="return RateMsg(471013, 564835, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx564835xx" title="Mark as Spam" onclick="return ReportMsg(471013, 564835,-1)">Spam</a> or 
+<a href="#xx564835xx" title="Mark as Abuse" onclick="return ReportMsg(471013, 564835,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="genericproperty.asp_files/t.gif" height="1" width="1"></td></tr><tr id="213596_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx213596xx"></a><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="213596" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=213596#xx213596xx"><b>A small bug in DECLARE_PROPERTY()</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><img src="genericproperty.asp_files/usersuss.gif" alt="Unconfirmed/Anonymous posting" height="13" width="15">&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle" color="#707070"><b>Anonymous</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle" color="#707070"><b>8:59 19 Jun '02</b>&nbsp;</font></td></tr>
+<tr id="213596_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">an expression "_dp_##getfunc_##putfunc" will always produce name "_dp_getfunc_RealPutFunc".<br><br>change it to "_dp_##getfunc##_##putfunc"<br><br><br><br> <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=213596" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=213596&amp;forumid=4010&amp;select=213596#xx213596xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=213596#xx213596xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(-1,213596);</script><span id="MVF213596">Rate this message: <a href="#xx213596xx" title="give this message a vote of 1" onclick="return RateMsg(-1, 213596, 1)"><b>1</b></a> <a href="#xx213596xx" title="give this message a vote of 2" onclick="return RateMsg(-1, 213596, 2)"><b>2</b></a> <a href="#xx213596xx" title="give this message a vote of 3" onclick="return RateMsg(-1, 213596, 3)"><b>3</b></a> <a href="#xx213596xx" title="give this message a vote of 4" onclick="return RateMsg(-1, 213596, 4)"><b>4</b></a> <a href="#xx213596xx" title="give this message a vote of 5" onclick="return RateMsg(-1, 213596, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx213596xx" title="Mark as Spam" onclick="return ReportMsg(-1, 213596,-1)">Spam</a> or 
+<a href="#xx213596xx" title="Mark as Abuse" onclick="return ReportMsg(-1, 213596,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="genericproperty.asp_files/t.gif" height="1" width="1"></td></tr><tr id="205659_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx205659xx"></a><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="205659" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=205659#xx205659xx"><b>and macros?</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><img src="genericproperty.asp_files/usersuss.gif" alt="Unconfirmed/Anonymous posting" height="13" width="15">&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle" color="#707070"><b>Anonymous</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle" color="#707070"><b>3:13 11 Jun '02</b>&nbsp;</font></td></tr>
+<tr id="205659_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">what's wrong with using macros? <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=205659" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=205659&amp;forumid=4010&amp;select=205659#xx205659xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=205659#xx205659xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(-1,205659);</script><span id="MVF205659">Rate this message: <a href="#xx205659xx" title="give this message a vote of 1" onclick="return RateMsg(-1, 205659, 1)"><b>1</b></a> <a href="#xx205659xx" title="give this message a vote of 2" onclick="return RateMsg(-1, 205659, 2)"><b>2</b></a> <a href="#xx205659xx" title="give this message a vote of 3" onclick="return RateMsg(-1, 205659, 3)"><b>3</b></a> <a href="#xx205659xx" title="give this message a vote of 4" onclick="return RateMsg(-1, 205659, 4)"><b>4</b></a> <a href="#xx205659xx" title="give this message a vote of 5" onclick="return RateMsg(-1, 205659, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx205659xx" title="Mark as Spam" onclick="return ReportMsg(-1, 205659,-1)">Spam</a> or 
+<a href="#xx205659xx" title="Mark as Abuse" onclick="return ReportMsg(-1, 205659,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="229152_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx229152xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="18"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="229152" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=229152#xx229152xx">Re: and macros?</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=13886"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">Jason King&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">18:41 8 Jul '02&nbsp;</font></td></tr>
+<tr id="229152_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="18"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Macros are not type safe and you cannot access private or protected members. <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=229152" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=229152" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=205659&amp;forumid=4010&amp;select=229152#xx229152xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=229152#xx229152xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(13886,229152);</script><span id="MVF229152">Rate this message: <a href="#xx229152xx" title="give this message a vote of 1" onclick="return RateMsg(13886, 229152, 1)"><b>1</b></a> <a href="#xx229152xx" title="give this message a vote of 2" onclick="return RateMsg(13886, 229152, 2)"><b>2</b></a> <a href="#xx229152xx" title="give this message a vote of 3" onclick="return RateMsg(13886, 229152, 3)"><b>3</b></a> <a href="#xx229152xx" title="give this message a vote of 4" onclick="return RateMsg(13886, 229152, 4)"><b>4</b></a> <a href="#xx229152xx" title="give this message a vote of 5" onclick="return RateMsg(13886, 229152, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx229152xx" title="Mark as Spam" onclick="return ReportMsg(13886, 229152,-1)">Spam</a> or 
+<a href="#xx229152xx" title="Mark as Abuse" onclick="return ReportMsg(13886, 229152,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="genericproperty.asp_files/t.gif" height="1" width="1"></td></tr><tr id="197527_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx197527xx"></a><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="197527" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=197527#xx197527xx"><b>Get rid of the pThis pointer</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=15591"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>Matthias Mann</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>12:53 2 Jun '02</b>&nbsp;</font></td></tr>
+<tr id="197527_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Hi,<br><br>there is a way to get ride of the pThis pointer. you can use this:<br><br>"CMyClass" is the name of your class where you define the properties<br><br>"m_Property" is the name of your proberty<br><br>&nbsp;(CMyClass*)((char*)(this) - offsetof(CMyClass, m_Property))<br><br>You
+now have a pointer to your containing class. It's a save way. You must
+only change your makros so that say know the name of your class and the
+anme of the property. This has also the advantage that you replace a
+memory access to a single substraction <img src="genericproperty.asp_files/smiley_smile.gif" align="absmiddle"><br><br>Ciao Matthias Mann <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197527" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197527" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=197527&amp;forumid=4010&amp;select=197527#xx197527xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=197527#xx197527xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(15591,197527);</script><span id="MVF197527">Rate this message: <a href="#xx197527xx" title="give this message a vote of 1" onclick="return RateMsg(15591, 197527, 1)"><b>1</b></a> <a href="#xx197527xx" title="give this message a vote of 2" onclick="return RateMsg(15591, 197527, 2)"><b>2</b></a> <a href="#xx197527xx" title="give this message a vote of 3" onclick="return RateMsg(15591, 197527, 3)"><b>3</b></a> <a href="#xx197527xx" title="give this message a vote of 4" onclick="return RateMsg(15591, 197527, 4)"><b>4</b></a> <a href="#xx197527xx" title="give this message a vote of 5" onclick="return RateMsg(15591, 197527, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx197527xx" title="Mark as Spam" onclick="return ReportMsg(15591, 197527,-1)">Spam</a> or 
+<a href="#xx197527xx" title="Mark as Abuse" onclick="return ReportMsg(15591, 197527,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="197536_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx197536xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="18"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="197536" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=197536#xx197536xx">Re: Get rid of the pThis pointer</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=12433"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">Jim Crafton&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">13:17 2 Jun '02&nbsp;</font></td></tr>
+<tr id="197536_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="18"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">But
+is that in fact portable ? I.e. will this work on GCC as well as VC++ ?
+I am asking since I think it was the author's intent to make this work
+in a portable fashion. <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197536" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197536" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=197527&amp;forumid=4010&amp;select=197536#xx197536xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=197536#xx197536xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(12433,197536);</script><span id="MVF197536">Rate this message: <a href="#xx197536xx" title="give this message a vote of 1" onclick="return RateMsg(12433, 197536, 1)"><b>1</b></a> <a href="#xx197536xx" title="give this message a vote of 2" onclick="return RateMsg(12433, 197536, 2)"><b>2</b></a> <a href="#xx197536xx" title="give this message a vote of 3" onclick="return RateMsg(12433, 197536, 3)"><b>3</b></a> <a href="#xx197536xx" title="give this message a vote of 4" onclick="return RateMsg(12433, 197536, 4)"><b>4</b></a> <a href="#xx197536xx" title="give this message a vote of 5" onclick="return RateMsg(12433, 197536, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx197536xx" title="Mark as Spam" onclick="return ReportMsg(12433, 197536,-1)">Spam</a> or 
+<a href="#xx197536xx" title="Mark as Abuse" onclick="return ReportMsg(12433, 197536,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="197576_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx197576xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="36"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="197576" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=197576#xx197576xx">Re: Get rid of the pThis pointer</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=15591"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">Matthias Mann&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">14:23 2 Jun '02&nbsp;</font></td></tr>
+<tr id="197576_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="36"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Mozilla uses it in it's crossplatform code (XPCOM) and it runs under a huge number of OSes and compiler.<br><br>It
+work on the fact the a variable must be placed somewhere in the
+byterange of an object. It also works for structurs that has no size.
+But you must ensure that the classname and variablename is right. It
+does only work with structs/classes because of the this pointer. You
+can place a assertion in it:<br><br>ASSERT(&amp;pMyClass-&gt;m_Property == this);<br><br>PS: I've also used this method in multiple inheritens situations with templates - works great.<br><br>Ciao Matthias Mann <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197576" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197576" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=197527&amp;forumid=4010&amp;select=197576#xx197576xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=197576#xx197576xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(15591,197576);</script><span id="MVF197576">Rate this message: <a href="#xx197576xx" title="give this message a vote of 1" onclick="return RateMsg(15591, 197576, 1)"><b>1</b></a> <a href="#xx197576xx" title="give this message a vote of 2" onclick="return RateMsg(15591, 197576, 2)"><b>2</b></a> <a href="#xx197576xx" title="give this message a vote of 3" onclick="return RateMsg(15591, 197576, 3)"><b>3</b></a> <a href="#xx197576xx" title="give this message a vote of 4" onclick="return RateMsg(15591, 197576, 4)"><b>4</b></a> <a href="#xx197576xx" title="give this message a vote of 5" onclick="return RateMsg(15591, 197576, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx197576xx" title="Mark as Spam" onclick="return ReportMsg(15591, 197576,-1)">Spam</a> or 
+<a href="#xx197576xx" title="Mark as Abuse" onclick="return ReportMsg(15591, 197576,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="198234_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx198234xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="54"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="198234" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=198234#xx198234xx">Re: Get rid of the pThis pointer</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=12433"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">Jim Crafton&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">8:50 3 Jun '02&nbsp;</font></td></tr>
+<tr id="198234_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="54"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">excellent ! I did not realize that ! <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=198234" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=198234" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=197527&amp;forumid=4010&amp;select=198234#xx198234xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=198234#xx198234xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(12433,198234);</script><span id="MVF198234">Rate this message: <a href="#xx198234xx" title="give this message a vote of 1" onclick="return RateMsg(12433, 198234, 1)"><b>1</b></a> <a href="#xx198234xx" title="give this message a vote of 2" onclick="return RateMsg(12433, 198234, 2)"><b>2</b></a> <a href="#xx198234xx" title="give this message a vote of 3" onclick="return RateMsg(12433, 198234, 3)"><b>3</b></a> <a href="#xx198234xx" title="give this message a vote of 4" onclick="return RateMsg(12433, 198234, 4)"><b>4</b></a> <a href="#xx198234xx" title="give this message a vote of 5" onclick="return RateMsg(12433, 198234, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx198234xx" title="Mark as Spam" onclick="return ReportMsg(12433, 198234,-1)">Spam</a> or 
+<a href="#xx198234xx" title="Mark as Abuse" onclick="return ReportMsg(12433, 198234,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="197639_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx197639xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="18"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="197639" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=197639#xx197639xx">Re: Get rid of the pThis pointer</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=13886"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">Jason King&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">16:20 2 Jun '02&nbsp;</font></td></tr>
+<tr id="197639_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="18"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Thanks.  I'll try to add it to the system.  Once I get it working, I'll update the article. <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197639" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197639" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=197527&amp;forumid=4010&amp;select=197639#xx197639xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=197639#xx197639xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(13886,197639);</script><span id="MVF197639">Rate this message: <a href="#xx197639xx" title="give this message a vote of 1" onclick="return RateMsg(13886, 197639, 1)"><b>1</b></a> <a href="#xx197639xx" title="give this message a vote of 2" onclick="return RateMsg(13886, 197639, 2)"><b>2</b></a> <a href="#xx197639xx" title="give this message a vote of 3" onclick="return RateMsg(13886, 197639, 3)"><b>3</b></a> <a href="#xx197639xx" title="give this message a vote of 4" onclick="return RateMsg(13886, 197639, 4)"><b>4</b></a> <a href="#xx197639xx" title="give this message a vote of 5" onclick="return RateMsg(13886, 197639, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx197639xx" title="Mark as Spam" onclick="return ReportMsg(13886, 197639,-1)">Spam</a> or 
+<a href="#xx197639xx" title="Mark as Abuse" onclick="return ReportMsg(13886, 197639,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="genericproperty.asp_files/t.gif" height="1" width="1"></td></tr><tr id="197479_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx197479xx"></a><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="197479" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=197479#xx197479xx"><b>Excellent!</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=15093"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>Jörgen Sigvardsson</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>11:37 2 Jun '02</b>&nbsp;</font></td></tr>
+<tr id="197479_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Very clever indeed! <br><br><a href="http://www.sonork.com/">Sonorked</a> as well: 100.13197 jorgen<br><a href="http://www.freebsd.org/">FreeBSD</a> is sexy.<br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197479" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197479" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=197479&amp;forumid=4010&amp;select=197479#xx197479xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=197479#xx197479xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(15093,197479);</script><span id="MVF197479">Rate this message: <a href="#xx197479xx" title="give this message a vote of 1" onclick="return RateMsg(15093, 197479, 1)"><b>1</b></a> <a href="#xx197479xx" title="give this message a vote of 2" onclick="return RateMsg(15093, 197479, 2)"><b>2</b></a> <a href="#xx197479xx" title="give this message a vote of 3" onclick="return RateMsg(15093, 197479, 3)"><b>3</b></a> <a href="#xx197479xx" title="give this message a vote of 4" onclick="return RateMsg(15093, 197479, 4)"><b>4</b></a> <a href="#xx197479xx" title="give this message a vote of 5" onclick="return RateMsg(15093, 197479, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx197479xx" title="Mark as Spam" onclick="return ReportMsg(15093, 197479,-1)">Spam</a> or 
+<a href="#xx197479xx" title="Mark as Abuse" onclick="return ReportMsg(15093, 197479,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="genericproperty.asp_files/t.gif" height="1" width="1"></td></tr><tr id="197293_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx197293xx"></a><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="197293" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=197293#xx197293xx"><b>Wrong rating!!! &lt;--- the mathematics I mean</b></a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=20248"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>Nish - Native CPian</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>6:15 2 Jun '02</b>&nbsp;</font></td></tr>
+<tr id="197293_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">It says 2.56 out of 3 votes. But that's impossible.<br>This means his total votes is 7.68.<br>If his total was 8 then his avg would be 2.66 and if his total was 7 he'd be 2.33.<br>2.56 is unusual!!!!<br><br>Nish <img src="genericproperty.asp_files/smiley_confused.gif" align="absmiddle"> <br><br><hr><font color="gray"><b><i>Regards,<br>Nish<br>Native CPian.<br>Born and brought up on CP.<br>With the CP blood in him.</i></b></font><br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197293" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197293" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=197293&amp;forumid=4010&amp;select=197293#xx197293xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=197293#xx197293xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(20248,197293);</script><span id="MVF197293">Rate this message: <a href="#xx197293xx" title="give this message a vote of 1" onclick="return RateMsg(20248, 197293, 1)"><b>1</b></a> <a href="#xx197293xx" title="give this message a vote of 2" onclick="return RateMsg(20248, 197293, 2)"><b>2</b></a> <a href="#xx197293xx" title="give this message a vote of 3" onclick="return RateMsg(20248, 197293, 3)"><b>3</b></a> <a href="#xx197293xx" title="give this message a vote of 4" onclick="return RateMsg(20248, 197293, 4)"><b>4</b></a> <a href="#xx197293xx" title="give this message a vote of 5" onclick="return RateMsg(20248, 197293, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx197293xx" title="Mark as Spam" onclick="return ReportMsg(20248, 197293,-1)">Spam</a> or 
+<a href="#xx197293xx" title="Mark as Abuse" onclick="return ReportMsg(20248, 197293,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="197478_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx197478xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="18"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="197478" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=197478#xx197478xx">Re: Wrong rating!!! &lt;--- the mathematics I mean</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=15093"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">Jörgen Sigvardsson&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">11:36 2 Jun '02&nbsp;</font></td></tr>
+<tr id="197478_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="18"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Hmm, I just gave it a 5 and the avg became 2.8. 2.8 * 5 = 11.2. Still not right! <br><br><a href="http://www.sonork.com/">Sonorked</a> as well: 100.13197 jorgen<br><a href="http://www.freebsd.org/">FreeBSD</a> is sexy.<br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197478" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197478" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=197293&amp;forumid=4010&amp;select=197478#xx197478xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=197478#xx197478xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(15093,197478);</script><span id="MVF197478">Rate this message: <a href="#xx197478xx" title="give this message a vote of 1" onclick="return RateMsg(15093, 197478, 1)"><b>1</b></a> <a href="#xx197478xx" title="give this message a vote of 2" onclick="return RateMsg(15093, 197478, 2)"><b>2</b></a> <a href="#xx197478xx" title="give this message a vote of 3" onclick="return RateMsg(15093, 197478, 3)"><b>3</b></a> <a href="#xx197478xx" title="give this message a vote of 4" onclick="return RateMsg(15093, 197478, 4)"><b>4</b></a> <a href="#xx197478xx" title="give this message a vote of 5" onclick="return RateMsg(15093, 197478, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx197478xx" title="Mark as Spam" onclick="return ReportMsg(15093, 197478,-1)">Spam</a> or 
+<a href="#xx197478xx" title="Mark as Abuse" onclick="return ReportMsg(15093, 197478,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="197486_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx197486xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="36"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="197486" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=197486#xx197486xx">Re: Wrong rating!!! &lt;--- the mathematics I mean</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=15383"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">C#&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">11:44 2 Jun '02&nbsp;</font></td></tr>
+<tr id="197486_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="36"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent"><small><b>Jörgen Sigvardsson wrote:<br></b></small><i>2.8 * 5 = 11.2</i><br><br>2.8*5 = 14 <img src="genericproperty.asp_files/smiley_smile.gif" align="absmiddle"> <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197486" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197486" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=197293&amp;forumid=4010&amp;select=197486#xx197486xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=197486#xx197486xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(15383,197486);</script><span id="MVF197486">Rate this message: <a href="#xx197486xx" title="give this message a vote of 1" onclick="return RateMsg(15383, 197486, 1)"><b>1</b></a> <a href="#xx197486xx" title="give this message a vote of 2" onclick="return RateMsg(15383, 197486, 2)"><b>2</b></a> <a href="#xx197486xx" title="give this message a vote of 3" onclick="return RateMsg(15383, 197486, 3)"><b>3</b></a> <a href="#xx197486xx" title="give this message a vote of 4" onclick="return RateMsg(15383, 197486, 4)"><b>4</b></a> <a href="#xx197486xx" title="give this message a vote of 5" onclick="return RateMsg(15383, 197486, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx197486xx" title="Mark as Spam" onclick="return ReportMsg(15383, 197486,-1)">Spam</a> or 
+<a href="#xx197486xx" title="Mark as Abuse" onclick="return ReportMsg(15383, 197486,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="197498_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx197498xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="54"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="197498" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=197498#xx197498xx">Re: Wrong rating!!! &lt;--- the mathematics I mean</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=15093"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">Jörgen Sigvardsson&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">12:06 2 Jun '02&nbsp;</font></td></tr>
+<tr id="197498_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="54"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">doh! <img src="genericproperty.asp_files/smiley_redface.gif" align="absmiddle"> <br><br>I meant 2.8 * 4, which is 11.2 <br><br><a href="http://www.sonork.com/">Sonorked</a> as well: 100.13197 jorgen<br><a href="http://www.freebsd.org/">FreeBSD</a> is sexy.<br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197498" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197498" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=197293&amp;forumid=4010&amp;select=197498#xx197498xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=197498#xx197498xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(15093,197498);</script><span id="MVF197498">Rate this message: <a href="#xx197498xx" title="give this message a vote of 1" onclick="return RateMsg(15093, 197498, 1)"><b>1</b></a> <a href="#xx197498xx" title="give this message a vote of 2" onclick="return RateMsg(15093, 197498, 2)"><b>2</b></a> <a href="#xx197498xx" title="give this message a vote of 3" onclick="return RateMsg(15093, 197498, 3)"><b>3</b></a> <a href="#xx197498xx" title="give this message a vote of 4" onclick="return RateMsg(15093, 197498, 4)"><b>4</b></a> <a href="#xx197498xx" title="give this message a vote of 5" onclick="return RateMsg(15093, 197498, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx197498xx" title="Mark as Spam" onclick="return ReportMsg(15093, 197498,-1)">Spam</a> or 
+<a href="#xx197498xx" title="Mark as Abuse" onclick="return ReportMsg(15093, 197498,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="197800_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx197800xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="36"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="197800" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=197800#xx197800xx">Re: Wrong rating!!! &lt;--- the mathematics I mean</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=20248"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">Nish - Native CPian&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">21:21 2 Jun '02&nbsp;</font></td></tr>
+<tr id="197800_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="36"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Chris M has done something to improve the rating system<br><br>Nish <br><br></font><hr><font class="messagecontent"><font color="gray"><b><i>Regards,<br>Nish<br>Native CPian.<br>Born and brought up on CP.<br>With the CP blood in him.</i></b></font><br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197800" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=197800" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=197293&amp;forumid=4010&amp;select=197800#xx197800xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=197800#xx197800xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(20248,197800);</script><span id="MVF197800">Rate this message: <a href="#xx197800xx" title="give this message a vote of 1" onclick="return RateMsg(20248, 197800, 1)"><b>1</b></a> <a href="#xx197800xx" title="give this message a vote of 2" onclick="return RateMsg(20248, 197800, 2)"><b>2</b></a> <a href="#xx197800xx" title="give this message a vote of 3" onclick="return RateMsg(20248, 197800, 3)"><b>3</b></a> <a href="#xx197800xx" title="give this message a vote of 4" onclick="return RateMsg(20248, 197800, 4)"><b>4</b></a> <a href="#xx197800xx" title="give this message a vote of 5" onclick="return RateMsg(20248, 197800, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx197800xx" title="Mark as Spam" onclick="return ReportMsg(20248, 197800,-1)">Spam</a> or 
+<a href="#xx197800xx" title="Mark as Abuse" onclick="return ReportMsg(20248, 197800,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="198007_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx198007xx"></a><img src="genericproperty.asp_files/ind.gif" height="1" width="54"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="198007" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;select=198007#xx198007xx">Re: Wrong rating!!! &lt;--- the mathematics I mean</a></td></tr></tbody></table></td><td nowrap="nowrap" valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=15093"><img src="genericproperty.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">Jörgen Sigvardsson&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">3:33 3 Jun '02&nbsp;</font></td></tr>
+<tr id="198007_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="genericproperty.asp_files/ind.gif" height="1" width="54"><img src="genericproperty.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Interesting improvement! <br><br><a href="http://www.sonork.com/">Sonorked</a> as well: 100.13197 jorgen<br><a href="http://www.freebsd.org/">FreeBSD</a> is sexy.<br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/comments/user_reply.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=198007" title="Reply to this current thread">Reply</a> | <a href="http://www.codeproject.com/script/comments/user_mail.asp?main=/cpp/genericproperty.asp&amp;df=100&amp;forumid=4010&amp;select=198007" title="Email a reply to the author of this message">Email</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;tid=197293&amp;forumid=4010&amp;select=198007#xx198007xx" title="View only messages within this thread">View Thread</a> | <a href="http://www.codeproject.com/cpp/genericproperty.asp?msg=198007#xx198007xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"> <script language="Javascript">MsgVoteForm(15093,198007);</script><span id="MVF198007">Rate this message: <a href="#xx198007xx" title="give this message a vote of 1" onclick="return RateMsg(15093, 198007, 1)"><b>1</b></a> <a href="#xx198007xx" title="give this message a vote of 2" onclick="return RateMsg(15093, 198007, 2)"><b>2</b></a> <a href="#xx198007xx" title="give this message a vote of 3" onclick="return RateMsg(15093, 198007, 3)"><b>3</b></a> <a href="#xx198007xx" title="give this message a vote of 4" onclick="return RateMsg(15093, 198007, 4)"><b>4</b></a> <a href="#xx198007xx" title="give this message a vote of 5" onclick="return RateMsg(15093, 198007, 5)"><b>5</b></a>  (out of 5)</span>
+<br>Report as <a href="#xx198007xx" title="Mark as Spam" onclick="return ReportMsg(15093, 198007,-1)">Spam</a> or 
+<a href="#xx198007xx" title="Mark as Abuse" onclick="return ReportMsg(15093, 198007,-2)">Abuse</a>
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="genericproperty.asp_files/t.gif" border="0" height="5" width="1"></td></tr></tbody></table></td></tr><tr bgcolor="#fbedbb"><td><table cellpadding="2" width="100%"><tbody><tr><td class="messagetitle">Last Visit: 12:24 Saturday 17th February, 2007</td><td align="right" nowrap="nowrap"><font class="messagetitle"><span class="HoverLink">First</span> <span class="HoverLink">Prev</span> <a class="HoverLink" name="HoverNL" href="http://www.codeproject.com/cpp/genericproperty.asp?df=100&amp;forumid=4010&amp;fr=26">Next</a> <span class="HoverLink">&nbsp;&nbsp;&nbsp;&nbsp;</span> </font></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table>
+</div><p class="smallText"><img src="genericproperty.asp_files/news_general.gif" align="absmiddle"> General comment &nbsp;&nbsp; <img src="genericproperty.asp_files/news_info.gif" align="absmiddle"> News / Info &nbsp;&nbsp; <img src="genericproperty.asp_files/news_question.gif" align="absmiddle"> Question &nbsp;&nbsp; <img src="genericproperty.asp_files/news_answer.gif" align="absmiddle"> Answer &nbsp;&nbsp; <img src="genericproperty.asp_files/news_game.gif" align="absmiddle"> Joke / Game &nbsp;&nbsp; <img src="genericproperty.asp_files/news_sticky.gif" align="absmiddle"> Admin message</p>
+<br>
+
+
+<table cellspacing="5" width="100%">
+<tbody><tr valign="top"><td class="smallText">
+
+Updated: 10 Jun 2002
+</td><td class="SmallText" align="right">
+Article content copyright Jason King, 2002<br>
+everything else Copyright © <a href="mailto:webmaster@codeproject.com">CodeProject</a>, 1999-2007.
+
+<br>
+Web13 |
+<a href="http://www.codeproject.com/info/MediaKit">Advertise on The Code Project</a> | <a href="http://www.codeproject.com/info/privacy.asp">Privacy</a>
+
+</td></tr>
+</tbody></table>
+
+</td></tr></tbody></table>
+
+
+<script type="text/javascript" src="genericproperty.asp_files/front.js"></script><script language="javascript" src="genericproperty.asp_files/door.js"></script>
+<br>
+<center>
+<table border="0" cellpadding="0" cellspacing="0" width="95%">
+<tbody><tr><td bgcolor="#ff9900" height="1"><img src="genericproperty.asp_files/space.gif" height="1"></td></tr>
+<tr>
+<td align="center"><font size="1">
+
+<a href="http://www.theultimatetoolbox.com/">The Ultimate Toolbox</a> &#8226;
+<a href="http://www.aspalliance.com/">ASP Alliance</a> &#8226;
+<a href="http://www.developerfusion.co.uk/">Developer Fusion</a> &#8226;
+<a href="http://www.developersdex.com/">Developersdex</a> &#8226;
+<a href="http://www.devguru.com/">DevGuru</a> &#8226;
+<a href="http://www.programmersheaven.com/">Programmers Heaven</a> &#8226;
+<a href="http://www.planet-source-code.com/">Planet Source Code</a> &#8226;
+<a href="http://www.tek-tips.com/">Tek-Tips Forums</a> &#8226;
+
+</font>	
+</td>
+</tr>
+</tbody></table>
+</center>
+</td></tr></tbody></table><div style="position: absolute; visibility: visible; background-color: rgb(72, 142, 0); z-index: 101; width: 298px; height: 22px; top: 115px; left: 1357px;"><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 40px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 2px;">Help!</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 55px; height: 16px; padding-left: 5px; padding-top: 2px; left: 50px; top: 2px;">Articles</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 115px; height: 16px; padding-left: 5px; padding-top: 2px; left: 113px; top: 2px;">Message Boards</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 55px; height: 16px; padding-left: 5px; padding-top: 2px; left: 236px; top: 2px;">Lounge</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(72, 142, 0); z-index: 102; width: 194px; height: 98px; top: 0pt; left: 0pt;"><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 185px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 2px;">What is 'The Code Project'?</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 185px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 21px;">General FAQ</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 185px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 40px;">Post a Question</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 185px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 59px;">Site Directory</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 185px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 78px;">About Us</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(72, 142, 0); z-index: 102; width: 154px; height: 136px; top: 0pt; left: 0pt;"><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 145px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 2px;">Latest</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 145px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 21px;">Most Popular</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 145px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 40px;">Search</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 145px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 59px;">Site Directory</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 145px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 78px;">Submit an Article</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 145px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 97px;">Update an Article</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 145px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 116px;">Article Competition</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(72, 142, 0); z-index: 102; width: 174px; height: 459px; top: 0pt; left: 0pt;"><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 2px;">Windows Vista</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 21px;">Visual C++</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 40px;">ATL / WTL / STL</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 59px;">COM</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 78px;">C++/CLI</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 97px;">C#</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 116px;">ASP.NET</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 135px;">VB.NET</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 154px;">Web Development</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 173px;">.NET Framework</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 192px;">Mobile Development</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 211px;">SQL / ADO / ADO.NET</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 230px;">XML / XSL</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 249px;">OS / SysAdmin</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 268px;">Work Issues</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 287px;">Article Requests</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 306px;">Collaboration</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 325px;">General Discussions</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 344px;">Hardware</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 363px;">Algorithms / Math</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 382px;">Design and Architecture</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 401px;">Subtle Bugs</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 420px;">Suggestions</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(72, 142, 0); color: rgb(255, 255, 255); font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 12px; font-weight: bold; font-style: normal; text-align: left; width: 165px; height: 16px; padding-left: 5px; padding-top: 2px; left: 2px; top: 439px;">The Soapbox</div></div><script type="text/javascript" src="genericproperty.asp_files/func_033.js"></script><script type="text/javascript" src="genericproperty.asp_files/chunks_002.js"></script><script type="text/javascript" src="genericproperty.asp_files/chunks_008.js"></script><script type="text/javascript" src="genericproperty.asp_files/chunks_003.js"></script><script type="text/javascript" src="genericproperty.asp_files/chunks_010.js"></script><script type="text/javascript" src="genericproperty.asp_files/chunks_004.js"></script><script type="text/javascript" src="genericproperty.asp_files/chunks_011.js"></script><script type="text/javascript" src="genericproperty.asp_files/chunks_009.js"></script><script type="text/javascript" src="genericproperty.asp_files/chunks_007.js"></script><script type="text/javascript" src="genericproperty.asp_files/chunks_005.js"></script><script type="text/javascript" src="genericproperty.asp_files/chunks.js"></script><script type="text/javascript" src="genericproperty.asp_files/chunks_006.js"></script><script type="text/javascript" src="genericproperty.asp_files/spit.js"></script><script type="text/javascript" src="genericproperty.asp_files/al.htm"></script></body></html>

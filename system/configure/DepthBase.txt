@@ -1,0 +1,123 @@
+# Define the presents flag of the 'DepthBase' shared library.
+SET(DEPTH_BASE_PRESENT 1)
+
+# Define 'DepthBase' project name.
+SET(DEPTH_BASE "DepthBase")
+
+# Define 'DepthBase' project.
+PROJECT(${DEPTH_BASE} CXX)
+
+# Load versions.
+FILE(READ "${DEPTH_VERSIONS}/DepthBase.txt" DEPTH_BASE_VERSION)
+FILE(READ "${DEPTH_VERSIONS}/DepthBase-so.txt" DEPTH_BASE_SOVERSION)
+
+# Include directories definition for the 'DepthBase' shared library.
+INCLUDE_DIRECTORIES(${DEPTH})
+
+# Prepare sources directories for the 'DepthBase' shared library.
+LIST(APPEND DEPTH_BASE_SOURCES_DIRS
+        "${DEPTH_SOURCE}"
+        "${DEPTH_SOURCE}/algorithms"
+        "${DEPTH_SOURCE}/algorithms/hash"
+        "${DEPTH_SOURCE}/algorithms/string"
+        "${DEPTH_SOURCE}/algorithms/string/buffer"
+        "${DEPTH_SOURCE}/algorithms/string/format"
+        "${DEPTH_SOURCE}/base"
+        "${DEPTH_SOURCE}/common"
+        "${DEPTH_SOURCE}/containers"
+        "${DEPTH_SOURCE}/containers/policy"
+        "${DEPTH_SOURCE}/debug"
+        "${DEPTH_SOURCE}/debug/details"
+        "${DEPTH_SOURCE}/errors"
+        "${DEPTH_SOURCE}/errors/details"
+        "${DEPTH_SOURCE}/math"
+        "${DEPTH_SOURCE}/memory"
+        "${DEPTH_SOURCE}/memory/allocators"
+        "${DEPTH_SOURCE}/memory/details"
+        "${DEPTH_SOURCE}/memory/gc"
+        "${DEPTH_SOURCE}/memory/managers"
+        "${DEPTH_SOURCE}/process"
+        "${DEPTH_SOURCE}/shared"
+        "${DEPTH_SOURCE}/stream"
+        "${DEPTH_SOURCE}/stream/operators"
+        "${DEPTH_SOURCE}/stream/pack"
+        "${DEPTH_SOURCE}/stream/text"
+        "${DEPTH_SOURCE}/string"
+        "${DEPTH_SOURCE}/string/details"
+        "${DEPTH_SOURCE}/string/iterators"
+        "${DEPTH_SOURCE}/string/UCD"
+        "${DEPTH_SOURCE}/string/UCD/details"
+        "${DEPTH_SOURCE}/system/lib-i386FPU"
+        "${DEPTH_SOURCE}/system/sys-All"
+        "${DEPTH_SOURCE}/system/sys-All/base"
+        "${DEPTH_SOURCE}/system/sys-All/shared"
+        "${DEPTH_SOURCE}/system/sys-Cygwin"
+        "${DEPTH_SOURCE}/system/sys-Cygwin/base"
+        "${DEPTH_SOURCE}/system/sys-Cygwin/shared"
+        "${DEPTH_SOURCE}/system/sys-Dummy"
+        "${DEPTH_SOURCE}/system/sys-Dummy/base"
+        "${DEPTH_SOURCE}/system/sys-Dummy/shared"
+        "${DEPTH_SOURCE}/system/sys-Linux"
+        "${DEPTH_SOURCE}/system/sys-Linux/base"
+        "${DEPTH_SOURCE}/system/sys-Linux/shared"
+        "${DEPTH_SOURCE}/system/sys-Unix"
+        "${DEPTH_SOURCE}/system/sys-Unix/base"
+        "${DEPTH_SOURCE}/system/sys-Unix/shared"
+        "${DEPTH_SOURCE}/system/sys-Windows"
+        "${DEPTH_SOURCE}/system/sys-Windows/base"
+        "${DEPTH_SOURCE}/system/sys-Windows/shared"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile/base"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile/shared"
+        "${DEPTH_SOURCE}/time"
+        "${DEPTH_SOURCE}/time/timezone"
+        "${DEPTH_SOURCE}/time/timezone/details"
+        "${DEPTH_SOURCE}/utility"
+        "${DEPTH_SOURCE}/utility/iterators"
+        "${DEPTH_SOURCE}/utility/observer")
+
+# Collect sources for the 'DepthBase' shared library.
+FOREACH(DEPTH_BASE_SOURCES_DIR ${DEPTH_BASE_SOURCES_DIRS})
+  FILE(GLOB DEPTH_BASE_SOURCES_FILES RELATIVE "${CMAKE_SOURCE_DIR}" "${DEPTH_BASE_SOURCES_DIR}/*.cpp")
+  LIST(APPEND DEPTH_BASE_SOURCES ${DEPTH_BASE_SOURCES_FILES})
+ENDFOREACH(DEPTH_BASE_SOURCES_DIR)
+
+# Add the 'DepthBase' shared library.
+ADD_LIBRARY(${DEPTH_BASE} SHARED ${DEPTH_BASE_SOURCES})
+
+# Set shared library export symbol.
+SET_PROPERTY(TARGET ${DEPTH_BASE} PROPERTY DEFINE_SYMBOL "__BASE_EXPORT__")
+
+# Set compiler flags.
+SET_PROPERTY(TARGET ${DEPTH_BASE} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_SHARED_LIB__" "DEPTH_BASE_VERSION=${DEPTH_BASE_VERSION}" "DEPTH_BASE_SOVERSION=${DEPTH_BASE_SOVERSION}")
+SET_PROPERTY(TARGET ${DEPTH_BASE} APPEND PROPERTY COMPILE_FLAGS "${CMAKE_INCLUDE_PREFIX}${DEPTH_SOURCE}/system/sys-All/base")
+
+# Set version and soversion of the shared library.
+SET_TARGET_PROPERTIES(${DEPTH_BASE} PROPERTIES VERSION "${DEPTH_BASE_VERSION}" SOVERSION "${DEPTH_BASE_SOVERSION}")
+
+# Link with the 'i386FPU' static library if necessary.
+IF(LIB_I386FPU_PRESENT)
+
+  # Add dependence from the 'i386FPU' static library to the 'DepthBase' shared library.
+  ADD_DEPENDENCIES(${DEPTH_BASE} ${LIB_I386FPU})
+
+  # Link the 'DepthBase' shared library with the system libraries.
+  TARGET_LINK_LIBRARIES(${DEPTH_BASE} ${CMAKE_SYSTEM_LIBRARIES})
+  # Link the 'DepthBase' shared library with the 'i386FPU' static library.
+  TARGET_LINK_LIBRARIES(${DEPTH_BASE} ${LIB_I386FPU})
+
+ELSE(LIB_I386FPU_PRESENT)
+
+  # Link the 'DepthBase' shared library with the system libraries.
+  TARGET_LINK_LIBRARIES(${DEPTH_BASE} ${CMAKE_SYSTEM_LIBRARIES})
+
+ENDIF(LIB_I386FPU_PRESENT)
+
+# Install the 'DepthBase' shared library.
+INSTALL(TARGETS ${DEPTH_BASE}
+        RUNTIME DESTINATION ${DEPTH_BIN}
+        LIBRARY DESTINATION ${DEPTH_LIB_SHARED}
+        ARCHIVE DESTINATION ${DEPTH_LIB_STATIC})
+
+# Add 'DepthBase' project to the 'Depth' dependencies.
+LIST(APPEND DEPTH_TARGETS ${DEPTH_BASE})

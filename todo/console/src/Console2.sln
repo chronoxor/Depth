@@ -1,0 +1,49 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleHook", "ConsoleHook\ConsoleHook.vcproj", "{69234D74-7133-48FF-8DDB-9901FFC4D7FF}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Console", "Console\Console.vcproj", "{6EA5C354-A242-49F3-88D1-559EACA7FB8A}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 3
+		SccProjectName0 = \u0022$/Console2\u0022,\u0020QDAAAAAA
+		SccLocalPath0 = .
+		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		CanCheckoutShared = false
+		SolutionUniqueID = {D1C0D727-C7A7-4D6A-B278-DDA75E965DE6}
+		SccProjectUniqueName1 = ConsoleHook\\ConsoleHook.vcproj
+		SccLocalPath1 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection1 = ConsoleHook\\
+		SccProjectUniqueName2 = Console\\Console.vcproj
+		SccLocalPath2 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection2 = Console\\
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{69234D74-7133-48FF-8DDB-9901FFC4D7FF}.Debug.ActiveCfg = Debug|Win32
+		{69234D74-7133-48FF-8DDB-9901FFC4D7FF}.Debug.Build.0 = Debug|Win32
+		{69234D74-7133-48FF-8DDB-9901FFC4D7FF}.Release.ActiveCfg = Release|Win32
+		{69234D74-7133-48FF-8DDB-9901FFC4D7FF}.Release.Build.0 = Release|Win32
+		{6EA5C354-A242-49F3-88D1-559EACA7FB8A}.Debug.ActiveCfg = Debug|Win32
+		{6EA5C354-A242-49F3-88D1-559EACA7FB8A}.Debug.Build.0 = Debug|Win32
+		{6EA5C354-A242-49F3-88D1-559EACA7FB8A}.Release.ActiveCfg = Release|Win32
+		{6EA5C354-A242-49F3-88D1-559EACA7FB8A}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionItems) = postSolution
+		setup\console.iss = setup\console.iss
+		devel_changes.txt = devel_changes.txt
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

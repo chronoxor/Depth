@@ -1,0 +1,5 @@
+# CMAKE version requirement.
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+
+# Include auto-configuration for the Depth project.
+INCLUDE("../configure/autoconfig.txt")

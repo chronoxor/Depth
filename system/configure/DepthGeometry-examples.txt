@@ -1,0 +1,53 @@
+# Define the presents flag of the 'DepthGeometry' shared library examples.
+SET(DEPTH_GEOMETRY_EXAMPLES_PRESENT 1)
+
+# Define 'DepthGeometry' examples project name.
+SET(DEPTH_GEOMETRY_EXAMPLES "DepthGeometry-examples")
+
+# Define 'DepthGeometry' examples project.
+PROJECT(${DEPTH_GEOMETRY_EXAMPLES})
+
+# Define source path of the 'DepthGeometry' shared library examples.
+SET(DEPTH_GEOMETRY_EXAMPLES_SRC_PATH "${DEPTH_EXAMPLES}/geometry")
+
+# Define sources of the 'DepthGeometry' shared library examples.
+FILE(GLOB DEPTH_GEOMETRY_EXAMPLES_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/${DEPTH_GEOMETRY_EXAMPLES_SRC_PATH} "${DEPTH_GEOMETRY_EXAMPLES_SRC_PATH}/*.cpp")
+
+# Define example targets of the 'DepthGeometry' shared library.
+SET(DEPTH_GEOMETRY_EXAMPLES_TARGETS)
+
+# Compile the 'DepthGeometry' shared library examples.
+FOREACH(DEPTH_GEOMETRY_EXAMPLES_SOURCE ${DEPTH_GEOMETRY_EXAMPLES_SOURCES})
+
+  # Get example name.
+  STRING(REGEX REPLACE "(.*)\\.cpp" "\\1" DEPTH_GEOMETRY_EXAMPLE ${DEPTH_GEOMETRY_EXAMPLES_SOURCE})
+
+  # Add new local example target.
+  LIST(APPEND DEPTH_GEOMETRY_EXAMPLES_TARGETS ${DEPTH_GEOMETRY_EXAMPLE})
+  # Add new global example target.
+  LIST(APPEND DEPTH_EXAMPLES_TARGETS ${DEPTH_GEOMETRY_EXAMPLE})
+
+  # Build new example.
+  ADD_EXECUTABLE(${DEPTH_GEOMETRY_EXAMPLE} ${DEPTH_GEOMETRY_EXAMPLES_SRC_PATH}/${DEPTH_GEOMETRY_EXAMPLES_SOURCE})
+
+  # Set compiler flags.
+  SET_PROPERTY(TARGET ${DEPTH_GEOMETRY_EXAMPLE} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_APP__" "__CONSOLE__")
+
+  # Link the example with the 'DepthBase' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_GEOMETRY_EXAMPLE} ${DEPTH_BASE})
+  # Link the example with the 'DepthGeometry' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_GEOMETRY_EXAMPLE} ${DEPTH_GEOMETRY})
+  # Link the example with the 'DepthApplication' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_GEOMETRY_EXAMPLE} ${DEPTH_APPLICATION})
+  # Link the example with the 'DepthApplicationConsole' static library.
+  TARGET_LINK_LIBRARIES(${DEPTH_GEOMETRY_EXAMPLE} ${DEPTH_APPLICATION_CONSOLE})
+
+  # Install the 'DepthGeometry' example.
+  INSTALL(TARGETS ${DEPTH_GEOMETRY_EXAMPLE}
+          RUNTIME DESTINATION ${DEPTH_BIN}
+          OPTIONAL)
+
+ENDFOREACH(DEPTH_GEOMETRY_EXAMPLES_SOURCE)
+
+# Add 'DepthGeometry' example set.
+ADD_CUSTOM_TARGET(${DEPTH_GEOMETRY_EXAMPLES} DEPENDS ${DEPTH_GEOMETRY_EXAMPLES_TARGETS})

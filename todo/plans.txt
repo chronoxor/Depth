@@ -1,0 +1,28 @@
+Future plans
+
+     - Design and implement time library.
+     - Design and implement file library.
+     - Design and implement shared library.
+     - Design and implement process & thread library.
+     - Explore for shared resources.
+     - Add guards to the shared resources (CMemory).
+
+     - Design and implement crypto library (MD5 unique seed for random numbers).
+     - Design and implement color library.
+done - Design and implement geometry library.
+done - Design and implement random library.
+done - Design and implement statistic library.
+
+     - Design and implement iconv library.
+     - Design and implement pack library.
+
+     - Design and implement bzip library.
+     - Design and implement gzip library.
+
+     - Design and implement devices library.
+
+     - Design and implement cgi library.
+     - Design and implement html library.
+
+     - Design and implement reflection library.
+     - Add serialization to functors.

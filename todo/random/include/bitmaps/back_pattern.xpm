@@ -1,0 +1,23 @@
+/* XPM */
+static char *back_pattern[] = {
+/* width height num_colors chars_per_pixel */
+"    12    12        4            1",
+/* colors */
+". c #959595",
+"# c #c2c2c2",
+"a c #d6d6d6",
+"b c #ffffff",
+/* pixels */
+"#######a#a#a",
+"a#.#.#aaaaaa",
+"###.###ababa",
+"a#.#.#aaabaa",
+"#######ababa",
+"a#a#a#aaaaaa",
+"#aaaaa#a#a#a",
+"aababaa#####",
+"#aabaa##.#.#",
+"aababaa##.##",
+"#aaaaa##.#.#",
+"a#a#a#a#####"
+};

@@ -1,0 +1,55 @@
+# Check for the possibility to build 'i386FPU' static library.
+IF(LIB_I386FPU_IS_SUPPORTED)
+
+  # Define the presents flag of the 'i386FPU' static library.
+  SET(LIB_I386FPU_PRESENT 1)
+
+  # Define 'i386FPU' project name.
+  SET(LIB_I386FPU "-i386FPU")
+
+  # Define 'i386FPU' project.
+  PROJECT(${LIB_I386FPU} ASM-ATT)
+
+  # Load versions.
+  FILE(READ "${DEPTH_VERSIONS}/lib-i386FPU.txt" LIB_I386FPU_VERSION)
+  FILE(READ "${DEPTH_VERSIONS}/lib-i386FPU-so.txt" LIB_I386FPU_SOVERSION)
+
+  # Include directories definition for the 'i386FPU' static library.
+  INCLUDE_DIRECTORIES(${DEPTH})
+
+  # Prepare sources directories for the 'i386FPU' static library.
+  LIST(APPEND LIB_I386FPU_SOURCES_DIRS "${DEPTH_SOURCE}/system/lib-i386FPU/sources")
+
+  # Collect sources for the 'i386FPU' static library.
+  FOREACH(LIB_I386FPU_SOURCES_DIR ${LIB_I386FPU_SOURCES_DIRS})
+    FILE(GLOB LIB_I386FPU_SOURCES_FILES RELATIVE "${CMAKE_SOURCE_DIR}" "${LIB_I386FPU_SOURCES_DIR}/*.s")
+    LIST(APPEND LIB_I386FPU_SOURCES ${LIB_I386FPU_SOURCES_FILES})
+  ENDFOREACH(LIB_I386FPU_SOURCES_DIR)
+
+  # Add the 'i386FPU' static library.
+  ADD_LIBRARY(${LIB_I386FPU} ${LIB_I386FPU_SOURCES})
+
+  # Set compiler flags.
+  SET_PROPERTY(TARGET ${LIB_I386FPU} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_STATIC_LIB__" "LIB_I386FPU_VERSION=${LIB_I386FPU_VERSION}" "LIB_I386FPU_SOVERSION=${LIB_I386FPU_SOVERSION}")
+
+  # Set version and soversion of the static library.
+  SET_TARGET_PROPERTIES(${LIB_I386FPU} PROPERTIES VERSION "${LIB_I386FPU_VERSION}" SOVERSION "${LIB_I386FPU_SOVERSION}")
+
+  # Link the 'i386FPU' static library with the system libraries.
+  TARGET_LINK_LIBRARIES(${LIB_I386FPU} ${CMAKE_SYSTEM_LIBRARIES})
+
+  # Install the 'i386FPU' static library.
+  INSTALL(TARGETS ${LIB_I386FPU}
+          RUNTIME DESTINATION ${DEPTH_BIN}
+          LIBRARY DESTINATION ${DEPTH_LIB_SHARED}
+          ARCHIVE DESTINATION ${DEPTH_LIB_STATIC})
+
+  # Add 'i386FPU' project to the 'Depth' dependencies.
+  LIST(APPEND DEPTH_TARGETS ${LIB_I386FPU})
+
+ELSE(LIB_I386FPU_IS_SUPPORTED)
+
+  # Define the presents flag of the 'i386FPU' static library.
+  SET(LIB_I386FPU_PRESENT 0)
+
+ENDIF(LIB_I386FPU_IS_SUPPORTED)

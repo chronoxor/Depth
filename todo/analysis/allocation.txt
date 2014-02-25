@@ -1,0 +1,65 @@
+Allocation analysis
+
+ * Everywhere in library use allocators, but not operator new.
+ * 'new' and 'delete' operators are overloaded to use CMemory operations.
+ * CMemory has operations to allocate, reallocate and release.
+ * Memory has default allocator policy which is system.
+ * There are allocators:
+   - System
+   - Memory
+   - MemoryManager
+ * In future it will be posible to add new process, thread allocator policy.
+
+ Opened questions:
+   ? How to deal with allocated memory blocks when changing allocator policy.
+
+IMemoryManager
+|
++- virtual allocate() = 0;
++- virtual free() = 0;
++- virtual reallocate() = 0;
+
+MemoryManagerSystem : IMemoryManager
+MemoryManagerCMemory : IMemoryManager
+
+AllocatorConcept
+|
++- allocate()
++- create()
++- initialize()
++- delete()
++- free()
+
+IAllocator
+|
++-> AllocatorConcept
+|
++- virtual allocate() = 0;
++- create()
++- initialize()
++- delete()
++- virtual free() = 0;
+
+AllocatorSystem :  IAllocator
+|
++- AllocatorSystem();
++- allocate();
++- free();
+
+AllocatorMemory :  IAllocator
+|
++- AllocatorMemory();
++- allocate();
++- free();
+
+AllocatorMemoryManager :  IAllocator
+|
++- AllocatorMemoryManager(IMemoryManager* p = NULL);
++- AllocatorMemoryManager(MemoryManagerSystem);
++- AllocatorMemoryManager(MemoryManagerCMemory);
++- allocate();
++- free();
+|
++- IMemoryManager* manager;
+
+extend operator new/delete with IMemoryManager& and IAllocator&

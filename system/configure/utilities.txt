@@ -1,0 +1,60 @@
+# Define the presents flag of the utilities.
+SET(DEPTH_UTILITIES_PRESENT 1)
+
+# Define 'utilities' project name.
+SET(DEPTH_UTILITIES_NAME "utilities")
+
+# Define 'utilities' project.
+PROJECT(${DEPTH_UTILITIES_NAME})
+
+# Define sources of the 'utilities'.
+FILE(GLOB DEPTH_UTILITIES_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/${DEPTH_UTILITIES} "${DEPTH_UTILITIES}/*")
+
+# Define example targets of the 'utilities'.
+SET(DEPTH_UTILITIES_TARGETS)
+
+# Compile the 'utilities'.
+FOREACH(DEPTH_UTILITIES_SOURCE ${DEPTH_UTILITIES_SOURCES})
+
+  # Get utility name.
+  SET(DEPTH_UTILITY ${DEPTH_UTILITIES_SOURCE})
+
+  # Add new global utility target.
+  LIST(APPEND DEPTH_UTILITIES_TARGETS ${DEPTH_UTILITY})
+
+  # Clear sources directories for the utility.
+  SET(DEPTH_UTILITY_SOURCES_DIRS "")
+
+  # Prepare sources directories for the utility.
+  LIST(APPEND DEPTH_UTILITY_SOURCES_DIRS "${DEPTH_UTILITIES}/${DEPTH_UTILITY}/")
+
+  # Clear sources for the utility.
+  SET(DEPTH_UTILITY_SOURCES "")
+
+  # Collect sources for the utility.
+  FOREACH(DEPTH_UTILITY_SOURCES_DIR ${DEPTH_UTILITY_SOURCES_DIRS})
+    FILE(GLOB DEPTH_UTILITY_SOURCES_FILES RELATIVE "${CMAKE_SOURCE_DIR}" "${DEPTH_UTILITY_SOURCES_DIR}/*.cpp")
+    LIST(APPEND DEPTH_UTILITY_SOURCES ${DEPTH_UTILITY_SOURCES_FILES})
+  ENDFOREACH(DEPTH_UTILITY_SOURCES_DIR)
+
+  # Build new utility.
+  ADD_EXECUTABLE(${DEPTH_UTILITY} ${DEPTH_UTILITY_SOURCES})
+
+  # Set compiler flags.
+  SET_PROPERTY(TARGET ${DEPTH_UTILITY} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_APP__" "__CONSOLE__")
+
+  # Link the utility with the 'DepthBase' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_UTILITY} ${DEPTH_BASE})
+  # Link the utility with the 'DepthTokenizer' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_UTILITY} ${DEPTH_TOKENIZER})
+  # Link the utility with the 'DepthApplication' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_UTILITY} ${DEPTH_APPLICATION})
+  # Link the utility with the 'DepthApplicationConsole' static library.
+  TARGET_LINK_LIBRARIES(${DEPTH_UTILITY} ${DEPTH_APPLICATION_CONSOLE})
+
+  # Install the utility.
+  INSTALL(TARGETS ${DEPTH_UTILITY}
+          RUNTIME DESTINATION ${DEPTH_BIN}
+          OPTIONAL)
+
+ENDFOREACH(DEPTH_UTILITIES_SOURCE)

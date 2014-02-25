@@ -1,0 +1,62 @@
+# Define the presents flag of the 'DepthApplication' shared library tests.
+SET(DEPTH_APPLICATION_TESTS_PRESENT 1)
+
+# Define 'DepthApplication' tests project name.
+SET(DEPTH_APPLICATION_TESTS "DepthApplication-tests")
+
+# Define 'DepthApplication' tests project.
+PROJECT(${DEPTH_APPLICATION_TESTS})
+
+# Define source path of the 'DepthApplication' shared library tests.
+SET(DEPTH_APPLICATION_TESTS_SRC_PATH "${DEPTH_TESTS}/application")
+
+# Define sources of the 'DepthApplication' shared library tests.
+FILE(GLOB DEPTH_APPLICATION_TESTS_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/${DEPTH_APPLICATION_TESTS_SRC_PATH} "${DEPTH_APPLICATION_TESTS_SRC_PATH}/*.cpp")
+
+# Define test targets of the 'DepthApplication' shared library.
+SET(DEPTH_APPLICATION_TESTS_TARGETS)
+
+# Compile the 'DepthApplication' shared library tests.
+FOREACH(DEPTH_APPLICATION_TESTS_SOURCE ${DEPTH_APPLICATION_TESTS_SOURCES})
+
+  # Get test name.
+  STRING(REGEX REPLACE "(.*)\\.cpp" "\\1" DEPTH_APPLICATION_TEST ${DEPTH_APPLICATION_TESTS_SOURCE})
+
+  # Add new local test target.
+  LIST(APPEND DEPTH_APPLICATION_TESTS_TARGETS ${DEPTH_APPLICATION_TEST})
+  # Add new global test target.
+  LIST(APPEND DEPTH_TESTS_TARGETS ${DEPTH_APPLICATION_TEST})
+
+  # Build new test.
+  ADD_EXECUTABLE(${DEPTH_APPLICATION_TEST} ${DEPTH_APPLICATION_TESTS_SRC_PATH}/${DEPTH_APPLICATION_TESTS_SOURCE})
+
+  # Set compiler flags.
+  SET_PROPERTY(TARGET ${DEPTH_APPLICATION_TEST} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_APP__" "__CONSOLE__")
+  SET_PROPERTY(TARGET ${DEPTH_APPLICATION_TEST} APPEND PROPERTY COMPILE_FLAGS "${CMAKE_INCLUDE_PREFIX}${DEPTH_SOURCE}/system/sys-All/unit")
+
+  # Add new test.
+  ADD_TEST(${DEPTH_APPLICATION_TEST} ${DEPTH_BIN}/${DEPTH_APPLICATION_TEST} test test\\\\test test\\\\\\\\test test\"test test'test "test test")
+
+  # Set test property.
+  SET_TESTS_PROPERTIES(${DEPTH_APPLICATION_TEST} PROPERTIES PASS_REGULAR_EXPRESSION "Test passed successfully!;Test passed with some warnings!" FAIL_REGULAR_EXPRESSION "Test failed with some errors!;Test execution was stopped!")
+
+  # Link the test with the 'DepthBase' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_APPLICATION_TEST} ${DEPTH_BASE})
+  # Link the test with the 'DepthUnitTest' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_APPLICATION_TEST} ${DEPTH_UNITTEST})
+  IF(NOT DEPTH_APPLICATION_TEST MATCHES "test-application-native")
+    # Link the test with the 'DepthUnitTestCMake' shared library.
+    TARGET_LINK_LIBRARIES(${DEPTH_APPLICATION_TEST} ${DEPTH_UNITTEST_CMAKE})
+    # Link the test with the 'DepthUnitTestMobile' shared library.
+    TARGET_LINK_LIBRARIES(${DEPTH_APPLICATION_TEST} ${DEPTH_UNITTEST_MOBILE})
+  ENDIF(NOT DEPTH_APPLICATION_TEST MATCHES "test-application-native")
+
+  # Install the 'DepthApplication' test.
+  INSTALL(TARGETS ${DEPTH_APPLICATION_TEST}
+          RUNTIME DESTINATION ${DEPTH_BIN}
+          OPTIONAL)
+
+ENDFOREACH(DEPTH_APPLICATION_TESTS_SOURCE)
+
+# Add 'DepthApplication' test set.
+ADD_CUSTOM_TARGET(${DEPTH_APPLICATION_TESTS} DEPENDS ${DEPTH_APPLICATION_TESTS_TARGETS})

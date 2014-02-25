@@ -1,0 +1,70 @@
+# Define the presents flag of the 'DepthRandom' shared library.
+SET(DEPTH_RANDOM_PRESENT 1)
+
+# Define 'DepthRandom' project name.
+SET(DEPTH_RANDOM "DepthRandom")
+
+# Define 'DepthRandom' project.
+PROJECT(${DEPTH_RANDOM} CXX)
+
+# Load versions.
+FILE(READ "${DEPTH_VERSIONS}/DepthRandom.txt" DEPTH_RANDOM_VERSION)
+FILE(READ "${DEPTH_VERSIONS}/DepthRandom-so.txt" DEPTH_RANDOM_SOVERSION)
+
+# Include directories definition for the 'DepthRandom' shared library.
+INCLUDE_DIRECTORIES(${DEPTH})
+
+# Prepare sources directories for the 'DepthRandom' shared library.
+LIST(APPEND DEPTH_RANDOM_SOURCES_DIRS
+        "${DEPTH_SOURCE}/random"
+        "${DEPTH_SOURCE}/shared"
+        "${DEPTH_SOURCE}/system/sys-All/random"
+        "${DEPTH_SOURCE}/system/sys-All/shared"
+        "${DEPTH_SOURCE}/system/sys-Cygwin/random"
+        "${DEPTH_SOURCE}/system/sys-Cygwin/shared"
+        "${DEPTH_SOURCE}/system/sys-Dummy/random"
+        "${DEPTH_SOURCE}/system/sys-Dummy/shared"
+        "${DEPTH_SOURCE}/system/sys-Linux/random"
+        "${DEPTH_SOURCE}/system/sys-Linux/shared"
+        "${DEPTH_SOURCE}/system/sys-Unix/random"
+        "${DEPTH_SOURCE}/system/sys-Unix/shared"
+        "${DEPTH_SOURCE}/system/sys-Windows/random"
+        "${DEPTH_SOURCE}/system/sys-Windows/shared"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile/random"
+        "${DEPTH_SOURCE}/system/sys-WindowsMobile/shared")
+
+# Collect sources for the 'DepthRandom' shared library.
+FOREACH(DEPTH_RANDOM_SOURCES_DIR ${DEPTH_RANDOM_SOURCES_DIRS})
+  FILE(GLOB DEPTH_RANDOM_SOURCES_FILES RELATIVE "${CMAKE_SOURCE_DIR}" "${DEPTH_RANDOM_SOURCES_DIR}/*.cpp")
+  LIST(APPEND DEPTH_RANDOM_SOURCES ${DEPTH_RANDOM_SOURCES_FILES})
+ENDFOREACH(DEPTH_RANDOM_SOURCES_DIR)
+
+# Add the 'DepthRandom' shared library.
+ADD_LIBRARY(${DEPTH_RANDOM} SHARED ${DEPTH_RANDOM_SOURCES})
+
+# Set shared library export symbol.
+SET_PROPERTY(TARGET ${DEPTH_RANDOM} PROPERTY DEFINE_SYMBOL "__RANDOM_EXPORT__")
+
+# Set compiler flags.
+SET_PROPERTY(TARGET ${DEPTH_RANDOM} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_SHARED_LIB__" "DEPTH_RANDOM_VERSION=${DEPTH_RANDOM_VERSION}" "DEPTH_RANDOM_SOVERSION=${DEPTH_RANDOM_SOVERSION}")
+SET_PROPERTY(TARGET ${DEPTH_RANDOM} APPEND PROPERTY COMPILE_FLAGS "${CMAKE_INCLUDE_PREFIX}${DEPTH_SOURCE}/system/sys-All/random")
+
+# Set version and soversion of the shared library.
+SET_TARGET_PROPERTIES(${DEPTH_RANDOM} PROPERTIES VERSION "${DEPTH_RANDOM_VERSION}" SOVERSION "${DEPTH_RANDOM_SOVERSION}")
+
+# Add dependence from the 'DepthBase' shared library to the 'DepthRandom' shared library.
+ADD_DEPENDENCIES(${DEPTH_RANDOM} ${DEPTH_BASE})
+
+# Link the 'DepthRandom' shared library with the system libraries.
+TARGET_LINK_LIBRARIES(${DEPTH_RANDOM} ${CMAKE_SYSTEM_LIBRARIES})
+# Link the 'DepthRandom' shared library with the 'DepthBase' shared library.
+TARGET_LINK_LIBRARIES(${DEPTH_RANDOM} ${DEPTH_BASE})
+
+# Install the 'DepthRandom' shared library.
+INSTALL(TARGETS ${DEPTH_RANDOM}
+        RUNTIME DESTINATION ${DEPTH_BIN}
+        LIBRARY DESTINATION ${DEPTH_LIB_SHARED}
+        ARCHIVE DESTINATION ${DEPTH_LIB_STATIC})
+
+# Add 'DepthRandom' project to the 'Depth' dependencies.
+LIST(APPEND DEPTH_TARGETS ${DEPTH_RANDOM})

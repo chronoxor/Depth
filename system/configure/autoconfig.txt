@@ -1,0 +1,137 @@
+# Define 'Depth' directory.
+SET(DEPTH "../../..")
+# Define 'Depth' root directory.
+SET(DEPTH_ROOT "../..")
+# Define 'Depth' binary directory.
+SET(DEPTH_BIN "${DEPTH_ROOT}/bin")
+# Define 'Depth' document directory.
+SET(DEPTH_DOC "${DEPTH_ROOT}/doc")
+# Define 'Depth' examples directory.
+SET(DEPTH_EXAMPLES "${DEPTH_ROOT}/examples")
+# Define 'Depth' images directory.
+SET(DEPTH_IMAGES "${DEPTH_ROOT}/images")
+# Define 'Depth' include directory.
+SET(DEPTH_INCLUDE "${DEPTH_ROOT}/include")
+# Define 'Depth' library directory.
+SET(DEPTH_LIB "${DEPTH_ROOT}/lib")
+# Define 'Depth' shared library directory.
+SET(DEPTH_LIB_SHARED "${DEPTH_ROOT}/lib/shared")
+# Define 'Depth' static library directory.
+SET(DEPTH_LIB_STATIC "${DEPTH_ROOT}/lib/static")
+# Define 'Depth' source directory.
+SET(DEPTH_SOURCE "${DEPTH_ROOT}/source")
+# Define 'Depth' system directory.
+SET(DEPTH_SYSTEM "${DEPTH_ROOT}/system")
+# Define 'Depth' tests directory.
+SET(DEPTH_TESTS "${DEPTH_ROOT}/tests")
+# Define 'Depth' todo directory.
+SET(DEPTH_TODO "${DEPTH_ROOT}/todo")
+# Define 'Depth' utilities directory.
+SET(DEPTH_UTILITIES "${DEPTH_ROOT}/utilities")
+# Define 'Depth' versions directory.
+SET(DEPTH_VERSIONS "${DEPTH_ROOT}/versions")
+
+# Enable testing.
+ENABLE_TESTING()
+
+# Set 'Depth' targets.
+SET(DEPTH_TARGETS)
+# Set 'examples' targets.
+SET(DEPTH_EXAMPLES_TARGETS)
+# Set 'tests' targets.
+SET(DEPTH_TESTS_TARGETS)
+# Set 'utilities' targets.
+SET(DEPTH_UTILITIES_TARGETS)
+
+# Include settings definitions.
+INCLUDE("../configure/settings.txt")
+
+# Include Doxygen definitions.
+INCLUDE("../configure/Doxygen.txt")
+
+# Include 'i386FPU' static library definitions.
+INCLUDE("../configure/lib-i386FPU.txt")
+# Include 'DepthBase' shared library definitions.
+INCLUDE("../configure/DepthBase.txt")
+# Include 'DepthApplication' shared library definitions.
+INCLUDE("../configure/DepthApplication.txt")
+# Include 'DepthApplicationConsole' static library definitions.
+INCLUDE("../configure/DepthApplicationConsole.txt")
+# Include 'DepthApplicationNative' static library definitions.
+INCLUDE("../configure/DepthApplicationNative.txt")
+# Include 'DepthGeometry' shared library definitions.
+INCLUDE("../configure/DepthGeometry.txt")
+# Include 'DepthRandom' shared library definitions.
+INCLUDE("../configure/DepthRandom.txt")
+# Include 'DepthStatistic' shared library definitions.
+INCLUDE("../configure/DepthStatistic.txt")
+# Include 'DepthTokenizer' shared library definitions.
+INCLUDE("../configure/DepthTokenizer.txt")
+# Include 'DepthUnitTest' shared library definitions.
+INCLUDE("../configure/DepthUnitTest.txt")
+# Include 'DepthUnitTestCMake' static library definitions.
+INCLUDE("../configure/DepthUnitTestCMake.txt")
+# Include 'DepthUnitTestMobile' static library definitions.
+INCLUDE("../configure/DepthUnitTestMobile.txt")
+
+# Include 'i386FPU' static library examples definitions.
+INCLUDE("../configure/lib-i386FPU-examples.txt")
+# Include 'DepthBase' shared library examples definitions.
+INCLUDE("../configure/DepthBase-examples.txt")
+# Include 'DepthApplication' shared library examples definitions.
+INCLUDE("../configure/DepthApplication-examples.txt")
+# Include 'DepthGeometry' shared library examples definitions.
+INCLUDE("../configure/DepthGeometry-examples.txt")
+# Include 'DepthRandom' shared library examples definitions.
+INCLUDE("../configure/DepthRandom-examples.txt")
+# Include 'DepthStatistic' shared library examples definitions.
+INCLUDE("../configure/DepthStatistic-examples.txt")
+# Include 'DepthTokenizer' shared library examples definitions.
+INCLUDE("../configure/DepthTokenizer-examples.txt")
+# Include 'DepthUnitTest' shared library examples definitions.
+INCLUDE("../configure/DepthUnitTest-examples.txt")
+
+# Include 'i386FPU' static library tests definitions.
+INCLUDE("../configure/lib-i386FPU-tests.txt")
+# Include 'DepthBase' shared library tests definitions.
+INCLUDE("../configure/DepthBase-tests.txt")
+# Include 'DepthApplication' shared library tests definitions.
+INCLUDE("../configure/DepthApplication-tests.txt")
+# Include 'DepthGeometry' shared library tests definitions.
+INCLUDE("../configure/DepthGeometry-tests.txt")
+# Include 'DepthRandom' shared library tests definitions.
+INCLUDE("../configure/DepthRandom-tests.txt")
+# Include 'DepthStatistic' shared library tests definitions.
+INCLUDE("../configure/DepthStatistic-tests.txt")
+# Include 'DepthTokenizer' shared library tests definitions.
+INCLUDE("../configure/DepthTokenizer-tests.txt")
+# Include 'DepthUnitTest' shared library tests definitions.
+INCLUDE("../configure/DepthUnitTest-tests.txt")
+
+# Include utilities definitions.
+INCLUDE("../configure/utilities.txt")
+
+# Define 'Depth' project.
+PROJECT("Depth")
+# Add 'Depth' target.
+ADD_CUSTOM_TARGET("Depth" DEPENDS ${DEPTH_TARGETS})
+
+# Define 'examples' project.
+PROJECT("examples")
+# Add 'examples' target.
+ADD_CUSTOM_TARGET("examples" DEPENDS ${DEPTH_TARGETS} ${DEPTH_EXAMPLES_TARGETS})
+
+# Define 'tests' project.
+PROJECT("tests")
+# Add 'tests' target.
+ADD_CUSTOM_TARGET("tests" DEPENDS ${DEPTH_TARGETS} ${DEPTH_TESTS_TARGETS})
+
+# Define 'utilities' project.
+PROJECT("utilities")
+# Add 'utilities' target.
+ADD_CUSTOM_TARGET("utilities" DEPENDS ${DEPTH_TARGETS} ${DEPTH_UTILITIES_TARGETS})
+
+# Define 'full' project.
+PROJECT("full")
+# Add 'full' target.
+ADD_CUSTOM_TARGET("full" DEPENDS ${DEPTH_TARGETS} ${DEPTH_EXAMPLES_TARGETS} ${DEPTH_TESTS_TARGETS} ${DOXYGEN})

@@ -1,0 +1,53 @@
+# Define the presents flag of the 'DepthRandom' shared library examples.
+SET(DEPTH_RANDOM_EXAMPLES_PRESENT 1)
+
+# Define 'DepthRandom' examples project name.
+SET(DEPTH_RANDOM_EXAMPLES "DepthRandom-examples")
+
+# Define 'DepthRandom' examples project.
+PROJECT(${DEPTH_RANDOM_EXAMPLES})
+
+# Define source path of the 'DepthRandom' shared library examples.
+SET(DEPTH_RANDOM_EXAMPLES_SRC_PATH "${DEPTH_EXAMPLES}/random")
+
+# Define sources of the 'DepthRandom' shared library examples.
+FILE(GLOB DEPTH_RANDOM_EXAMPLES_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/${DEPTH_RANDOM_EXAMPLES_SRC_PATH} "${DEPTH_RANDOM_EXAMPLES_SRC_PATH}/*.cpp")
+
+# Define example targets of the 'DepthRandom' shared library.
+SET(DEPTH_RANDOM_EXAMPLES_TARGETS)
+
+# Compile the 'DepthRandom' shared library examples.
+FOREACH(DEPTH_RANDOM_EXAMPLES_SOURCE ${DEPTH_RANDOM_EXAMPLES_SOURCES})
+
+  # Get example name.
+  STRING(REGEX REPLACE "(.*)\\.cpp" "\\1" DEPTH_RANDOM_EXAMPLE ${DEPTH_RANDOM_EXAMPLES_SOURCE})
+
+  # Add new local example target.
+  LIST(APPEND DEPTH_RANDOM_EXAMPLES_TARGETS ${DEPTH_RANDOM_EXAMPLE})
+  # Add new global example target.
+  LIST(APPEND DEPTH_EXAMPLES_TARGETS ${DEPTH_RANDOM_EXAMPLE})
+
+  # Build new example.
+  ADD_EXECUTABLE(${DEPTH_RANDOM_EXAMPLE} ${DEPTH_RANDOM_EXAMPLES_SRC_PATH}/${DEPTH_RANDOM_EXAMPLES_SOURCE})
+
+  # Set compiler flags.
+  SET_PROPERTY(TARGET ${DEPTH_RANDOM_EXAMPLE} APPEND PROPERTY COMPILE_DEFINITIONS "__BUILD_APP__" "__CONSOLE__")
+
+  # Link the example with the 'DepthBase' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_RANDOM_EXAMPLE} ${DEPTH_BASE})
+  # Link the example with the 'DepthRandom' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_RANDOM_EXAMPLE} ${DEPTH_RANDOM})
+  # Link the example with the 'DepthApplication' shared library.
+  TARGET_LINK_LIBRARIES(${DEPTH_RANDOM_EXAMPLE} ${DEPTH_APPLICATION})
+  # Link the example with the 'DepthApplicationConsole' static library.
+  TARGET_LINK_LIBRARIES(${DEPTH_RANDOM_EXAMPLE} ${DEPTH_APPLICATION_CONSOLE})
+
+  # Install the 'DepthRandom' example.
+  INSTALL(TARGETS ${DEPTH_RANDOM_EXAMPLE}
+          RUNTIME DESTINATION ${DEPTH_BIN}
+          OPTIONAL)
+
+ENDFOREACH(DEPTH_RANDOM_EXAMPLES_SOURCE)
+
+# Add 'DepthRandom' example set.
+ADD_CUSTOM_TARGET(${DEPTH_RANDOM_EXAMPLES} DEPENDS ${DEPTH_RANDOM_EXAMPLES_TARGETS})
