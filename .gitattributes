@@ -1,0 +1,8 @@
+bin/* linguist-vendored
+doc/* linguist-vendored
+images/* linguist-vendored
+lib/* linguist-vendored
+system/* linguist-vendored
+todo/* linguist-vendored
+utilities/* linguist-vendored
+versions/* linguist-vendored
